@@ -1,0 +1,107 @@
+﻿@model List<UserViewModel>
+
+<h2>Görev Takip Listesi</h2>
+
+<table class="table table-striped" id="usersTable">
+    <thead>
+        <tr>
+            <th>
+                <input type="text" id="searchAssignedUserName" class="form-control" placeholder="Atanan Ad-Soyad Ara">
+            </th>
+            <th>
+                <input type="text" id="searchEmail" class="form-control" placeholder="Mail Adresi Ara">
+            </th>
+            <th>
+                <input type="text" id="searchDepartment" class="form-control" placeholder="Departman Ara">
+            </th>
+            <th>
+                <input type="text" id="searchTaskName" class="form-control" placeholder="İş ve Görev Tanımı Ara">
+            </th>
+            <th>
+                <input type="text" id="searchCreatorUserName" class="form-control" placeholder="Atama Yapan Kişi Ara">
+            </th>
+            <th>
+                <input type="text" id="searchStatus" class="form-control" placeholder="Durum Ara">
+            </th>
+            <th>
+                <button type="button" class="btn btn-primary" onclick="clearFilters()">Temizle</button>
+            </th>
+        </tr>
+        <tr>
+            <th>Atanan Ad-Soyad</th>
+            <th>Mail Adresi</th>
+            <th>Departman</th>
+            <th>İş ve Görev Tanımı</th>
+            <th>Atama Yapan Kişi</th>
+            <th>Durum</th>
+            <th>Detay</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var userViewModel in Model)
+        {
+            @foreach (var task in userViewModel.AssignedTasks)
+            {
+                <tr>
+                    <td class="assigned-user">@task.AsaignedUserName</td>
+                    <td class="email">@task.AsaignedUserEmail</td>
+                    <td class="department">@task.Department.DepartmentName</td>
+                    <td class="task-name">@task.TaskName</td>
+                    <td class="creator-user">@task.CreaterUser</td>
+                    <td class="status">@task.StatusDescription</td>
+                    <td>
+                        <a asp-action="TaskDetails" asp-controller="Task" asp-route-id="@task.Id" class="btn btn-secondary">Detay</a>
+                    </td>
+                </tr>
+            }
+            @foreach (var task in userViewModel.CreatedTasks)
+            {
+                <tr>
+                    <td class="assigned-user">@task.AsaignedUserName</td>
+                    <td class="email">@task.AsaignedUserEmail</td>
+                    <td class="department">@task.Department.DepartmentName</td>
+                    <td class="task-name">@task.TaskName</td>
+                    <td class="creator-user">@task.CreaterUser</td>
+                    <td class="status">@task.StatusDescription</td>
+                    <td>
+                        <a asp-action="TaskDetails" asp-controller="Task" asp-route-id="@task.Id" class="btn btn-secondary">Detay</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            function filterTable() {
+                var searchAssignedUserName = $("#searchAssignedUserName").val().toLowerCase();
+                var searchEmail = $("#searchEmail").val().toLowerCase();
+                var searchDepartment = $("#searchDepartment").val().toLowerCase();
+                var searchTaskName = $("#searchTaskName").val().toLowerCase();
+                var searchCreatorUserName = $("#searchCreatorUserName").val().toLowerCase();
+                var searchStatus = $("#searchStatus").val().toLowerCase();
+
+                $("#usersTable tbody tr").filter(function () {
+                    var assignedUserMatch = $(this).find(".assigned-user").text().toLowerCase().indexOf(searchAssignedUserName) > -1;
+                    var emailMatch = $(this).find(".email").text().toLowerCase().indexOf(searchEmail) > -1;
+                    var departmentMatch = $(this).find(".department").text().toLowerCase().indexOf(searchDepartment) > -1;
+                    var taskNameMatch = $(this).find(".task-name").text().toLowerCase().indexOf(searchTaskName) > -1;
+                    var creatorUserMatch = $(this).find(".creator-user").text().toLowerCase().indexOf(searchCreatorUserName) > -1;
+                    var statusMatch = $(this).find(".status").text().toLowerCase().indexOf(searchStatus) > -1;
+
+                    $(this).toggle(assignedUserMatch && emailMatch && departmentMatch && taskNameMatch && creatorUserMatch && statusMatch);
+                });
+            }
+
+            $("#searchAssignedUserName, #searchEmail, #searchDepartment, #searchTaskName, #searchCreatorUserName, #searchStatus").on("keyup", filterTable);
+        });
+
+        function clearFilters() {
+            $("#searchAssignedUserName, #searchEmail, #searchDepartment, #searchTaskName, #searchCreatorUserName, #searchStatus").val('');
+            $("#usersTable tbody tr").show();
+        }
+    </script>
+}
