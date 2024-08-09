@@ -33,7 +33,7 @@ namespace TaskManager_WEB.Controllers
         public async Task<IActionResult> GetAllUsers()
         {
             // Kullanıcı bilgilerini token'dan çekmek
-            var token = HttpContext.Session.GetString(SD.SessionToken);
+            var token = HttpContext.Request.Cookies["AuthToken"];
             var handler = new JwtSecurityTokenHandler();
             var jwtToken = handler.ReadJwtToken(token);
 

@@ -50,6 +50,13 @@ namespace TaskManager_WEB.Controllers
                     identity.AddClaim(new Claim("DepartmentName", departmentName));
                 }
 
+                // FullName claim'ini de ekleyelim
+                var fullName = jwtToken.Claims.FirstOrDefault(c => c.Type == "FullName")?.Value;
+                if (!string.IsNullOrEmpty(fullName))
+                {
+                    identity.AddClaim(new Claim("FullName", fullName));
+                }
+
                 var principal = new ClaimsPrincipal(identity);
                 var authProperties = new AuthenticationProperties
                 {
@@ -59,7 +66,15 @@ namespace TaskManager_WEB.Controllers
 
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, authProperties);
 
+                // Token'ı hem session'da hem de cookie'de saklama
                 HttpContext.Session.SetString(SD.SessionToken, model.Token);
+                HttpContext.Response.Cookies.Append("AuthToken", model.Token, new CookieOptions
+                {
+                    HttpOnly = true,
+                    Secure = true,
+                    Expires = authProperties.ExpiresUtc
+                });
+
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -68,6 +83,7 @@ namespace TaskManager_WEB.Controllers
                 return View(loginRequestDto);
             }
         }
+
 
 
         public async Task<IActionResult> LogOut()
