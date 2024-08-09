@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using TaskManager_WEB.Models;
 using TaskManager_WEB.Services.IServices;
@@ -31,11 +32,23 @@ namespace TaskManager_WEB.Controllers
             var response = await _authService.Login<APIResponse>(loginRequestDto);
             if (response != null && response.IsSuccess)
             {
+                // LoginResponseDto modelini API'den dönen sonucu deserialize ederek oluşturuyoruz
                 LoginResponseDto model = JsonConvert.DeserializeObject<LoginResponseDto>(Convert.ToString(response.result));
+
+                // Token'ı çözümleyerek içerisindeki claim'leri alıyoruz
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var jwtToken = tokenHandler.ReadJwtToken(model.Token);
 
                 var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
                 identity.AddClaim(new Claim(ClaimTypes.Name, model.User.Id.ToString()));
                 identity.AddClaim(new Claim(ClaimTypes.Email, model.User.Email));
+
+                // Token'dan DepartmentName claim'ini alıyoruz ve kimlik doğrulamaya ekliyoruz
+                var departmentName = jwtToken.Claims.FirstOrDefault(c => c.Type == "DepartmentName")?.Value;
+                if (!string.IsNullOrEmpty(departmentName))
+                {
+                    identity.AddClaim(new Claim("DepartmentName", departmentName));
+                }
 
                 var principal = new ClaimsPrincipal(identity);
                 var authProperties = new AuthenticationProperties
@@ -51,10 +64,11 @@ namespace TaskManager_WEB.Controllers
             }
             else
             {
-                ModelState.AddModelError("CustomError", "hataa");
+                ModelState.AddModelError("CustomError", "Giriş başarısız.");
                 return View(loginRequestDto);
             }
         }
+
 
         public async Task<IActionResult> LogOut()
         {

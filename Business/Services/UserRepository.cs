@@ -1,4 +1,5 @@
-﻿using Business.IServices;
+﻿using AutoMapper;
+using Business.IServices;
 using Business.Repository;
 using Data.Context;
 using Data.Entities;
@@ -15,12 +16,14 @@ namespace Business.Services
     public class UserRepository : Repository<User>, IUserRepository
     {
         private readonly TaskManagerContext _context;
+        private readonly IMapper _mapper;
         private string secretKey;
 
-        public UserRepository(TaskManagerContext context, IConfiguration configuration) : base(context)
+        public UserRepository(TaskManagerContext context, IConfiguration configuration, IMapper mapper) : base(context)
         {
             _context = context;
             secretKey = configuration.GetValue<string>("ApiSettings:Secret");
+            _mapper = mapper;
         }
 
         public List<User> GetAllUserWithDetails()
@@ -89,7 +92,11 @@ namespace Business.Services
 
         public LoginResponseDto Login(LoginRequestDto loginRequestDto, bool rememberMe)
         {
-            var user = _context.Users.FirstOrDefault(u => u.Email.ToLower() == loginRequestDto.Email.ToLower());
+            // Kullanıcıyı e-posta adresine göre bulma
+            var user = _context.Users
+                .Include(u => u.Department) // Kullanıcının departman bilgisiyle birlikte çekildiğinden emin olun
+                .FirstOrDefault(u => u.Email.ToLower() == loginRequestDto.Email.ToLower());
+
             if (user == null)
             {
                 return new LoginResponseDto()
@@ -105,21 +112,26 @@ namespace Business.Services
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.Name,user.Id.ToString()),
-                    new Claim(ClaimTypes.Email, user.Email)
-                }),
+    {
+        new Claim(ClaimTypes.Name, user.Id.ToString()),
+        new Claim(ClaimTypes.Email, user.Email),
+        new Claim("FullName", $"{user.Name} {user.LastName}"),  // FullName claim'i ekleniyor
+        new Claim("DepartmentName", user.Department?.DepartmentName ?? "")  // Departman adı token'a ekleniyor
+    }),
                 Expires = rememberMe ? DateTime.Now.AddDays(1) : DateTime.Now.AddMinutes(15),
-                SigningCredentials = new(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            LoginResponseDto loginResponseDto = new LoginResponseDto()
+
+            // AutoMapper kullanarak User nesnesini UserDto'ya dönüştürme
+            var userDto = _mapper.Map<UserDto>(user);
+
+            return new LoginResponseDto()
             {
                 Token = tokenHandler.WriteToken(token),
-                User = user,
+                User = userDto // Dönüştürülmüş UserDto'yu kullanıyoruz
             };
-            return loginResponseDto;
         }
 
         public User UpdateUser(User user)
