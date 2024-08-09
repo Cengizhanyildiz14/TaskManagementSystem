@@ -47,7 +47,8 @@
             <!-- Oturumdaki Kullanıcı ID'si ile Görev Yaratan Kullanıcı ID'sini karşılaştır -->
             @if (HttpAcc.HttpContext.User.FindFirst(ClaimTypes.Name)?.Value == Model.CreaterUserId.ToString())
             {
-                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Düzenle</a>
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-success">Düzenle</a>
+                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Sil</a>
             }
 
             <a asp-action="GetAllUsers" asp-controller="Home" class="btn btn-secondary">Geri</a>

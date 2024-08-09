@@ -33,7 +33,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 
 builder.Services.AddSession(opt =>
 {
-    opt.IdleTimeout = TimeSpan.FromMinutes(100);
+    opt.IdleTimeout = TimeSpan.FromMinutes(15);
     opt.Cookie.HttpOnly = true;
     opt.Cookie.IsEssential = true;
 });
