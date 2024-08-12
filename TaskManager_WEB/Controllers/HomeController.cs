@@ -67,5 +67,27 @@ namespace TaskManager_WEB.Controllers
             return View(viewModel);
         }
 
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> Profile(int id)
+        {
+            var token = HttpContext.Request.Cookies["AuthToken"];
+            var handler = new JwtSecurityTokenHandler();
+            var jwtToken = handler.ReadJwtToken(token);
+
+            // Token'dan gerekli bilgileri ViewBag ile taşımak
+            var fullname = jwtToken.Claims.FirstOrDefault(c => c.Type == "FullName")?.Value;
+
+            var nameParts = fullname.Split(' ');
+            ViewBag.FirstName = nameParts.Length > 0 ? nameParts[0] : string.Empty;
+            ViewBag.LastName = nameParts.Length > 1 ? string.Join(" ",nameParts.Skip(1)): string.Empty;
+
+
+            ViewBag.FullName = fullname;
+            ViewBag.Email = jwtToken.Claims.FirstOrDefault(c => c.Type == "email")?.Value;
+            ViewBag.DepartmentName = jwtToken.Claims.FirstOrDefault(c => c.Type == "DepartmentName")?.Value;
+            return View();
+        }
+
     }
 }

@@ -89,7 +89,7 @@ namespace TaskManager_WEB.Controllers
                     throw new NullReferenceException("User ID is not found after login. Ensure that claims are correctly added.");
                 }
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("getallusers", "Home");
             }
             else
             {
@@ -113,7 +113,7 @@ namespace TaskManager_WEB.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("getallusers", "Home");
         }
 
         public async Task<IActionResult> AccessDenied()
