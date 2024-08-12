@@ -95,11 +95,11 @@ namespace TaskManager_WEB.Controllers
 
             var userList = userResults.Any()
                 ? userResults.Select(ur => ur.User)
-                    .Where(u => u.Id != currentUserId) // Bu satırla oturum açmış kullanıcıyı listeden çıkarıyoruz
+                    .Where(u => u.Id != currentUserId)
                     .ToList()
                 : new List<UserDto>();
 
-            // VM'yi hazırlayıp, view'a gönderiyoruz
+
             var taskCreateVM = new TaskCreateVM
             {
                 TaskCreateDto = new TaskCreateDto
@@ -120,10 +120,9 @@ namespace TaskManager_WEB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(TaskCreateVM taskCreateVM)
         {
-            // Eğer form valid değilse, formu tekrar gösteriyoruz.
+
             if (!ModelState.IsValid)
-            {
-                // Gerekli listeleri tekrar dolduruyoruz.
+            {             
                 var departmentsResponse = await _departmentService.GetAll<APIResponse>();
                 var departments = departmentsResponse != null && departmentsResponse.IsSuccess
                     ? JsonConvert.DeserializeObject<List<DepartmentDto>>(Convert.ToString(departmentsResponse.result))
@@ -138,16 +137,15 @@ namespace TaskManager_WEB.Controllers
                 var currentUserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
                 var userList = userResults.Any()
                     ? userResults.Select(ur => ur.User)
-                        .Where(u => u.Id != currentUserId) // Bu satırla oturum açmış kullanıcıyı listeden çıkarıyoruz
+                        .Where(u => u.Id != currentUserId) 
                         .ToList()
                     : new List<UserDto>();
 
-                taskCreateVM.UserList = new SelectList(userList, "Id", "Name", "LastName");
+                taskCreateVM.UserList = new SelectList(userList, "Id", "Name");
 
     
             }
 
-            // API'ye gönderilecek TaskCreateDto nesnesini oluşturma
             var taskCreateDto = new TaskCreateDto
             {
                 TaskName = taskCreateVM.TaskCreateDto.TaskName,
@@ -165,7 +163,6 @@ namespace TaskManager_WEB.Controllers
                 return View(taskCreateVM);
             }
 
-            // Başarılı ise başka bir sayfaya yönlendirme yapıyoruz
             return RedirectToAction("GetAllUsers", "Home");
         }
 
@@ -173,7 +170,7 @@ namespace TaskManager_WEB.Controllers
         [Authorize]
         public async Task<IActionResult> Update(int id)
         {
-            // Mevcut görevi API'den alıyoruz
+            
             var response = await _taskService.GetTaskById<APIResponse>(id);
             if (response == null || !response.IsSuccess)
             {
@@ -203,16 +200,16 @@ namespace TaskManager_WEB.Controllers
 
             var userList = userResults.Any()
                ? userResults.Select(ur => ur.User)
-                   .Where(u => u.Id != currentUserId) // Bu satırla oturum açmış kullanıcıyı listeden çıkarıyoruz
+                   .Where(u => u.Id != currentUserId) 
                    .ToList()
                : new List<UserDto>();
 
             // TaskUpdateVM modelini hazırlıyoruz
             var taskUpdateVM = new TaskUpdateVM
             {
-                TaskUpdateDto = _mapper.Map<TaskUpdateDto>(task), // DTO'yu modellememizle dolduruyoruz
+                TaskUpdateDto = _mapper.Map<TaskUpdateDto>(task),
                 DepartmentList = departmentList,
-                UserList = new SelectList(userList, "Id", "Name") // Doğru alanlarla dolduruyoruz
+                UserList = new SelectList(userList, "Id", "Name") 
             };
 
             return View(taskUpdateVM);
@@ -223,10 +220,11 @@ namespace TaskManager_WEB.Controllers
         [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(TaskUpdateVM taskUpdateVM)
+        
         {
             if (!ModelState.IsValid)
             {
-                // Gerekli listeleri tekrar dolduruyoruz.
+                
                 var departmentsResponse = await _departmentService.GetAll<APIResponse>();
                 var departments = departmentsResponse != null && departmentsResponse.IsSuccess
                     ? JsonConvert.DeserializeObject<List<DepartmentDto>>(Convert.ToString(departmentsResponse.result))
@@ -243,7 +241,7 @@ namespace TaskManager_WEB.Controllers
                     ? userResults.Select(ur => ur.User).Where(u => u.Id != currentUserId).ToList()
                     : new List<UserDto>();
 
-                taskUpdateVM.UserList = new SelectList(userList, "Id", "Name", "LastName");
+                taskUpdateVM.UserList = new SelectList(userList, "Id", "Name");
 
             }
 
@@ -255,7 +253,6 @@ namespace TaskManager_WEB.Controllers
                 return View(taskUpdateVM);
             }
 
-            // Başarılı ise başka bir sayfaya yönlendirme yapıyoruz
             return RedirectToAction("GetAllUsers", "Home");
         }
 

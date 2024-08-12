@@ -2,7 +2,7 @@
 
 <h2>Görev Güncelle</h2>
 
-<form asp-action="Update" method="post">
+<form asp-action="Update" method="post" onsubmit="return confirm('Değişiklikleri kaydetmek istediğinize emin misiniz?');">
     <div class="form-group">
         <label asp-for="TaskUpdateDto.TaskName" class="control-label">Görev Adı</label>
         <input asp-for="TaskUpdateDto.TaskName" class="form-control" />
@@ -35,7 +35,8 @@
     <input type="hidden" asp-for="TaskUpdateDto.Id" />
     <input type="hidden" asp-for="TaskUpdateDto.CreaterUserId" />
 
+
     <div class="form-group">
-        <input type="submit" value="Görev Güncelle" class="btn btn-primary" />
+        <input type="submit" value="Görev Güncelle" class="btn btn-secondary" />
     </div>
 </form>
