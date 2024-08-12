@@ -59,8 +59,8 @@ namespace TaskManager_API.Controllers
                 var mappedUsers = users.Select(user => new
                 {
                     User = _mapper.Map<UserDto>(user),
-                    AssignedTasks = _mapper.Map<List<TaskDto>>(user.Tasks),
-                    CreatedTasks = _mapper.Map<List<TaskDto>>(user.CreatedTasks)
+                    AssignedTasks = _mapper.Map<List<TaskDto>>(user.Tasks), // Atanan görevler
+                    CreatedTasks = _mapper.Map<List<TaskDto>>(user.CreatedTasks) // Oluşturulan görevler
                 }).ToList();
 
                 _response.Result = mappedUsers;
@@ -75,6 +75,7 @@ namespace TaskManager_API.Controllers
                 return _response;
             }
         }
+
 
 
         [HttpPost("PostUser")]

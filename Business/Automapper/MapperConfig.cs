@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Data.DepartmentDtos;
 using Data.Entities;
+using Data.TaskDtos;
 using Data.UserDtos;
 
 namespace Business.Automapper
@@ -24,6 +25,7 @@ namespace Business.Automapper
                 .ForMember(dest => dest.CreaterUser, opt => opt.MapFrom(src => src.CreaterUser.Name))
                 .ForMember(dest => dest.CreaterUserEmail, opt => opt.MapFrom(src => src.CreaterUser.Email)) // Atayan kişinin e-posta adresi
                 .ReverseMap();
+            CreateMap<TaskCreateDto, ToDoTask>().ReverseMap();
         }
     }
 }

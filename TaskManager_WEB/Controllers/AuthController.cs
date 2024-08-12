@@ -40,7 +40,7 @@ namespace TaskManager_WEB.Controllers
                 var jwtToken = tokenHandler.ReadJwtToken(model.Token);
 
                 var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
-                identity.AddClaim(new Claim(ClaimTypes.Name, model.User.Id.ToString()));
+                identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, model.User.Id.ToString()));
                 identity.AddClaim(new Claim(ClaimTypes.Email, model.User.Email));
 
                 // Token'dan DepartmentName claim'ini alıyoruz ve kimlik doğrulamaya ekliyoruz
@@ -55,6 +55,13 @@ namespace TaskManager_WEB.Controllers
                 if (!string.IsNullOrEmpty(fullName))
                 {
                     identity.AddClaim(new Claim("FullName", fullName));
+                }
+
+                // Claim'lerin doğru eklenip eklenmediğini kontrol edelim
+                var claims = identity.Claims.ToList();
+                if (!claims.Any())
+                {
+                    throw new Exception("No claims were added to the identity. Check the login process.");
                 }
 
                 var principal = new ClaimsPrincipal(identity);
@@ -75,6 +82,13 @@ namespace TaskManager_WEB.Controllers
                     Expires = authProperties.ExpiresUtc
                 });
 
+                // Oturum açma sonrası userId kontrolü
+                var userId = principal.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                if (userId == null)
+                {
+                    throw new NullReferenceException("User ID is not found after login. Ensure that claims are correctly added.");
+                }
+
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -83,6 +97,7 @@ namespace TaskManager_WEB.Controllers
                 return View(loginRequestDto);
             }
         }
+
 
 
 

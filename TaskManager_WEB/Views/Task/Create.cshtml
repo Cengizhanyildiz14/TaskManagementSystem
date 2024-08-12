@@ -1,0 +1,39 @@
+﻿@model TaskCreateVM
+
+<h2>Yeni Görev Ekle</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="TaskCreateDto.TaskName" class="control-label">Görev Adı</label>
+        <input asp-for="TaskCreateDto.TaskName" class="form-control" />
+        <span asp-validation-for="TaskCreateDto.TaskName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="TaskCreateDto.DepartmentId" class="control-label">Departman Adı</label>
+        <select asp-for="TaskCreateDto.DepartmentId" class="form-control" asp-items="Model.DepartmentList"></select>
+        <span asp-validation-for="TaskCreateDto.DepartmentId" class="text-danger"></span>
+    </div>
+     
+    <div class="form-group"> 
+        <label asp-for="TaskCreateDto.AsaignedUserId" class="control-label">Atanacak  Kişi</label>
+        <select asp-for="TaskCreateDto.AsaignedUserId" class="form-control" asp-items="Model.UserList"></select>
+        <span asp-validation-for="TaskCreateDto.AsaignedUserId" class="text-danger"></span>
+    </div> 
+
+    <div class="form-group">
+        <label asp-for="TaskCreateDto.Status" class="control-label">Görev Durumu</label>
+        <select asp-for="TaskCreateDto.Status" class="form-control">
+            <option value="0">Beklemede</option>
+            <option value="1">Tamamlandı</option>
+            <option value="2">Reddedildi</option>
+        </select>
+        <span asp-validation-for="TaskCreateDto.Status" class="text-danger"></span>
+    </div>
+
+    <input type="hidden" asp-for="TaskCreateDto.CreaterUserId" />
+
+    <div class="form-group">
+        <input type="submit" value="Görev Oluştur" class="btn btn-primary" />
+    </div>
+</form>

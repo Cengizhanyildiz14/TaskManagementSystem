@@ -1,13 +1,12 @@
 ﻿using AutoMapper;
+using Data.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 using TaskManager_WEB.Models;
 using TaskManager_WEB.Services.IServices;
-using Utility;
 
 namespace TaskManager_WEB.Controllers
 {
@@ -42,7 +41,6 @@ namespace TaskManager_WEB.Controllers
             ViewBag.Email = jwtToken.Claims.FirstOrDefault(c => c.Type == "email")?.Value;
             ViewBag.DepartmentName = jwtToken.Claims.FirstOrDefault(c => c.Type == "DepartmentName")?.Value;
 
-
             // API'den kullanıcıları almak
             var response = await _userService.GetAll<APIResponse>();
 
@@ -53,27 +51,21 @@ namespace TaskManager_WEB.Controllers
 
             var users = JsonConvert.DeserializeObject<List<UserResult>>(Convert.ToString(response.result));
 
-            var viewModel = users.Select(user => new UserViewModel
+            var viewModel = users.Select(user =>
             {
-                User = _mapper.Map<UserDto>(user.User),
-                AssignedTasks = user.AssignedTasks.Select(t => _mapper.Map<TaskDto>(t)).ToList(),
-                CreatedTasks = user.CreatedTasks.Select(t => _mapper.Map<TaskDto>(t)).ToList()
+                // Burada doğrudan tasks listesini kullanıyoruz
+                var allTasks = user.AssignedTasks ?? new List<TaskDto>();
+
+                return new UserViewModel
+                {
+                    User = _mapper.Map<UserDto>(user.User),
+                    AssignedTasks = allTasks, // Tüm görevler AssignedTasks olarak kullanılıyor
+                    CreatedTasks = new List<TaskDto>() // CreatedTasks boş kalabilir veya gerekirse tasks ile doldurulabilir
+                };
             }).ToList();
 
             return View(viewModel);
         }
 
-
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
     }
 }

@@ -22,6 +22,10 @@
         <!-- Görev Takip Listesi -->
         <h2 class="mb-4">Görev Takip Listesi</h2>
 
+        <div class="d-flex justify-content-end mb-2">
+            <a asp-controller="Task" asp-action="Create" class="btn btn-secondary rounded-pill">+ Yeni Görev Ekle</a>
+        </div>
+
         <div class="table-responsive">
             <table class="table table-striped" id="usersTable">
                 <thead class="thead-light">
@@ -61,24 +65,10 @@
                 <tbody>
                     @foreach (var userViewModel in Model)
                     {
-                        @foreach (var task in userViewModel.AssignedTasks)
+                        foreach (var task in userViewModel.AssignedTasks)
                         {
                             <tr>
-                                <td class="assigned-user">@task.AsaignedUserName</td>
-                                <td class="email">@task.AsaignedUserEmail</td>
-                                <td class="department">@task.Department.DepartmentName</td>
-                                <td class="task-name">@task.TaskName</td>
-                                <td class="creator-user">@task.CreaterUser</td>
-                                <td class="status">@task.StatusDescription</td>
-                                <td>
-                                    <a asp-action="TaskDetails" asp-controller="Task" asp-route-id="@task.Id" class="btn btn-secondary btn-sm">Detay</a>
-                                </td>
-                            </tr>
-                        }
-                        @foreach (var task in userViewModel.CreatedTasks)
-                        {
-                            <tr>
-                                <td class="assigned-user">@task.AsaignedUserName</td>
+                                <td class="assigned-user">@task.AsaignedUserName</td> <!-- Id'yi göster -->
                                 <td class="email">@task.AsaignedUserEmail</td>
                                 <td class="department">@task.Department.DepartmentName</td>
                                 <td class="task-name">@task.TaskName</td>
@@ -90,11 +80,13 @@
                             </tr>
                         }
                     }
+
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+
 
 @section Scripts {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

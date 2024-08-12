@@ -20,6 +20,9 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddHttpClient<ITaskService, TaskService>();
 builder.Services.AddScoped<ITaskService, TaskService>();
 
+builder.Services.AddHttpClient<IDepartmentService, DepartmentService>();
+builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+
 builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(opt =>
