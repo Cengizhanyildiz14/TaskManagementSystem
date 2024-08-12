@@ -44,5 +44,15 @@ namespace TaskManager_WEB.Services
                 Url = taskUrl + "/api/Task/GetTaskById/" + id
             });
         }
+
+        public Task<T> UpdateTask<T>(int id, TaskUpdateDto task)
+        {
+            return Send<T>(new APIRequest()
+            {
+                ApiType = SD.ApiType.PUT,
+                Data = task,
+                Url = taskUrl + "/api/Task/PutTask/" + id
+            });
+        }
     }
 }

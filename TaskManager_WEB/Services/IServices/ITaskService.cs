@@ -7,5 +7,6 @@ namespace TaskManager_WEB.Services.IServices
         Task<T> GetTaskById<T>(int id);
         Task<T> DeleteTask<T>(int id);
         Task<T> CreateTask<T>(TaskCreateDto dto);
+        Task<T> UpdateTask<T>(int id, TaskUpdateDto taskUpdateDto);
     }
 }

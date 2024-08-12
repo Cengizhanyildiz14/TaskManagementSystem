@@ -26,6 +26,7 @@ namespace Business.Automapper
                 .ForMember(dest => dest.CreaterUserEmail, opt => opt.MapFrom(src => src.CreaterUser.Email)) // Atayan kişinin e-posta adresi
                 .ReverseMap();
             CreateMap<TaskCreateDto, ToDoTask>().ReverseMap();
+            CreateMap<TaskUpdateDto, ToDoTask>().ReverseMap();
         }
     }
 }

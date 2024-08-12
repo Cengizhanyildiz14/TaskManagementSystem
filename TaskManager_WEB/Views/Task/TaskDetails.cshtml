@@ -47,7 +47,7 @@
             <!-- Oturumdaki Kullanıcı ID'si ile Görev Yaratan Kullanıcı ID'sini karşılaştır -->
             @if (HttpAcc.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value == Model.CreaterUserId.ToString())
             {
-                <a asp-controller="Task" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-success">Düzenle</a>
+                <a asp-controller="Task" asp-action="Update" asp-route-id="@Model.Id" class="btn btn-success">Düzenle</a>
 
                 <form asp-controller="Task" asp-action="DeleteTask" method="post" onsubmit="return confirm('Bu görevi silmek istediğinize emin misiniz?');" style="display:inline;">
                     <input type="hidden" name="id" value="@Model.Id" />

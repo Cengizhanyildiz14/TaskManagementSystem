@@ -169,5 +169,96 @@ namespace TaskManager_WEB.Controllers
             return RedirectToAction("GetAllUsers", "Home");
         }
 
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> Update(int id)
+        {
+            // Mevcut görevi API'den alıyoruz
+            var response = await _taskService.GetTaskById<APIResponse>(id);
+            if (response == null || !response.IsSuccess)
+            {
+                return NotFound("Görev bulunamadı.");
+            }
+
+            var task = JsonConvert.DeserializeObject<TaskDto>(Convert.ToString(response.result));
+            if (task == null)
+            {
+                return NotFound("Görev detayları yüklenemedi.");
+            }
+
+            // Departmanlar listesi hazırlanıyor
+            var departmentsResponse = await _departmentService.GetAll<APIResponse>();
+            var departments = departmentsResponse != null && departmentsResponse.IsSuccess
+                ? JsonConvert.DeserializeObject<List<DepartmentDto>>(Convert.ToString(departmentsResponse.result))
+                : new List<DepartmentDto>();
+            var departmentList = new SelectList(departments, "Id", "DepartmentName");
+
+            // Kullanıcılar listesi hazırlanıyor
+            var usersResponse = await _userService.GetAll<APIResponse>();
+            var userResults = usersResponse != null && usersResponse.IsSuccess
+                ? JsonConvert.DeserializeObject<List<UserResult>>(Convert.ToString(usersResponse.result))
+                : new List<UserResult>();
+
+            var currentUserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            var userList = userResults.Any()
+               ? userResults.Select(ur => ur.User)
+                   .Where(u => u.Id != currentUserId) // Bu satırla oturum açmış kullanıcıyı listeden çıkarıyoruz
+                   .ToList()
+               : new List<UserDto>();
+
+            // TaskUpdateVM modelini hazırlıyoruz
+            var taskUpdateVM = new TaskUpdateVM
+            {
+                TaskUpdateDto = _mapper.Map<TaskUpdateDto>(task), // DTO'yu modellememizle dolduruyoruz
+                DepartmentList = departmentList,
+                UserList = new SelectList(userList, "Id", "Name") // Doğru alanlarla dolduruyoruz
+            };
+
+            return View(taskUpdateVM);
+        }
+
+
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update(TaskUpdateVM taskUpdateVM)
+        {
+            if (!ModelState.IsValid)
+            {
+                // Gerekli listeleri tekrar dolduruyoruz.
+                var departmentsResponse = await _departmentService.GetAll<APIResponse>();
+                var departments = departmentsResponse != null && departmentsResponse.IsSuccess
+                    ? JsonConvert.DeserializeObject<List<DepartmentDto>>(Convert.ToString(departmentsResponse.result))
+                    : new List<DepartmentDto>();
+                taskUpdateVM.DepartmentList = new SelectList(departments, "Id", "DepartmentName");
+
+                var usersResponse = await _userService.GetAll<APIResponse>();
+                var userResults = usersResponse != null && usersResponse.IsSuccess
+                    ? JsonConvert.DeserializeObject<List<UserResult>>(Convert.ToString(usersResponse.result))
+                    : new List<UserResult>();
+
+                var currentUserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                var userList = userResults.Any()
+                    ? userResults.Select(ur => ur.User).Where(u => u.Id != currentUserId).ToList()
+                    : new List<UserDto>();
+
+                taskUpdateVM.UserList = new SelectList(userList, "Id", "Name", "LastName");
+
+            }
+
+            // API'ye istek gönderme
+            var response = await _taskService.UpdateTask<APIResponse>(taskUpdateVM.TaskUpdateDto.Id, taskUpdateVM.TaskUpdateDto);
+            if (response == null || !response.IsSuccess)
+            {
+                ModelState.AddModelError("", "Görev güncellenirken bir hata oluştu.");
+                return View(taskUpdateVM);
+            }
+
+            // Başarılı ise başka bir sayfaya yönlendirme yapıyoruz
+            return RedirectToAction("GetAllUsers", "Home");
+        }
+
+
     }
 }

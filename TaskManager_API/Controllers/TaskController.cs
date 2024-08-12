@@ -131,5 +131,46 @@ namespace TaskManager_API.Controllers
             }
             return _apiResponse;
         }
+
+        [HttpPut("PutTask/{id}")]
+        public ActionResult<APIResponse> PutTask(int id, [FromBody] TaskUpdateDto taskUpdateDto)
+        {
+            try
+            {
+                if (taskUpdateDto == null || id != taskUpdateDto.Id)
+                {
+                    _apiResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                    _apiResponse.Errors = new List<string> { "Invalid task data." };
+                    return _apiResponse;
+                }
+
+                var existingTask = _taskRepository.GetTaskById(id);
+                if (existingTask == null)
+                {
+                    _apiResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
+                    _apiResponse.Errors = new List<string> { "Task not found." };
+                    return _apiResponse;
+                }
+
+                // Mevcut görevi güncellemek için DTO'dan gelen verileri mevcut görev üzerine uyguluyoruz
+                _mapper.Map(taskUpdateDto, existingTask);
+
+                _taskRepository.UpdateTask(existingTask);
+
+                _apiResponse.IsSuccess = true;
+                _apiResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                _apiResponse.Result = _mapper.Map<TaskDto>(existingTask);
+                return _apiResponse;
+            }
+            catch (Exception ex)
+            {
+                _apiResponse.IsSuccess = false;
+                _apiResponse.Errors = new List<string> { ex.ToString() };
+                _apiResponse.StatusCode = System.Net.HttpStatusCode.InternalServerError;
+            }
+            return _apiResponse;
+        }
+
+
     }
 }
