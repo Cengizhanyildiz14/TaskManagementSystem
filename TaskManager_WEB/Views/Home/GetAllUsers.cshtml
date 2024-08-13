@@ -1,92 +1,94 @@
 ﻿@model List<UserViewModel>
 
-<div class="row">
-    <div class="col-md-3">
+<div class="container-fluid mt-5" style="padding-left: 0; padding-right: 0;">
+    <div class="row">
         <!-- Profil Kartı -->
-        <div class="card shadow-sm">
-            <div class="card-header bg-secondary text-white text-center">
-                <h5 class="mb-0">Kullanıcı Profili</h5>
-            </div>
-            <div class="card-body text-center">
-                <img src="@Url.Content("~/images/pp.png")" class="rounded-circle img-fluid mb-3" alt="Profile Image" style="width: 150px; height: 150px; object-fit: cover;">
-                <h5 class="card-title">@ViewBag.FullName</h5>
-                <p class="card-text">
-                    <strong>Email:</strong> <a href="mailto:@ViewBag.Email">@ViewBag.Email</a><br />
-                    <strong>Departman:</strong> @ViewBag.DepartmentName
-                </p>
+        <div class="col-lg-2 d-flex justify-content-start mb-4" style="padding-left: 0;">
+            <div class="card shadow-sm w-100">
+                <div class="card-header bg-secondary text-white text-center">
+                    <h5 class="mb-0">Kullanıcı Profili</h5>
+                </div>
+                <div class="card-body text-center">
+                    <img src="@Url.Content("~/images/pp.png")" class="rounded-circle img-fluid mb-3" alt="Profile Image" style="width: 120px; height: 120px; object-fit: cover;">
+                    <h5 class="card-title">@ViewBag.FullName</h5>
+                    <p class="card-text">
+                        <strong>Email:</strong> <a href="mailto:@ViewBag.Email">@ViewBag.Email</a><br />
+                        <strong>Departman:</strong> @ViewBag.DepartmentName
+                    </p>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-md-9">
         <!-- Görev Takip Listesi -->
-        <h2 class="mb-4">Görev Takip Listesi</h2>
+        <div class="col-lg-10 d-flex justify-content-end" style="padding-right: 0;">
+            <div class="w-100">
+                <h2 class="mb-4">Görev Takip Listesi</h2>
 
-        <div class="d-flex justify-content-end mb-2">
-            <a asp-controller="Task" asp-action="Create" class="btn btn-secondary rounded-pill">+ Yeni Görev Ekle</a>
-        </div>
+                <div class="d-flex justify-content-end mb-2">
+                    <a asp-controller="Task" asp-action="Create" class="btn btn-secondary rounded-pill">+ Yeni Görev Ekle</a>
+                </div>
 
-        <div class="table-responsive">
-            <table class="table table-striped" id="usersTable">
-                <thead class="thead-light">
-                    <tr>
-                        <th>
-                            <input type="text" id="searchAssignedUserName" class="form-control rounded-pill" placeholder="Atanan Ad-Soyad Ara">
-                        </th>
-                        <th>
-                            <input type="text" id="searchEmail" class="form-control rounded-pill" placeholder="Mail Adresi Ara">
-                        </th>
-                        <th>
-                            <input type="text" id="searchDepartment" class="form-control rounded-pill" placeholder="Departman Ara">
-                        </th>
-                        <th>
-                            <input type="text" id="searchTaskName" class="form-control rounded-pill" placeholder="İş ve Görev Tanımı Ara">
-                        </th>
-                        <th>
-                            <input type="text" id="searchCreatorUserName" class="form-control rounded-pill" placeholder="Atama Yapan Kişi Ara">
-                        </th>
-                        <th>
-                            <input type="text" id="searchStatus" class="form-control rounded-pill" placeholder="Durum Ara">
-                        </th>
-                        <th>
-                            <button type="button" class="btn btn-secondary rounded-pill" onclick="clearFilters()">Temizle</button>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>Atanan Ad-Soyad</th>
-                        <th>Mail Adresi</th>
-                        <th>Departman</th>
-                        <th>İş ve Görev Tanımı</th>
-                        <th>Atama Yapan Kişi</th>
-                        <th>Durum</th>
-                        <th>Detay</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var userViewModel in Model)
-                    {
-                        foreach (var task in userViewModel.AssignedTasks)
-                        {
+                <div class="table-responsive">
+                    <table class="table table-striped" id="usersTable">
+                        <thead class="thead-light">
                             <tr>
-                                <td class="assigned-user">@task.AsaignedUserName</td> <!-- Id'yi göster -->
-                                <td class="email">@task.AsaignedUserEmail</td>
-                                <td class="department">@task.Department.DepartmentName</td>
-                                <td class="task-name">@task.TaskName</td>
-                                <td class="creator-user">@task.CreaterUser</td>
-                                <td class="status">@task.StatusDescription</td>
-                                <td>
-                                    <a asp-action="TaskDetails" asp-controller="Task" asp-route-id="@task.Id" class="btn btn-secondary btn-sm">Detay</a>
-                                </td>
+                                <th>
+                                    <input type="text" id="searchAssignedUserName" class="form-control rounded-pill" placeholder="Atanan Ad-Soyad Ara">
+                                </th>
+                                <th>
+                                    <input type="text" id="searchEmail" class="form-control rounded-pill" placeholder="Mail Adresi Ara">
+                                </th>
+                                <th>
+                                    <input type="text" id="searchDepartment" class="form-control rounded-pill" placeholder="Departman Ara">
+                                </th>
+                                <th>
+                                    <input type="text" id="searchTaskName" class="form-control rounded-pill" placeholder="İş ve Görev Tanımı Ara">
+                                </th>
+                                <th>
+                                    <input type="text" id="searchCreatorUserName" class="form-control rounded-pill" placeholder="Atama Yapan Kişi Ara">
+                                </th>
+                                <th>
+                                    <input type="text" id="searchStatus" class="form-control rounded-pill" placeholder="Durum Ara">
+                                </th>
+                                <th>
+                                    <button type="button" class="btn btn-secondary rounded-pill" onclick="clearFilters()">Temizle</button>
+                                </th>
                             </tr>
-                        }
-                    }
-
-                </tbody>
-            </table>
+                            <tr>
+                                <th>Atanan Ad-Soyad</th>
+                                <th>Mail Adresi</th>
+                                <th>Departman</th>
+                                <th>İş ve Görev Tanımı</th>
+                                <th>Atama Yapan Kişi</th>
+                                <th>Durum</th>
+                                <th>Detay</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var userViewModel in Model)
+                            {
+                                foreach (var task in userViewModel.AssignedTasks)
+                                {
+                                    <tr>
+                                        <td class="assigned-user">@task.AsaignedUserName</td>
+                                        <td class="email">@task.AsaignedUserEmail</td>
+                                        <td class="department">@task.Department.DepartmentName</td>
+                                        <td class="task-name">@task.TaskName</td>
+                                        <td class="creator-user">@task.CreaterUser</td>
+                                        <td class="status">@task.StatusDescription</td>
+                                        <td>
+                                            <a asp-action="TaskDetails" asp-controller="Task" asp-route-id="@task.Id" class="btn btn-secondary btn-sm">Detay</a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
 
 @section Scripts {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -113,11 +115,11 @@
             }
 
             $("#searchAssignedUserName, #searchEmail, #searchDepartment, #searchTaskName, #searchCreatorUserName, #searchStatus").on("keyup", filterTable);
-        });
 
-        function clearFilters() {
-            $("#searchAssignedUserName, #searchEmail, #searchDepartment, #searchTaskName, #searchCreatorUserName, #searchStatus").val('');
-            $("#usersTable tbody tr").show();
-        }
+            function clearFilters() {
+                $("#searchAssignedUserName, #searchEmail, #searchDepartment, #searchTaskName, #searchCreatorUserName, #searchStatus").val('');
+                $("#usersTable tbody tr").show();
+            }
+        });
     </script>
 }
