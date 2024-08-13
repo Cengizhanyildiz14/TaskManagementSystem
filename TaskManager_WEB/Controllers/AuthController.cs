@@ -91,9 +91,6 @@ namespace TaskManager_WEB.Controllers
             }
         }
 
-
-
-
         public async Task<IActionResult> LogOut()
         {
             HttpContext.Session.Clear();
@@ -102,7 +99,6 @@ namespace TaskManager_WEB.Controllers
                 Response.Cookies.Delete(SD.SessionToken);
             }
 
-            // Kimlik doğrulamasını temizle
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
 

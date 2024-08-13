@@ -85,7 +85,6 @@ namespace TaskManager_WEB.Controllers
 
             var departmentList = new SelectList(departments, "Id", "DepartmentName");
 
-            // Tüm kullanıcıları alıyoruz
             var usersResponse = await _userService.GetAll<APIResponse>();
             var userResults = usersResponse != null && usersResponse.IsSuccess
                 ? JsonConvert.DeserializeObject<List<UserResult>>(Convert.ToString(usersResponse.result))
@@ -183,14 +182,12 @@ namespace TaskManager_WEB.Controllers
                 return NotFound("Görev detayları yüklenemedi.");
             }
 
-            // Departmanlar listesi hazırlanıyor
             var departmentsResponse = await _departmentService.GetAll<APIResponse>();
             var departments = departmentsResponse != null && departmentsResponse.IsSuccess
                 ? JsonConvert.DeserializeObject<List<DepartmentDto>>(Convert.ToString(departmentsResponse.result))
                 : new List<DepartmentDto>();
             var departmentList = new SelectList(departments, "Id", "DepartmentName");
 
-            // Kullanıcılar listesi hazırlanıyor
             var usersResponse = await _userService.GetAll<APIResponse>();
             var userResults = usersResponse != null && usersResponse.IsSuccess
                 ? JsonConvert.DeserializeObject<List<UserResult>>(Convert.ToString(usersResponse.result))
@@ -204,7 +201,6 @@ namespace TaskManager_WEB.Controllers
                    .ToList()
                : new List<UserDto>();
 
-            // TaskUpdateVM modelini hazırlıyoruz
             var taskUpdateVM = new TaskUpdateVM
             {
                 TaskUpdateDto = _mapper.Map<TaskUpdateDto>(task),
@@ -245,7 +241,6 @@ namespace TaskManager_WEB.Controllers
 
             }
 
-            // API'ye istek gönderme
             var response = await _taskService.UpdateTask<APIResponse>(taskUpdateVM.TaskUpdateDto.Id, taskUpdateVM.TaskUpdateDto);
             if (response == null || !response.IsSuccess)
             {

@@ -31,17 +31,14 @@ namespace TaskManager_WEB.Controllers
         [Authorize]
         public async Task<IActionResult> GetAllUsers()
         {
-            // Kullanıcı bilgilerini token'dan çekmek
             var token = HttpContext.Request.Cookies["AuthToken"];
             var handler = new JwtSecurityTokenHandler();
             var jwtToken = handler.ReadJwtToken(token);
 
-            // Token'dan gerekli bilgileri ViewBag ile taşımak
             ViewBag.FullName = jwtToken.Claims.FirstOrDefault(c => c.Type == "FullName")?.Value;
             ViewBag.Email = jwtToken.Claims.FirstOrDefault(c => c.Type == "email")?.Value;
             ViewBag.DepartmentName = jwtToken.Claims.FirstOrDefault(c => c.Type == "DepartmentName")?.Value;
 
-            // API'den kullanıcıları almak
             var response = await _userService.GetAll<APIResponse>();
 
             if (response == null || !response.IsSuccess)
@@ -53,14 +50,13 @@ namespace TaskManager_WEB.Controllers
 
             var viewModel = users.Select(user =>
             {
-                // Burada doğrudan tasks listesini kullanıyoruz
                 var allTasks = user.AssignedTasks ?? new List<TaskDto>();
 
                 return new UserViewModel
                 {
                     User = _mapper.Map<UserDto>(user.User),
-                    AssignedTasks = allTasks, // Tüm görevler AssignedTasks olarak kullanılıyor
-                    CreatedTasks = new List<TaskDto>() // CreatedTasks boş kalabilir veya gerekirse tasks ile doldurulabilir
+                    AssignedTasks = allTasks, 
+                    CreatedTasks = new List<TaskDto>() 
                 };
             }).ToList();
 
@@ -76,7 +72,6 @@ namespace TaskManager_WEB.Controllers
             var handler = new JwtSecurityTokenHandler();
             var jwtToken = handler.ReadJwtToken(token);
 
-            // Token'dan gerekli bilgileri ViewBag ile taşımak
             var fullname = jwtToken.Claims.FirstOrDefault(c => c.Type == "FullName")?.Value;
 
             var nameParts = fullname.Split(' ');
