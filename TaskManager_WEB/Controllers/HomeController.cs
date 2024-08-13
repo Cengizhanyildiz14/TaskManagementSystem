@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure;
 using Data.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -6,6 +7,7 @@ using Newtonsoft.Json;
 using System.Diagnostics;
 using System.IdentityModel.Tokens.Jwt;
 using TaskManager_WEB.Models;
+using TaskManager_WEB.Services;
 using TaskManager_WEB.Services.IServices;
 
 namespace TaskManager_WEB.Controllers
@@ -14,12 +16,14 @@ namespace TaskManager_WEB.Controllers
     {
 
         private readonly IUserService _userService;
+        private readonly IDepartmentService _departmentService;
         private readonly IMapper _mapper;
 
-        public HomeController(IUserService userService, IMapper mapper)
+        public HomeController(IUserService userService, IMapper mapper, IDepartmentService departmentService)
         {
             _userService = userService;
             _mapper = mapper;
+            _departmentService = departmentService;
         }
 
         public IActionResult Index()
@@ -55,8 +59,8 @@ namespace TaskManager_WEB.Controllers
                 return new UserViewModel
                 {
                     User = _mapper.Map<UserDto>(user.User),
-                    AssignedTasks = allTasks, 
-                    CreatedTasks = new List<TaskDto>() 
+                    AssignedTasks = allTasks,
+                    CreatedTasks = new List<TaskDto>()
                 };
             }).ToList();
 
@@ -76,7 +80,7 @@ namespace TaskManager_WEB.Controllers
 
             var nameParts = fullname.Split(' ');
             ViewBag.FirstName = nameParts.Length > 0 ? nameParts[0] : string.Empty;
-            ViewBag.LastName = nameParts.Length > 1 ? string.Join(" ",nameParts.Skip(1)): string.Empty;
+            ViewBag.LastName = nameParts.Length > 1 ? string.Join(" ", nameParts.Skip(1)) : string.Empty;
 
 
             ViewBag.FullName = fullname;
@@ -85,5 +89,31 @@ namespace TaskManager_WEB.Controllers
             return View();
         }
 
+        [HttpGet]
+        [Authorize(Policy = "IK")]
+        public async Task<IActionResult> DepartmentCreate()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize(Policy = "IK")]
+        public async Task<IActionResult> DepartmentCreate(DepartmentCreateDto dto)
+        {
+            if (dto==null)
+            {
+                ModelState.AddModelError("CustomErrorMessage","Geçersiz Dto");
+            }
+
+            var departmentsResponse = await _departmentService.CreateDepartment<APIResponse>(dto);
+
+            if (departmentsResponse == null || !departmentsResponse.IsSuccess)
+            {
+                ModelState.AddModelError("", "Görev oluşturulurken bir hata oluştu.");
+                return View(dto);
+            }
+
+            return RedirectToAction("getallusers","home");
+        }
     }
 }

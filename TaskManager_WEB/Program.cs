@@ -8,6 +8,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddAuthorization(opt =>
+{
+    opt.AddPolicy("IK", policy =>
+    policy.RequireClaim("DepartmentName", "Ýnsan Kaynaklarý Uzmaný"));
+});
+
 builder.Services.AddAutoMapper(typeof(MapperConfig));
 builder.Services.AddHttpClient<IUserService, UserService>();
 builder.Services.AddScoped<IUserService, UserService>();
@@ -57,7 +63,9 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseSession();
 app.UseAuthentication();
+
 app.UseAuthorization();
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=GetAllusers}/{id?}"

@@ -17,6 +17,16 @@ namespace TaskManager_WEB.Services
             //GetAllDepartments
         }
 
+        public Task<T> CreateDepartment<T>(DepartmentCreateDto dto)
+        {
+            return Send<T>(new APIRequest()
+            {
+                ApiType = SD.ApiType.POST,
+                Data = dto,
+                Url = taskUrl + "/api/Department/PostDepartment"
+            });
+        }
+
         public Task<T> GetAll<T>()
         {
             return Send<T>(new APIRequest()
@@ -25,5 +35,7 @@ namespace TaskManager_WEB.Services
                 Url = taskUrl + "/api/Department/GetAllDepartments"
             });
         }
+
+
     }
 }

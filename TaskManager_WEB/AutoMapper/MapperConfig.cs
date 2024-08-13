@@ -20,6 +20,9 @@ namespace TaskManager_WEB.AutoMapper
             CreateMap<Department, DepartmentDto>().ReverseMap();
             CreateMap<TaskCreateDto, ToDoTask>().ReverseMap();
             CreateMap<TaskUpdateDto, TaskDto>().ReverseMap();
+            CreateMap<DepartmentCreateDto, DepartmentDto>().ReverseMap();
+
+
         }
     }
 }

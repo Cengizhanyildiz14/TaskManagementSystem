@@ -44,7 +44,6 @@
     <div class="form-group row">
         <div class="col-sm-12 text-center">
 
-            <!-- Oturumdaki Kullanıcı ID'si ile Görev Yaratan Kullanıcı ID'sini karşılaştır -->
             @if (HttpAcc.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value == Model.CreaterUserId.ToString())
             {
                 <a asp-controller="Task" asp-action="Update" asp-route-id="@Model.Id" class="btn btn-success">Düzenle</a>

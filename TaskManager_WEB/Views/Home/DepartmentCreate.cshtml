@@ -1,0 +1,22 @@
+﻿@model TaskManager_WEB.Models.DepartmentCreateDto
+
+@{
+    ViewBag.Title = "Yeni Departman Ekle";
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4">Yeni Departman Ekle</h2>
+
+    <form asp-action="DepartmentCreate" method="post">
+        <div class="form-group">
+            <label asp-for="DepartmentName" class="form-label">Departman Adı</label>
+            <input asp-for="DepartmentName" class="form-control" placeholder="Departman adı girin" required />
+            <span asp-validation-for="DepartmentName" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3">Ekle</button>
+        <a asp-action="GetAllusers" class="btn btn-secondary mt-3">İptal</a>
+    </form>
+</div>
+
+

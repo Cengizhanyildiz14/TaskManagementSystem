@@ -1,4 +1,6 @@
-﻿@model List<UserViewModel>
+﻿@using Data
+@model List<UserViewModel>
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpAcc
 
 <div class="container-fluid mt-5" style="padding-left: 0; padding-right: 0;">
     <div class="row">
@@ -6,7 +8,7 @@
         <div class="col-lg-2 d-flex justify-content-start mb-4" style="padding-left: 0;">
             <div class="card shadow-sm w-100">
                 <div class="card-header bg-secondary text-white text-center">
-                    <h5 class="mb-0">Kullanıcı Profili</h5>
+                    <h5 class="mb-0">Personel Profili</h5>
                 </div>
                 <div class="card-body text-center">
                     <img src="@Url.Content("~/images/pp.png")" class="rounded-circle img-fluid mb-3" alt="Profile Image" style="width: 120px; height: 120px; object-fit: cover;">
@@ -26,8 +28,13 @@
 
                 <div class="d-flex justify-content-end mb-2">
                     <a asp-controller="Task" asp-action="Create" class="btn btn-secondary rounded-pill">+ Yeni Görev Ekle</a>
+                    @if (HttpAcc.HttpContext.User.IK())
+                    {
+                        <a asp-controller="Home" asp-action="DepartmentCreate" class="btn btn-secondary rounded-pill">+ Departman Ekle</a>
+                        <a asp-controller="Home" asp-action="UserCreate" class="btn btn-secondary rounded-pill">+ Personel Ekle</a>
+                    }   
                 </div>
-
+  
                 <div class="table-responsive">
                     <table class="table table-striped" id="usersTable">
                         <thead class="thead-light">
