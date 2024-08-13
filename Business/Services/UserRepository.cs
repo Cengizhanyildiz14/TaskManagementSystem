@@ -69,11 +69,6 @@ namespace Business.Services
             return user;
         }
 
-        public bool IsUniqueUser(string email)
-        {
-            throw new NotImplementedException();
-        }
-
         public LoginResponseDto Login(LoginRequestDto loginRequestDto, bool rememberMe)
         {
             // Kullanıcıyı e-posta adresine göre bulma

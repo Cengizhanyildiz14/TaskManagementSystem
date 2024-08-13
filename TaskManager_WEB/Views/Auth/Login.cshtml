@@ -16,24 +16,23 @@
                                 <form asp-action="Login" method="post">
 
                                     <div class="d-flex align-items-center mb-3 pb-1">
-                                        <img src="@Url.Content("~/images/1583011018.png")" alt="Logo" class="me-3" style="height: 150px;" />
+                                        <img src="@Url.Content("~/images/1583011018.png")" alt="Logo" class="me-3" style="height: 250px;" />
                                     </div>
 
-                                    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into your account</h5>
+                                    <h5 class="fw-bold" style="letter-spacing: 1px;">Hesabına Giriş Yap</h5>
 
                                     <div data-mdb-input-init class="form-outline mb-4">
-                                        <input type="email" id="Email" asp-for="Email" required class="form-control form-control-lg" />
-                                        <label for="Email">Email address</label>
+                                        <input type="email" id="Email" asp-for="Email" required class="form-control form-control-lg" placeholder="Email" />
                                         <span asp-validation-for="Email" class="text-danger"></span>
                                     </div>
 
                                     <div class="form-check mb-4">
                                         <input type="checkbox" id="RememberMe" asp-for="RememberMe" class="form-check-input" />
-                                        <label for="RememberMe" class="form-check-label">Remember Me</label>
+                                        <label for="RememberMe" class="form-check-label">Beni Hatırla</label>
                                     </div>
 
                                     <div class="mb-4">
-                                        <button data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-lg btn-block w-100" type="submit">Login</button>
+                                        <button data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-lg btn-block w-100" type="submit">Giriş Yap</button>
                                     </div>
 
                                     <a href="#!" class="small text-muted">Terms of use.</a>

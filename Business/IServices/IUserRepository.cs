@@ -9,7 +9,6 @@ namespace Business.IServices
         User UpdateUser(User user);
         User GetUserWithDetails(int id);
         List<User> GetAllUserWithDetails();
-        bool IsUniqueUser(string email);
         LoginResponseDto Login(LoginRequestDto loginRequestDto, bool rememberMe);
     }
 }

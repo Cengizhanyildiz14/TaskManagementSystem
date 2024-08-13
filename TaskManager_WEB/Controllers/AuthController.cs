@@ -32,10 +32,8 @@ namespace TaskManager_WEB.Controllers
             var response = await _authService.Login<APIResponse>(loginRequestDto);
             if (response != null && response.IsSuccess)
             {
-                // LoginResponseDto modelini API'den dönen sonucu deserialize ederek oluşturuyoruz
                 LoginResponseDto model = JsonConvert.DeserializeObject<LoginResponseDto>(Convert.ToString(response.result));
 
-                // Token'ı çözümleyerek içerisindeki claim'leri alıyoruz
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var jwtToken = tokenHandler.ReadJwtToken(model.Token);
 
@@ -43,21 +41,18 @@ namespace TaskManager_WEB.Controllers
                 identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, model.User.Id.ToString()));
                 identity.AddClaim(new Claim(ClaimTypes.Email, model.User.Email));
 
-                // Token'dan DepartmentName claim'ini alıyoruz ve kimlik doğrulamaya ekliyoruz
                 var departmentName = jwtToken.Claims.FirstOrDefault(c => c.Type == "DepartmentName")?.Value;
                 if (!string.IsNullOrEmpty(departmentName))
                 {
                     identity.AddClaim(new Claim("DepartmentName", departmentName));
                 }
 
-                // FullName claim'ini de ekleyelim
                 var fullName = jwtToken.Claims.FirstOrDefault(c => c.Type == "FullName")?.Value;
                 if (!string.IsNullOrEmpty(fullName))
                 {
                     identity.AddClaim(new Claim("FullName", fullName));
                 }
 
-                // Claim'lerin doğru eklenip eklenmediğini kontrol edelim
                 var claims = identity.Claims.ToList();
                 if (!claims.Any())
                 {
@@ -73,7 +68,6 @@ namespace TaskManager_WEB.Controllers
 
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, authProperties);
 
-                // Token'ı hem session'da hem de cookie'de saklama
                 HttpContext.Session.SetString(SD.SessionToken, model.Token);
                 HttpContext.Response.Cookies.Append("AuthToken", model.Token, new CookieOptions
                 {
@@ -82,11 +76,10 @@ namespace TaskManager_WEB.Controllers
                     Expires = authProperties.ExpiresUtc
                 });
 
-                // Oturum açma sonrası userId kontrolü
                 var userId = principal.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                 if (userId == null)
                 {
-                    throw new NullReferenceException("User ID is not found after login. Ensure that claims are correctly added.");
+                    ModelState.AddModelError("CustomError", "Kullanıcı Bulunamadı.");
                 }
 
                 return RedirectToAction("getallusers", "Home");

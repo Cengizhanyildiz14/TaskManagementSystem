@@ -69,6 +69,7 @@ namespace TaskManager_WEB.Controllers
 
         [HttpGet]
         [Authorize]
+        [Route("Profil")]
         public async Task<IActionResult> Profile(int id)
         {
             var token = HttpContext.Request.Cookies["AuthToken"];
