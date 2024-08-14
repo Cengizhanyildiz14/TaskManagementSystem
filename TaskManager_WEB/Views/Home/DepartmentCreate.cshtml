@@ -1,4 +1,4 @@
-﻿@model TaskManager_WEB.Models.DepartmentCreateDto
+﻿@model DepartmentCreateDto
 
 @{
     ViewBag.Title = "Yeni Departman Ekle";
@@ -14,8 +14,10 @@
             <span asp-validation-for="DepartmentName" class="text-danger"></span>
         </div>
 
-        <button type="submit" class="btn btn-primary mt-3">Ekle</button>
-        <a asp-action="GetAllusers" class="btn btn-secondary mt-3">İptal</a>
+        <div class=" mt-3">
+            <button type="submit" class="btn btn-primary">Ekle</button>
+            <a asp-action="GetAllusers" asp-controller="Home" class="btn btn-secondary">Geri Dön</a>
+        </div>       
     </form>
 </div>
 
