@@ -83,6 +83,15 @@ namespace TaskManager_WEB.Controllers
                 return View(new TaskCreateVM { DepartmentList = new SelectList(Enumerable.Empty<SelectListItem>()) });
             }
 
+            if (!User.IK())
+            {
+                var ikdepartment = departments.FirstOrDefault(d => d.DepartmentName == "İnsan Kaynakları Uzmanı");
+                if (ikdepartment != null)
+                {
+                    departments = departments.Where(d => d.Id != ikdepartment.Id).ToList();
+                }
+            }
+
             var departmentList = new SelectList(departments, "Id", "DepartmentName");
 
             var usersResponse = await _userService.GetAll<APIResponse>();
@@ -121,7 +130,7 @@ namespace TaskManager_WEB.Controllers
         {
 
             if (!ModelState.IsValid)
-            {             
+            {
                 var departmentsResponse = await _departmentService.GetAll<APIResponse>();
                 var departments = departmentsResponse != null && departmentsResponse.IsSuccess
                     ? JsonConvert.DeserializeObject<List<DepartmentDto>>(Convert.ToString(departmentsResponse.result))
@@ -136,13 +145,13 @@ namespace TaskManager_WEB.Controllers
                 var currentUserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
                 var userList = userResults.Any()
                     ? userResults.Select(ur => ur.User)
-                        .Where(u => u.Id != currentUserId) 
+                        .Where(u => u.Id != currentUserId)
                         .ToList()
                     : new List<UserDto>();
 
                 taskCreateVM.UserList = new SelectList(userList, "Id", "Name");
 
-    
+
             }
 
             var taskCreateDto = new TaskCreateDto
@@ -169,7 +178,7 @@ namespace TaskManager_WEB.Controllers
         [Authorize]
         public async Task<IActionResult> Update(int id)
         {
-            
+
             var response = await _taskService.GetTaskById<APIResponse>(id);
             if (response == null || !response.IsSuccess)
             {
@@ -197,7 +206,7 @@ namespace TaskManager_WEB.Controllers
 
             var userList = userResults.Any()
                ? userResults.Select(ur => ur.User)
-                   .Where(u => u.Id != currentUserId) 
+                   .Where(u => u.Id != currentUserId)
                    .ToList()
                : new List<UserDto>();
 
@@ -205,7 +214,7 @@ namespace TaskManager_WEB.Controllers
             {
                 TaskUpdateDto = _mapper.Map<TaskUpdateDto>(task),
                 DepartmentList = departmentList,
-                UserList = new SelectList(userList, "Id", "Name") 
+                UserList = new SelectList(userList, "Id", "Name")
             };
 
             return View(taskUpdateVM);
@@ -216,11 +225,11 @@ namespace TaskManager_WEB.Controllers
         [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(TaskUpdateVM taskUpdateVM)
-        
+
         {
             if (!ModelState.IsValid)
             {
-                
+
                 var departmentsResponse = await _departmentService.GetAll<APIResponse>();
                 var departments = departmentsResponse != null && departmentsResponse.IsSuccess
                     ? JsonConvert.DeserializeObject<List<DepartmentDto>>(Convert.ToString(departmentsResponse.result))
