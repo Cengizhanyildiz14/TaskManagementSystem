@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using System.Security.Claims;
 using TaskManager_WEB.Models;
-using TaskManager_WEB.Services;
 using TaskManager_WEB.Services.IServices;
 
 namespace TaskManager_WEB.Controllers

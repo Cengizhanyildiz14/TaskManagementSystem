@@ -1,13 +1,11 @@
 ﻿using AutoMapper;
-using Azure;
-using Data.Entities;
+using Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
-using System.Diagnostics;
 using System.IdentityModel.Tokens.Jwt;
 using TaskManager_WEB.Models;
-using TaskManager_WEB.Services;
 using TaskManager_WEB.Services.IServices;
 
 namespace TaskManager_WEB.Controllers
@@ -100,9 +98,9 @@ namespace TaskManager_WEB.Controllers
         [Authorize(Policy = "IK")]
         public async Task<IActionResult> DepartmentCreate(DepartmentCreateDto dto)
         {
-            if (dto==null)
+            if (dto == null)
             {
-                ModelState.AddModelError("CustomErrorMessage","Geçersiz Dto");
+                ModelState.AddModelError("CustomErrorMessage", "Geçersiz Dto");
             }
 
             var departmentsResponse = await _departmentService.CreateDepartment<APIResponse>(dto);
@@ -113,7 +111,107 @@ namespace TaskManager_WEB.Controllers
                 return View(dto);
             }
 
-            return RedirectToAction("getallusers","home");
+            return RedirectToAction("getallusers", "home");
+        }
+
+        [HttpGet]
+        [Authorize(Policy = ("IK"))]
+        public async Task<IActionResult> UserCreate()
+        {
+            var departmentsResponse = await _departmentService.GetAll<APIResponse>();
+            var departments = departmentsResponse != null && departmentsResponse.IsSuccess
+                ? JsonConvert.DeserializeObject<List<DepartmentDto>>(Convert.ToString(departmentsResponse.result))
+                : new List<DepartmentDto>();
+
+            if (!departments.Any())
+            {
+                ModelState.AddModelError("", "Departman bilgileri yüklenemedi.");
+                return View(new UserCreateVm { DepartmentList = new SelectList(Enumerable.Empty<SelectListItem>()) });
+            }
+
+            if (!User.IK())
+            {
+                var ikdepartment = departments.FirstOrDefault(d => d.DepartmentName == "İnsan Kaynakları Uzmanı");
+                if (ikdepartment != null)
+                {
+                    departments = departments.Where(d => d.Id != ikdepartment.Id).ToList();
+                }
+            }
+
+            var departmentList = new SelectList(departments, "Id", "DepartmentName");
+
+            var userCreateVM = new UserCreateVm
+            {
+                UserCreateDto = new UserCreateDto
+                {
+
+                },
+                DepartmentList = departmentList
+            };
+
+            return View(userCreateVM);
+        }
+
+        [HttpPost]
+        [Authorize(Policy = ("IK"))]
+        public async Task<IActionResult> UserCreate(UserCreateVm userCreateVm)
+        {
+            if (!ModelState.IsValid)
+            {
+                var departmentResponse = await _departmentService.GetAll<APIResponse>();
+                var departments = departmentResponse != null && departmentResponse.IsSuccess ?
+                    JsonConvert.DeserializeObject<List<DepartmentDto>>(Convert.ToString(departmentResponse.result)) : new List<DepartmentDto>();
+                userCreateVm.DepartmentList = new SelectList(departments, "Id", "DepartmentName");
+            }
+
+            var userCreateDto = new UserCreateDto
+            {
+                DepartmentId = userCreateVm.UserCreateDto.DepartmentId,
+                Email = userCreateVm.UserCreateDto.Email,
+                Name = userCreateVm.UserCreateDto.Name,
+                LastName = userCreateVm.UserCreateDto.LastName,
+            };
+
+            var response = await _userService.PostUser<APIResponse>(userCreateDto);
+            if (response == null || !response.IsSuccess)
+            {
+                ModelState.AddModelError("", "Görev oluşturulurken bir hata oluştu.");
+                return View(userCreateVm);
+            }
+
+            return RedirectToAction("GetAllUsers", "Home");
+        }
+
+        [HttpGet]
+        [Authorize(Policy = ("IK"))]
+        public async Task<IActionResult> UserList()
+        {
+            var response = await _userService.GetAll<APIResponse>();
+            if (response == null || !response.IsSuccess)
+            {
+                return NotFound();
+            }
+
+            var users = JsonConvert.DeserializeObject<List<UserResult>>(Convert.ToString(response.result));
+
+            var viewModel = users.Select(user => new UserListVM
+            {
+                User = user.User // UserDto nesnesini direkt atıyoruz
+            }).ToList();
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [Authorize(Policy = ("IK"))]
+        public async Task<IActionResult> UserDelete(int id)
+        {
+            var response = await _userService.Delete<APIResponse>(id);
+            if (response==null || !response.IsSuccess)
+            {
+                return NotFound();
+            }
+            return RedirectToAction("UserList", "home");
         }
     }
 }

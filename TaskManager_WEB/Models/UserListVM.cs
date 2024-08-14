@@ -1,8 +1,7 @@
 ﻿namespace TaskManager_WEB.Models
 {
-    public class LoginResponseDto
+    public class UserListVM
     {
         public UserDto User { get; set; }
-        public string Token { get; set; }
     }
 }

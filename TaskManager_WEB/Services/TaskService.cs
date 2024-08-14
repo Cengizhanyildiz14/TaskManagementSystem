@@ -1,8 +1,6 @@
 ﻿using TaskManager_WEB.Models;
 using TaskManager_WEB.Services.IServices;
 using Utility;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace TaskManager_WEB.Services
 {

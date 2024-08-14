@@ -17,7 +17,11 @@ namespace TaskManager_WEB.Services
 
         public Task<T> Delete<T>(int id)
         {
-            throw new NotImplementedException();
+            return Send<T>(new APIRequest()
+            {
+                ApiType = SD.ApiType.DELETE,
+                Url = taskUrl + "/api/TaskManager/DeleteUser/" + id
+            });
         }
 
         public Task<T> GetAll<T>()
@@ -35,6 +39,16 @@ namespace TaskManager_WEB.Services
             {
                 ApiType = SD.ApiType.GET,
                 Url = taskUrl + "api/TaskManager/getuser/" + id
+            });
+        }
+
+        public Task<T> PostUser<T>(UserCreateDto userCreateDto)
+        {
+            return Send<T>(new APIRequest()
+            {
+                ApiType = SD.ApiType.POST,
+                Data = userCreateDto,
+                Url = taskUrl + "/api/TaskManager/postuser"
             });
         }
     }

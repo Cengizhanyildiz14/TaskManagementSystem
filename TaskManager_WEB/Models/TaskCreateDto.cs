@@ -1,6 +1,4 @@
 ﻿using Data;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Collections.Generic;
 
 namespace TaskManager_WEB.Models
 {

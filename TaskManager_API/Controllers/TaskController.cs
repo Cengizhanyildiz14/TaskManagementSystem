@@ -107,7 +107,7 @@ namespace TaskManager_API.Controllers
                     return _apiResponse;
                 }
 
-                if (_taskRepository.Get(x => x.TaskName.ToLower() == taskCreateDto.TaskName.ToLower()) != null && _taskRepository.Get(x=>x.DepartmentId==taskCreateDto.DepartmentId)!=null)
+                if (_taskRepository.Get(x => x.TaskName.ToLower() == taskCreateDto.TaskName.ToLower()) != null && _taskRepository.Get(x => x.DepartmentId == taskCreateDto.DepartmentId) != null)
                 {
                     _apiResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
                     return _apiResponse;
