@@ -16,7 +16,7 @@
                     <p class="card-text">
                         <strong>Email:</strong> <a href="mailto:@ViewBag.Email">@ViewBag.Email</a><br />
                         <strong>Departman: <br /></strong> @ViewBag.DepartmentName <br />
-                        <a asp-controller="Home" asp-action="UsersTask" asp-route-id="@ViewBag.Id" class="btn btn-secondary rounded-pill mt-3">Görevlerim</a>
+                        <a asp-controller="user" asp-action="UsersTask" asp-route-id="@ViewBag.Id" class="btn btn-secondary rounded-pill mt-3">Görevlerim</a>
                     </p>
                 </div>
             </div>
@@ -31,9 +31,9 @@
                     <a asp-controller="Task" asp-action="Create" class="btn btn-secondary rounded-pill me-2">+ Yeni Görev Ekle</a>
                     @if (HttpAcc.HttpContext.User.IK())
                     {
-                        <a asp-controller="Home" asp-action="DepartmentCreate" class="btn btn-secondary rounded-pill me-2">+ Departman Ekle</a>
-                        <a asp-controller="Home" asp-action="UserCreate" class="btn btn-secondary rounded-pill me-2">+ Personel Ekle</a>
-                        <a asp-controller="Home" asp-action="UserList" class="btn btn-secondary rounded-pill">+ Personel Listesi</a>
+                        <a asp-controller="Department" asp-action="DepartmentCreate" class="btn btn-secondary rounded-pill me-2">+ Departman Ekle</a>
+                        <a asp-controller="user" asp-action="UserCreate" class="btn btn-secondary rounded-pill me-2">+ Personel Ekle</a>
+                        <a asp-controller="user" asp-action="UserList" class="btn btn-secondary rounded-pill">+ Personel Listesi</a>
                     }
                 </div>
 

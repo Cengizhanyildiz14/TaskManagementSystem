@@ -36,7 +36,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     opt.Cookie.HttpOnly = true;
     opt.ExpireTimeSpan = TimeSpan.FromMinutes(30);
     opt.LoginPath = "/auth/login";
-    opt.AccessDeniedPath = "/auth/AccessDenied";
+    opt.AccessDeniedPath = "/home/AccessDenied";
     opt.SlidingExpiration = true;
 });
 
@@ -70,7 +70,7 @@ app.UseStatusCodePagesWithReExecute("/Home/NotFoundPage");
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=GetAllusers}/{id?}"
+    pattern: "{controller=user}/{action=GetAllusers}/{id?}"
 
     );
 

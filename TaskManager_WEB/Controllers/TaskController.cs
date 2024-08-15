@@ -32,18 +32,18 @@ namespace TaskManager_WEB.Controllers
             var response = await _taskService.GetTaskById<APIResponse>(id);
             if (response == null)
             {
-                return NotFound("Response is null");
+                return NotFound();
             }
 
             if (!response.IsSuccess)
             {
-                return NotFound("API response indicates failure");
+                return NotFound();
             }
 
             var task = JsonConvert.DeserializeObject<TaskDto>(Convert.ToString(response.result));
             if (task == null)
             {
-                return NotFound("Task is null");
+                return NotFound();
             }
 
             return View(task);
@@ -56,15 +56,15 @@ namespace TaskManager_WEB.Controllers
             var response = await _taskService.DeleteTask<APIResponse>(id);
             if (response == null)
             {
-                return NotFound("Response is null");
+                return NotFound();
             }
 
             if (!response.IsSuccess)
             {
-                return BadRequest("API response indicates failure");
+                return BadRequest();
             }
 
-            return RedirectToAction("GetAllUsers", "home");
+            return RedirectToAction("GetAllUsers", "user");
         }
 
         [HttpGet]
@@ -170,7 +170,7 @@ namespace TaskManager_WEB.Controllers
                 return View(taskCreateVM);
             }
 
-            return RedirectToAction("GetAllUsers", "Home");
+            return RedirectToAction("GetAllUsers", "user");
         }
 
         [HttpGet]
@@ -256,7 +256,7 @@ namespace TaskManager_WEB.Controllers
                 return View(taskUpdateVM);
             }
 
-            return RedirectToAction("GetAllUsers", "Home");
+            return RedirectToAction("GetAllUsers", "user");
         }
 
 

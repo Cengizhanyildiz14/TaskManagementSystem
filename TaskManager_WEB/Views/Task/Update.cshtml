@@ -21,17 +21,7 @@
         <span asp-validation-for="TaskUpdateDto.AsaignedUserId" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
-        <label asp-for="TaskUpdateDto.Status" class="control-label">Görev Durumu</label>
-        <select asp-for="TaskUpdateDto.Status" class="form-control">
-            <option value="0">Beklemede</option>
-            <option value="1">Tamamlandı</option>
-            <option value="2">Reddedildi</option>
-        </select>
-        <span asp-validation-for="TaskUpdateDto.Status" class="text-danger"></span>
-    </div>
 
-    <!-- Id'leri gizli alanlarda tutuyoruz -->
     <input type="hidden" asp-for="TaskUpdateDto.Id" />
     <input type="hidden" asp-for="TaskUpdateDto.CreaterUserId" />
 

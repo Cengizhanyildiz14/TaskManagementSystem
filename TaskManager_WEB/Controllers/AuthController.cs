@@ -21,6 +21,10 @@ namespace TaskManager_WEB.Controllers
 
         public IActionResult Login()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("getallusers", "user");
+            }
             LoginRequestDto dto = new();
             return View(dto);
         }
@@ -56,7 +60,7 @@ namespace TaskManager_WEB.Controllers
                 var claims = identity.Claims.ToList();
                 if (!claims.Any())
                 {
-                    throw new Exception("No claims were added to the identity. Check the login process.");
+                    throw new Exception("identity'e eklenmiş claim bulunamadı");
                 }
 
                 var principal = new ClaimsPrincipal(identity);
@@ -82,7 +86,7 @@ namespace TaskManager_WEB.Controllers
                     ModelState.AddModelError("CustomError", "Kullanıcı Bulunamadı.");
                 }
 
-                return RedirectToAction("getallusers", "Home");
+                return RedirectToAction("getallusers", "user");
             }
             else
             {
@@ -102,12 +106,7 @@ namespace TaskManager_WEB.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
 
-            return RedirectToAction("getallusers", "Home");
-        }
-
-        public async Task<IActionResult> AccessDenied()
-        {
-            return View();
+            return RedirectToAction("getallusers", "user");
         }
     }
 }
