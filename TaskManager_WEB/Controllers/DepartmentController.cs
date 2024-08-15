@@ -21,7 +21,7 @@ namespace TaskManager_WEB.Controllers
 
         [HttpGet]
         [Authorize(Policy = "IK")]
-        public async Task<IActionResult> DepartmentCreate()
+        public IActionResult DepartmentCreate()
         {
             return View();
         }

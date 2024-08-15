@@ -6,13 +6,19 @@ namespace TaskManager_WEB.Controllers
     {
 
         [HttpGet]
-        public async Task<IActionResult> NotFoundPage()
+        public IActionResult NotFoundPage()
         {
             return View();
         }
 
         [HttpGet]
-        public async Task<IActionResult> AccessDenied()
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Privacy()
         {
             return View();
         }
