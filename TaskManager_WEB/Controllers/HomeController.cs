@@ -213,5 +213,11 @@ namespace TaskManager_WEB.Controllers
             }
             return RedirectToAction("UserList", "home");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> NotFoundPage()
+        {
+            return View();
+        }
     }
 }
