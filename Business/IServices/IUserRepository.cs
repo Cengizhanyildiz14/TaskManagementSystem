@@ -10,5 +10,6 @@ namespace Business.IServices
         User GetUserWithDetails(int id);
         List<User> GetAllUserWithDetails();
         LoginResponseDto Login(LoginRequestDto loginRequestDto, bool rememberMe);
+        List<ToDoTask> GetUserTask(int userId);
     }
 }

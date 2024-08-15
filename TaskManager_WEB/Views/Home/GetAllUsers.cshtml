@@ -15,7 +15,8 @@
                     <h5 class="card-title">@ViewBag.FullName</h5>
                     <p class="card-text">
                         <strong>Email:</strong> <a href="mailto:@ViewBag.Email">@ViewBag.Email</a><br />
-                        <strong>Departman: <br /></strong> @ViewBag.DepartmentName
+                        <strong>Departman: <br /></strong> @ViewBag.DepartmentName <br />
+                        <a asp-controller="Home" asp-action="UsersTask" asp-route-id="@ViewBag.Id" class="btn btn-secondary rounded-pill mt-3">Görevlerim</a>
                     </p>
                 </div>
             </div>

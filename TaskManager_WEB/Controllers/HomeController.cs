@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure;
 using Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -37,6 +38,7 @@ namespace TaskManager_WEB.Controllers
             var handler = new JwtSecurityTokenHandler();
             var jwtToken = handler.ReadJwtToken(token);
 
+            ViewBag.Id = jwtToken.Claims.FirstOrDefault(c=>c.Type=="nameid")?.Value;
             ViewBag.FullName = jwtToken.Claims.FirstOrDefault(c => c.Type == "FullName")?.Value;
             ViewBag.Email = jwtToken.Claims.FirstOrDefault(c => c.Type == "email")?.Value;
             ViewBag.DepartmentName = jwtToken.Claims.FirstOrDefault(c => c.Type == "DepartmentName")?.Value;
@@ -219,5 +221,19 @@ namespace TaskManager_WEB.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public async Task<IActionResult> UsersTask(int id)
+        {
+            var response = await _userService.GetUserTasks<APIResponse>(id);
+            if (response == null || !response.IsSuccess)
+            {
+                return NotFound();
+            }
+
+            var tasks = JsonConvert.DeserializeObject<List<TaskDto>>(Convert.ToString(response.result));
+            return View(tasks);
+        }
+
     }
 }

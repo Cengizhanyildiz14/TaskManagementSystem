@@ -208,5 +208,30 @@ namespace TaskManager_API.Controllers
             }
             return _response;
         }
+
+        [HttpGet("GetUsersTasks/{id}")]
+        public ActionResult<APIResponse> GetUsersTask(int id)
+        {
+            try
+            {
+                var usersTasks = _userRepository.GetUserTask(id);
+                if (usersTasks == null)
+                {
+                    _response.StatusCode = HttpStatusCode.BadRequest;
+                    return BadRequest(_response);
+                }
+                var mapUsersTasks = _mapper.Map<List<TaskDto>>(usersTasks);
+                _response.Result = mapUsersTasks;
+                _response.StatusCode = HttpStatusCode.OK;
+                _response.IsSuccess = true;
+                return _response;
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.Errors = new List<string> { ex.ToString() };
+            }
+            return _response;
+        }
     }
 }

@@ -8,5 +8,6 @@ namespace TaskManager_WEB.Services.IServices
         Task<T> GetUserWithDetails<T>(int id);
         Task<T> Delete<T>(int id);
         Task<T> PostUser<T>(UserCreateDto userCreateDto);
+        Task<T> GetUserTasks<T>(int id);
     }
 }

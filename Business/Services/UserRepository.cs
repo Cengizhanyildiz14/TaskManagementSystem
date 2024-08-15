@@ -39,6 +39,12 @@ namespace Business.Services
             return users;
         }
 
+        public List<ToDoTask> GetUserTask(int userId)
+        {
+            var tasks = _context.Task.Where(t => t.AsaignedUserId == userId).Include(t=>t.Department).Include(t=>t.CreaterUser).ToList();
+            return tasks;
+        }
+
         public User GetUserWithDetails(int id)
         {
             var query = _context.Users

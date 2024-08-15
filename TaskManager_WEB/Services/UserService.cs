@@ -33,6 +33,15 @@ namespace TaskManager_WEB.Services
             });
         }
 
+        public Task<T> GetUserTasks<T>(int id)
+        {
+            return Send<T>(new APIRequest()
+            {
+                ApiType = SD.ApiType.GET,
+                Url = taskUrl + "/api/TaskManager/GetUsersTasks/" + id
+            });
+        }
+
         public Task<T> GetUserWithDetails<T>(int id)
         {
             return Send<T>(new APIRequest()

@@ -1,0 +1,43 @@
+﻿@model List<TaskDto>
+
+<div class="container mt-5">
+    <h2 class="mb-4">Görevlerim</h2>
+
+    @if (Model == null || !Model.Any())
+    {
+        <p>Henüz atanmış bir göreviniz bulunmuyor.</p>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Görev Adı</th>
+                        <th>Departman</th>
+                        <th>Atama Yapan Kişi</th>
+                        <th>Durum</th>
+                        <th class="text-center">Detay</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var task in Model)
+                    {
+                        <tr>
+                            <td>@task.TaskName</td>
+                            <td>@task.Department.DepartmentName</td>
+                            <td>@task.CreaterUser</td>
+                            <td>@task.StatusDescription</td>
+                            <td class="text-center align-middle">
+                                <div class="d-flex justify-content-center">
+                                    <a class="btn btn-success btn-sm me-2">Onayla</a>
+                                    <a class="btn btn-danger btn-sm">Reddet</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
