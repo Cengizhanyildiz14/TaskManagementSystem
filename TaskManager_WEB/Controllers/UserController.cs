@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Azure;
 using Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -50,13 +49,13 @@ namespace TaskManager_WEB.Controllers
 
             var viewModel = users.Select(user =>
             {
-                var allTasks = user.AssignedTasks ?? new List<TaskDto>();
+                var allTasks = user.AssignedTasks ?? new List<TaskDtoWeb>();
 
                 return new UserViewModel
                 {
                     User = _mapper.Map<UserDto>(user.User),
                     AssignedTasks = allTasks,
-                    CreatedTasks = new List<TaskDto>()
+                    CreatedTasks = new List<TaskDtoWeb>()
                 };
             }).ToList();
 
@@ -195,7 +194,7 @@ namespace TaskManager_WEB.Controllers
                 return NotFound();
             }
 
-            var tasks = JsonConvert.DeserializeObject<List<TaskDto>>(Convert.ToString(response.result));
+            var tasks = JsonConvert.DeserializeObject<List<TaskDtoWeb>>(Convert.ToString(response.result));
             return View(tasks);
         }
 

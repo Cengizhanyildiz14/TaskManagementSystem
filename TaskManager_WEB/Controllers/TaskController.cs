@@ -40,7 +40,7 @@ namespace TaskManager_WEB.Controllers
                 return NotFound();
             }
 
-            var task = JsonConvert.DeserializeObject<TaskDto>(Convert.ToString(response.result));
+            var task = JsonConvert.DeserializeObject<TaskDtoWeb>(Convert.ToString(response.result));
             if (task == null)
             {
                 return NotFound();
