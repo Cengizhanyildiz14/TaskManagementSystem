@@ -10,16 +10,15 @@ namespace TaskManager_WEB.AutoMapper
         {
             CreateMap<User, UserDto>().ReverseMap();
 
-            // Task Mappings
-            CreateMap<ToDoTask, TaskDto>()
+            CreateMap<ToDoTask, TaskDtoWeb>()
             .ForMember(dest => dest.AsaignedUserName, opt => opt.MapFrom(src => src.AsaignedUser.Name))
             .ForMember(dest => dest.AsaignedUserEmail, opt => opt.MapFrom(src => src.AsaignedUser.Email))
             .ReverseMap();
 
-            // Department Mappings
-            CreateMap<Department, DepartmentDto>().ReverseMap();
             CreateMap<TaskCreateDto, ToDoTask>().ReverseMap();
-            CreateMap<TaskUpdateDto, TaskDto>().ReverseMap();
+            CreateMap<TaskUpdateDto, TaskDtoWeb>().ReverseMap();
+
+            CreateMap<Department, DepartmentDto>().ReverseMap();
             CreateMap<DepartmentCreateDto, DepartmentDto>().ReverseMap();
 
 

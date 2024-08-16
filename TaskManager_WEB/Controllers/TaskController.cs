@@ -259,6 +259,39 @@ namespace TaskManager_WEB.Controllers
             return RedirectToAction("GetAllUsers", "user");
         }
 
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> TaskStatusUpdate(int TaskId, string Status)
+        {
+            var taskResponse = await _taskService.GetTaskById<APIResponse>(TaskId);
+            if (taskResponse == null)
+            {
+                return NotFound();
+            }
 
+            var task = JsonConvert.DeserializeObject<TaskDtoWeb>(Convert.ToString(taskResponse.result));
+
+            if (Status == "Onayla")
+            {
+                task.Status = (int)TaskStatusEnum.Tamamlandı;
+            }
+            else if (Status == "Reddet")
+            {
+                task.Status = (int)TaskStatusEnum.Reddedildi;
+            }
+
+            var taskUpdateDto = _mapper.Map<TaskUpdateDto>(task);
+
+            var updateResponse = await _taskService.UpdateTask<APIResponse>(TaskId, taskUpdateDto);
+            if (updateResponse == null || !updateResponse.IsSuccess)
+            {
+                // Güncelleme başarısızsa hata döndür
+                return StatusCode(500, "Görev durumu güncellenemedi.");
+            }
+
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            return RedirectToAction("userstask", "user", new { id = userId });
+        }
     }
 }

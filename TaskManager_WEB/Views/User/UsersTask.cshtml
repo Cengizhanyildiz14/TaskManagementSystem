@@ -1,4 +1,5 @@
 ﻿@model List<TaskDtoWeb>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
 <div class="container mt-5">
     <h2 class="mb-4">Görevlerim</h2>
@@ -24,19 +25,43 @@
                     @foreach (var task in Model)
                     {
                         <tr>
-                            <td>@task.TaskName</td>
-                            <td>@task.Department.DepartmentName</td>
-                            <td>@task.CreaterUser</td>
-                            <td>@task.StatusDescription</td>
+                            <td class="align-middle">@task.TaskName</td>
+                            <td class="align-middle">@task.Department.DepartmentName</td>
+                            <td class="align-middle">@task.CreaterUser</td>
+                            <td class="align-middle fw-bold text-uppercase">
+                                @task.StatusDescription
+                                @if (task.StatusDescription == "Tamamlandı")
+                                {
+                                    <i class="fas fa-check-circle text-success"></i>
+                                }
+                                else if (task.StatusDescription == "Reddedildi")
+                                {
+                                    <i class="fas fa-times-circle text-danger"></i>
+                                }
+                                else if (task.StatusDescription == "Beklemede")
+                                {
+                                    <i class="fas fa-clock text-warning"></i>
+                                }
+                            </td>
                             <td class="text-center align-middle">
                                 <div class="d-flex justify-content-center">
-                                    <a class="btn btn-success btn-sm me-2">Onayla</a>
-                                    <a class="btn btn-danger btn-sm">Reddet</a>
+                                    <form asp-action="TaskStatusUpdate" asp-controller="task" method="post" class="m-2">
+                                        <input type="hidden" name="TaskId" value="@task.Id" />
+                                        <input type="hidden" name="Status" value="Onayla" />
+                                        <button type="submit" class="btn btn-success btn-sm me-2">Onayla</button>
+                                    </form>
+                                    <form asp-action="TaskStatusUpdate" asp-controller="task" method="post" class="m-2">
+                                        <input type="hidden" name="TaskId" value="@task.Id" />
+                                        <input type="hidden" name="Status" value="Reddet" />
+                                        <button type="submit" class="btn btn-danger btn-sm">Reddet</button>
+                                    </form>
                                 </div>
                             </td>
                         </tr>
                     }
                 </tbody>
+
+
             </table>
         </div>
     }
