@@ -43,7 +43,7 @@ namespace TaskManager_WEB.Controllers
                 return View(dto);
             }
 
-            return RedirectToAction("getallusers", "user");
+            return RedirectToAction("DepartmentCreate", "department");
         }
     }
 }

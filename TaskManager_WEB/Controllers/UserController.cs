@@ -150,7 +150,7 @@ namespace TaskManager_WEB.Controllers
                 return View(userCreateVm);
             }
 
-            return RedirectToAction("GetAllUsers", "user");
+            return RedirectToAction("usercreate", "user");
         }
 
         [HttpGet]

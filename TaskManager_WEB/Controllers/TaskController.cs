@@ -161,7 +161,7 @@ namespace TaskManager_WEB.Controllers
                 AsaignedUserId = taskCreateVM.TaskCreateDto.AsaignedUserId,
                 Status = taskCreateVM.TaskCreateDto.Status
             };
-
+            
             // API'ye istek gönderme
             var response = await _taskService.CreateTask<APIResponse>(taskCreateDto);
             if (response == null || !response.IsSuccess)
@@ -170,7 +170,7 @@ namespace TaskManager_WEB.Controllers
                 return View(taskCreateVM);
             }
 
-            return RedirectToAction("GetAllUsers", "user");
+            return RedirectToAction("create", "task");
         }
 
         [HttpGet]
@@ -184,7 +184,7 @@ namespace TaskManager_WEB.Controllers
                 return NotFound("Görev bulunamadı.");
             }
 
-            var task = JsonConvert.DeserializeObject<TaskDto>(Convert.ToString(response.result));
+            var task = JsonConvert.DeserializeObject<TaskDtoWeb>(Convert.ToString(response.result));
             if (task == null)
             {
                 return NotFound("Görev detayları yüklenemedi.");

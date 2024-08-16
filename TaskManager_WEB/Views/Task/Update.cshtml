@@ -26,7 +26,8 @@
     <input type="hidden" asp-for="TaskUpdateDto.CreaterUserId" />
 
 
-    <div class="form-group">
-        <input type="submit" value="Görev Güncelle" class="btn btn-secondary" />
+    <div class="form-group mt-3">
+        <input type="submit" value="Görev Güncelle" class="btn btn-primary" />
+        <a asp-action="GetAllUsers" asp-controller="user" class="btn btn-secondary">Geri Dön</a>
     </div>
 </form>
