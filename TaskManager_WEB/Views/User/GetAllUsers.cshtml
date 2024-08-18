@@ -3,10 +3,8 @@
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpAcc
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
-
 <div class="container-fluid mt-5" style="padding-left: 0; padding-right: 0;">
     <div class="row">
-        <!-- Profil Kartı -->
         <div class="col-lg-2 d-flex justify-content-start mb-4" style="padding-left: 0;">
             <div class="card shadow-sm w-100">
                 <div class="card-header bg-secondary text-white text-center">
@@ -24,7 +22,6 @@
             </div>
         </div>
 
-        <!-- Görev Takip Listesi -->
         <div class="col-lg-10 d-flex justify-content-end" style="padding-right: 0;">
             <div class="w-100">
                 <h2 class="mb-4">Görev Takip Listesi</h2>
@@ -62,7 +59,7 @@
                                     <input type="text" id="searchStatus" class="form-control rounded-pill" placeholder="Durum Ara">
                                 </th>
                                 <th>
-                                    <button type="button" class="btn btn-secondary rounded-pill" onclick="clearFilters()">Temizle</button>
+                                    <button id="clearFiltersButton" type="button" class="btn btn-secondary rounded-pill">Temizle</button>
                                 </th>
                             </tr>
                             <tr>
@@ -86,7 +83,8 @@
                                         <td class="department">@task.Department.DepartmentName</td>
                                         <td class="task-name">@task.TaskName</td>
                                         <td class="creator-user">@task.CreaterUser</td>
-                                        <td class="status">@task.StatusDescription
+                                        <td class="status">
+                                            @task.StatusDescription
                                             @if (task.StatusDescription == "Tamamlandı")
                                             {
                                                 <i class="fas fa-check-circle text-success"></i>
@@ -138,12 +136,16 @@
                 });
             }
 
-            $("#searchAssignedUserName, #searchEmail, #searchDepartment, #searchTaskName, #searchCreatorUserName, #searchStatus").on("keyup", filterTable);
-
             function clearFilters() {
                 $("#searchAssignedUserName, #searchEmail, #searchDepartment, #searchTaskName, #searchCreatorUserName, #searchStatus").val('');
-                $("#usersTable tbody tr").show();
+                $("#usersTable tbody tr").show(); 
             }
+
+            $("#clearFiltersButton").click(function () {
+                clearFilters();
+            });
+
+            $("#searchAssignedUserName, #searchEmail, #searchDepartment, #searchTaskName, #searchCreatorUserName, #searchStatus").on("keyup", filterTable);
         });
     </script>
 }
