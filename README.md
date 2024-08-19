@@ -6,6 +6,8 @@ Bu proje, **Görev Yönetim Sistemi** için bir örnek uygulama içermektedir. B
 
 **Görev Yönetim Sistemi** projesi, görev yönetimi süreçlerini düzenlemek için tasarlanmış bir web uygulamasıdır. Kullanıcılar, görevleri oluşturabilir, atayabilir, güncelleyebilir ve silebilir. Sistem, kullanıcıların görev durumlarını takip etmelerini ve ilgili filtreler yardımıyla görevleri daha kolay yönetmelerini sağlar.
 
+Proje, **RESTful API** mimarisi kullanılarak geliştirilmiştir. **JWT (JSON Web Token)** tabanlı kimlik doğrulama sistemi sayesinde, kullanıcı oturumları güvenli bir şekilde yönetilmektedir. **Code First** yaklaşımı ile veritabanı modelleri oluşturulmuş ve Entity Framework Core kullanılarak yönetilmiştir.
+
 ## Özellikler
 
 - **Görev Yönetimi:** Kullanıcılar görev oluşturabilir, atayabilir ve yönetebilir.
@@ -20,6 +22,9 @@ Bu proje, **Görev Yönetim Sistemi** için bir örnek uygulama içermektedir. B
   - Bu yetkiye sahip olmayan kişiler, departman ve kullanıcı yönetimi sayfalarına girmeye çalıştıklarında özel bir "access denied" sayfasına yönlendirilir.
   - Mevcut olmayan sayfalara erişim durumunda, özel bir "not found" sayfasına yönlendirilirler.
   - İlgili insan kaynakları bilgisi, kullanıcı token'ından departman bilgisi kontrol edilerek doğrulanır.
+- **RESTful API Kullanımı:** Sistem, RESTful API yapısını kullanarak modüler ve ölçeklenebilir bir yapı sunar.
+- **JWT Tabanlı Kimlik Doğrulama:** JSON Web Token (JWT) kullanılarak güvenli kimlik doğrulama sağlanır.
+- **Code First Yaklaşımı:** Entity Framework Core ile veritabanı yapısı, kod bazlı olarak (Code First) oluşturulmuş ve yönetilmiştir.
 - **Bootstrap ve JavaScript Kullanımı:** Kullanıcı arayüzünde Bootstrap kullanılmış olup, bazı interaktif özellikler için JavaScript uygulanmıştır.
 - **FontAwesome:** Projede ikon setleri için FontAwesome kütüphanesi kullanılmıştır.
 - **Çok Katmanlı Mimari:** Proje, sürdürülebilirlik ve genişletilebilirlik için çok katmanlı bir mimari üzerine inşa edilmiştir.
