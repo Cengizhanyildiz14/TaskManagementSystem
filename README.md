@@ -92,7 +92,9 @@ Bu proje, **Demo Görev Yönetim Sistemi** için bir örnek uygulama içermekted
 ## Ekran Görüntüleri
 
 - **Giriş Ekranı:** Kullanıcıların sisteme giriş yaptığı ekran.
- ![LoginScreen](https://github.com/user-attachments/assets/19afe322-193f-44c7-9f50-05ee77613520)
+
+  <img src="https://github.com/user-attachments/assets/19afe322-193f-44c7-9f50-05ee77613520" alt="Giriş Ekranı" width="600"/>
+
 - **Ana Sayfa:** Görev yönetim işlemlerinin yapıldığı ana ekran.
 - **Görevlerim Sayfası:** Kullanıcıya ait görevlerin listelendiği ekran.
 - **Profil Bilgilerim Sayfası:** Kullanıcının profil bilgilerini görüntüleyebildiği ekran.
@@ -104,6 +106,7 @@ Bu proje, **Demo Görev Yönetim Sistemi** için bir örnek uygulama içermekted
 - **Personel Listesi Ekranı:** (İK Uzmanı için) Sistemdeki personelin listelendiği ekran.
 - **Access Denied Sayfası:** Erişim izni olmayan kullanıcılar için özel erişim engellendi sayfası.
 - **Not Found Sayfası:** Mevcut olmayan bir sayfa talebi durumunda gösterilen sayfa.
+
 
 ## Katkıda Bulunma
 
