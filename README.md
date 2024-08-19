@@ -40,6 +40,68 @@ Proje, **RESTful API** mimarisi kullanılarak geliştirilmiştir. **JWT (JSON We
 - JavaScript
 - FontAwesome
 
+## Data Katmanı
+
+**Data** katmanı, projenin temel veri modellerini ve bu modellerin birbirleriyle olan ilişkilerini içerir. Bu katmanda yer alan Entity sınıfları, veritabanı tablolarını temsil eder ve Entity Framework Core tarafından veritabanı işlemleri için kullanılır.
+
+### Entity Sınıfları ve İlişkileri
+
+#### 1. **User (Kullanıcı) Sınıfı**
+
+- **Properties:**
+  - `Id`: Kullanıcının benzersiz kimlik numarası.
+  - `Name`: Kullanıcının adı.
+  - `LastName`: Kullanıcının soyadı.
+  - `Email`: Kullanıcının e-posta adresi.
+  - `Department`: Kullanıcının bağlı olduğu departman. Bu, `Department` entity'si ile olan bir ilişkidir.
+  - `DepartmentId`: Kullanıcının hangi departmana ait olduğunu belirten yabancı anahtar (foreign key).
+  - `Tasks`: Kullanıcıya atanmış görevlerin listesi. Bu, `ToDoTask` entity'si ile olan bir ilişkidir.
+  - `CreatedTasks`: Kullanıcının oluşturduğu görevlerin listesi. Bu da `ToDoTask` entity'si ile olan bir ilişkidir.
+
+**İlişkiler:**
+- `User` sınıfı ile `Department` sınıfı arasında bire çok (one-to-many) bir ilişki vardır. Her kullanıcı bir departmana aittir ve bir departmanın birden fazla kullanıcısı olabilir.
+- `User` sınıfı ile `ToDoTask` sınıfı arasında bire çok (one-to-many) bir ilişki vardır. Her kullanıcıya birden fazla görev atanabilir ve bir kullanıcı birden fazla görev oluşturabilir.
+
+#### 2. **Department (Departman) Sınıfı**
+
+- **Properties:**
+  - `Id`: Departmanın benzersiz kimlik numarası.
+  - `DepartmentName`: Departmanın adı.
+  - `Users`: Bu departmana bağlı olan kullanıcıların listesi. `User` entity'si ile olan ilişkidir.
+  - `Tasks`: Bu departmanda yer alan görevlerin listesi. `ToDoTask` entity'si ile olan ilişkidir.
+
+**İlişkiler:**
+- `Department` sınıfı ile `User` sınıfı arasında bire çok (one-to-many) bir ilişki vardır. Bir departmanın birden fazla kullanıcısı olabilir, ancak her kullanıcı yalnızca bir departmana aittir.
+- `Department` sınıfı ile `ToDoTask` sınıfı arasında da bire çok (one-to-many) bir ilişki vardır. Bir departman, birden fazla görev içerebilir.
+
+#### 3. **ToDoTask (Görev) Sınıfı**
+
+- **Properties:**
+  - `Id`: Görevin benzersiz kimlik numarası.
+  - `TaskName`: Görevin adı.
+  - `Department`: Görevin ait olduğu departman. Bu, `Department` entity'si ile olan bir ilişkidir.
+  - `DepartmentId`: Görevin hangi departmana ait olduğunu belirten yabancı anahtar (foreign key).
+  - `CreaterUser`: Görevi oluşturan kullanıcı. Bu, `User` entity'si ile olan bir ilişkidir.
+  - `CreaterUserId`: Görevi oluşturan kullanıcının kimlik numarası.
+  - `AsaignedUser`: Göreve atanan kullanıcı. Bu, `User` entity'si ile olan bir ilişkidir.
+  - `AsaignedUserId`: Göreve atanan kullanıcının kimlik numarası.
+  - `Status`: Görevin durumu. Bu, `TaskStatusEnum` ile tanımlanmış bir durum bilgisidir.
+
+**İlişkiler:**
+- `ToDoTask` sınıfı ile `Department` sınıfı arasında bire çok (one-to-many) bir ilişki vardır. Her görev, belirli bir departmana aittir.
+- `ToDoTask` sınıfı ile `User` sınıfı arasında iki bire çok (one-to-many) ilişki vardır:
+  - `CreaterUser`: Her görev bir kullanıcı tarafından oluşturulur.
+  - `AsaignedUser`: Her görev bir kullanıcıya atanabilir.
+- `ToDoTask` sınıfı ile `TaskStatusEnum` arasında bir enum ilişkisi vardır. Bu enum, görevlerin durumunu belirtir.
+
+### Entity Sınıflarının Genel İlişkileri
+
+- **Department** ve **User** sınıfları arasında bir departmanın birden fazla kullanıcıya sahip olabileceği, ancak her kullanıcının yalnızca bir departmana ait olabileceği bire çok (one-to-many) ilişkisi bulunmaktadır.
+- **User** ve **ToDoTask** sınıfları arasında bir kullanıcının birden fazla görev oluşturabileceği ve birden fazla göreve atanabileceği iki ayrı bire çok (one-to-many) ilişkisi bulunmaktadır.
+- **Department** ve **ToDoTask** sınıfları arasında bir departmanın birden fazla göreve sahip olabileceği bire çok (one-to-many) ilişkisi vardır.
+
+Bu yapı, **Görev Yönetim Sistemi**'nde kullanıcıların ve departmanların görevleri nasıl oluşturup yönetebileceğini belirleyen temel veri modelini oluşturur. Bu sayede, sistemdeki görevler ve bu görevlerin hangi kullanıcılar tarafından oluşturulup, hangi kullanıcılara atandığı veritabanında doğru ve verimli bir şekilde saklanabilir.
+
 ## Kurulum
 
 1. Projeyi klonlayın:
