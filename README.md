@@ -105,7 +105,7 @@ Bu proje, **Görev Yönetim Sistemi** için bir örnek uygulama içermektedir. B
 
 - **Profil Bilgilerim Sayfası:** Kullanıcının profil bilgilerini görüntüleyebildiği ekran.
 
-  <img src="https://github.com/user-attachments/assets/791a95a3-8b27-4ec8-b7d4-647a34e42051" alt="Profil Bilgilerim Sayfası" width="600"/>
+  <img src="https://github.com/user-attachments/assets/791a95a3-8b27-4ec8-b7d4-647a34e42051" alt="Profil Bilgilerim Sayfası" width="600" style="display:block; margin:auto; background-color:#fff;"/>
 
 - **Görev Detayları Sayfası:** Bir görevin detaylarının görüntülendiği ekran.
 
