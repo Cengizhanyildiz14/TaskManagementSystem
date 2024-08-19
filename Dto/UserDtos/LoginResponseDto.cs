@@ -1,4 +1,4 @@
-﻿namespace Data.UserDtos
+﻿namespace Dto.UserDtos
 {
     public class LoginResponseDto
     {

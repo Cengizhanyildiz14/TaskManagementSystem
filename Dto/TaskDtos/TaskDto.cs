@@ -1,4 +1,4 @@
-﻿using Data.DepartmentDtos;
+﻿using Dto.DepartmentDtos;
 
 public class TaskDto
 {

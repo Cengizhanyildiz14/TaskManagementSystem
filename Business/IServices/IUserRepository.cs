@@ -1,6 +1,6 @@
 ﻿using Business.Repository;
 using Data.Entities;
-using Data.UserDtos;
+using Dto.UserDtos;
 
 namespace Business.IServices
 {

@@ -3,7 +3,7 @@ using Business.IServices;
 using Business.Repository;
 using Data.Context;
 using Data.Entities;
-using Data.UserDtos;
+using Dto.UserDtos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -41,7 +41,7 @@ namespace Business.Services
 
         public List<ToDoTask> GetUserTask(int userId)
         {
-            var tasks = _context.Task.Where(t => t.AsaignedUserId == userId).Include(t=>t.Department).Include(t=>t.CreaterUser).ToList();
+            var tasks = _context.Task.Where(t => t.AsaignedUserId == userId).Include(t => t.Department).Include(t => t.CreaterUser).ToList();
             return tasks;
         }
 

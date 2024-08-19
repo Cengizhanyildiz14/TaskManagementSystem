@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TaskManager_WEB.Models;
-using TaskManager_WEB.Services;
 using TaskManager_WEB.Services.IServices;
 
 namespace TaskManager_WEB.Controllers

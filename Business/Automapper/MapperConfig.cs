@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Data.DepartmentDtos;
 using Data.Entities;
-using Data.TaskDtos;
-using Data.UserDtos;
+using Dto.DepartmentDtos;
+using Dto.TaskDtos;
+using Dto.UserDtos;
 
 namespace Business.Automapper
 {

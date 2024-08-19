@@ -2,7 +2,7 @@
 using Business;
 using Business.IServices;
 using Data.Entities;
-using Data.UserDtos;
+using Dto.UserDtos;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 

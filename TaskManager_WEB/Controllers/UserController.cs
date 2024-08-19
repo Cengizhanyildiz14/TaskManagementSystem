@@ -33,7 +33,7 @@ namespace TaskManager_WEB.Controllers
             var handler = new JwtSecurityTokenHandler();
             var jwtToken = handler.ReadJwtToken(token);
 
-            ViewBag.Id = jwtToken.Claims.FirstOrDefault(c=>c.Type=="nameid")?.Value;
+            ViewBag.Id = jwtToken.Claims.FirstOrDefault(c => c.Type == "nameid")?.Value;
             ViewBag.FullName = jwtToken.Claims.FirstOrDefault(c => c.Type == "FullName")?.Value;
             ViewBag.Email = jwtToken.Claims.FirstOrDefault(c => c.Type == "email")?.Value;
             ViewBag.DepartmentName = jwtToken.Claims.FirstOrDefault(c => c.Type == "DepartmentName")?.Value;
@@ -167,7 +167,7 @@ namespace TaskManager_WEB.Controllers
 
             var viewModel = users.Select(user => new UserListVM
             {
-                User = user.User 
+                User = user.User
             }).ToList();
 
             return View(viewModel);
@@ -178,7 +178,7 @@ namespace TaskManager_WEB.Controllers
         public async Task<IActionResult> UserDelete(int id)
         {
             var response = await _userService.Delete<APIResponse>(id);
-            if (response==null || !response.IsSuccess)
+            if (response == null || !response.IsSuccess)
             {
                 return NotFound();
             }

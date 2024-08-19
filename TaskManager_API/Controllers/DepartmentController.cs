@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Business;
 using Business.IServices;
-using Data.DepartmentDtos;
 using Data.Entities;
+using Dto.DepartmentDtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TaskManager_API.Controllers

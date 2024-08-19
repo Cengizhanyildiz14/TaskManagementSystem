@@ -1,4 +1,4 @@
-﻿namespace Data.TaskDtos
+﻿namespace Dto.TaskDtos
 {
     public class TaskCreateDto
     {
