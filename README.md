@@ -92,7 +92,7 @@ Bu proje, **Demo Görev Yönetim Sistemi** için bir örnek uygulama içermekted
 ## Ekran Görüntüleri
 
 - **Giriş Ekranı:** Kullanıcıların sisteme giriş yaptığı ekran.
-- ![LoginScreen](https://github.com/user-attachments/assets/19afe322-193f-44c7-9f50-05ee77613520)
+ ![LoginScreen](https://github.com/user-attachments/assets/19afe322-193f-44c7-9f50-05ee77613520)
 - **Ana Sayfa:** Görev yönetim işlemlerinin yapıldığı ana ekran.
 - **Görevlerim Sayfası:** Kullanıcıya ait görevlerin listelendiği ekran.
 - **Profil Bilgilerim Sayfası:** Kullanıcının profil bilgilerini görüntüleyebildiği ekran.
