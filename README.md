@@ -97,7 +97,7 @@ Bu proje, **Görev Yönetim Sistemi** için bir örnek uygulama içermektedir. B
 
 - **Ana Sayfa:** Görev yönetim işlemlerinin yapıldığı ana ekran.
 
-<img src="[https://github.com/user-attachments/assets/19afe322-193f-44c7-9f50-05ee77613520](https://github.com/user-attachments/assets/8d2941c0-5787-43f4-b316-9a3ba2f6fe76)" alt="Giriş Ekranı" width="600"/>
+<img src="https://github.com/user-attachments/assets/8d2941c0-5787-43f4-b316-9a3ba2f6fe76" alt="Giriş Ekranı" width="600"/>
 
 - **Görevlerim Sayfası:** Kullanıcıya ait görevlerin listelendiği ekran.
 - **Profil Bilgilerim Sayfası:** Kullanıcının profil bilgilerini görüntüleyebildiği ekran.
