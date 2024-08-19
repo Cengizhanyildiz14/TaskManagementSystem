@@ -44,6 +44,54 @@ Proje, **RESTful API** mimarisi kullanılarak geliştirilmiştir. **JWT (JSON We
 
 **Data** katmanı, projenin temel veri modellerini ve bu modellerin birbirleriyle olan ilişkilerini içerir. Bu katmanda yer alan Entity sınıfları, veritabanı tablolarını temsil eder ve Entity Framework Core tarafından veritabanı işlemleri için kullanılır.
 
+### TaskManagerContext Sınıfı
+
+`TaskManagerContext` sınıfı, Entity Framework Core kullanılarak veritabanı işlemlerinin yönetildiği temel sınıftır. Bu sınıf, veritabanı bağlantısı ve veritabanı üzerinde gerçekleştirilecek işlemler için gerekli olan yapılandırmaları içerir.
+
+```csharp
+public class TaskManagerContext : DbContext
+{
+    public TaskManagerContext(DbContextOptions<TaskManagerContext> options) : base(options)
+    {
+    }
+
+    // Veritabanında yer alacak tablolar
+    public DbSet<User> Users { get; set; }
+    public DbSet<Department> Departments { get; set; }
+    public DbSet<ToDoTask> Task { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        // ToDoTask Entity'sinin ilişkileri
+        modelBuilder.Entity<ToDoTask>()
+            .HasOne(t => t.CreaterUser)  
+            .WithMany(u => u.CreatedTasks)
+            .HasForeignKey(u => u.CreaterUserId)
+            .OnDelete(DeleteBehavior.Restrict);  
+
+        modelBuilder.Entity<ToDoTask>()
+            .HasOne(t => t.AsaignedUser)  
+            .WithMany(u => u.Tasks)
+            .HasForeignKey(u => u.AsaignedUserId)
+            .OnDelete(DeleteBehavior.Restrict);  
+
+        modelBuilder.Entity<ToDoTask>()
+            .HasOne(t => t.Department)    
+            .WithMany(d => d.Tasks)
+            .HasForeignKey(t => t.DepartmentId)
+            .OnDelete(DeleteBehavior.Restrict); 
+
+        // User Entity'sinin ilişkisi
+        modelBuilder.Entity<User>()
+            .HasOne(u => u.Department)    
+            .WithMany(d => d.Users)
+            .HasForeignKey(u => u.DepartmentId)
+            .OnDelete(DeleteBehavior.Restrict);  // Silme işlemi kısıtlı
+    }
+}
+
+`TaskManagerContext` sınıfı ile tanımlanan veritabanı tablolarının Entity sınıfları ve aralarındaki ilişkiler yukarıda belirtilmiştir. Bu sınıf, Entity Framework Core kullanılarak oluşturulmuş olup, veritabanı işlemlerinin ve tablolar arası ilişkilerin yönetimini sağlar. Bu yapıda, kullanıcılar ve görevler arasındaki ilişkiler ile departmanlar ve görevler arasındaki ilişkiler doğru ve güvenli bir şekilde yönetilmiştir. Özellikle `DeleteBehavior.Restrict` kullanılarak, bağlı olan verilerin kazara silinmesini engelleyecek şekilde yapılandırma yapılmıştır.
+
 ### Entity Sınıfları ve İlişkileri
 
 #### 1. **User (Kullanıcı) Sınıfı**
