@@ -46,9 +46,9 @@ Proje, **RESTful API** mimarisi kullanılarak geliştirilmiştir. **JWT (JSON We
 
 ### TaskManagerContext Sınıfı
 
-`TaskManagerContext` sınıfı, Entity Framework Core kullanılarak veritabanı işlemlerinin yönetildiği temel sınıftır. Bu sınıf, veritabanı bağlantısı ve veritabanı üzerinde gerçekleştirilecek işlemler için gerekli olan yapılandırmaları içerir.
+TaskManagerContext sınıfı, Entity Framework Core kullanılarak veritabanı işlemlerinin yönetildiği temel sınıftır. Bu sınıf, veritabanı bağlantısı ve veritabanı üzerinde gerçekleştirilecek işlemler için gerekli olan yapılandırmaları içerir.
 
-```csharp
+csharp
 public class TaskManagerContext : DbContext
 {
     public TaskManagerContext(DbContextOptions<TaskManagerContext> options) : base(options)
@@ -89,8 +89,6 @@ public class TaskManagerContext : DbContext
             .OnDelete(DeleteBehavior.Restrict);  // Silme işlemi kısıtlı
     }
 }
-
-`TaskManagerContext` sınıfı ile tanımlanan veritabanı tablolarının Entity sınıfları ve aralarındaki ilişkiler yukarıda belirtilmiştir. Bu sınıf, Entity Framework Core kullanılarak oluşturulmuş olup, veritabanı işlemlerinin ve tablolar arası ilişkilerin yönetimini sağlar. Bu yapıda, kullanıcılar ve görevler arasındaki ilişkiler ile departmanlar ve görevler arasındaki ilişkiler doğru ve güvenli bir şekilde yönetilmiştir. Özellikle `DeleteBehavior.Restrict` kullanılarak, bağlı olan verilerin kazara silinmesini engelleyecek şekilde yapılandırma yapılmıştır.
 
 ### Entity Sınıfları ve İlişkileri
 
@@ -153,46 +151,39 @@ Bu yapı, **Görev Yönetim Sistemi**'nde kullanıcıların ve departmanların g
 ## Kurulum
 
 1. Projeyi klonlayın:
-    ```sh
+sh
     git clone https://github.com/Cengizhanyildiz14/TaskManagementSystem.git
-    ```
-
+    
 2. Proje dizinine gidin:
-    ```sh
+sh
     cd TaskManagementSystem
-    ```
-
+    
 3. Gerekli bağımlılıkları yükleyin:
-    ```sh
+sh
     dotnet restore
-    ```
-
+    
 4. **Appsettings.json Konfigürasyonu:**
 
    Projeyi kullanmadan önce `appsettings.json` dosyasındaki bağlantı ayarlarını ve gizli anahtarları kendi sisteminize göre düzenlemeniz gerekmektedir. Örneğin:
-
-    ```json
+json
     "ConnectionStrings": {
       "default": "server=YOUR_SERVER_NAME; Database=YOUR_DATABASE_NAME; integrated security=true; encrypt=false"
     },
     "ApiSettings": {
       "Secret": "YOUR_SECRET_KEY"
     }
-    ```
-
-   - **ConnectionStrings:** `server`, `Database`, ve diğer bağlantı ayarlarını kendi sisteminize göre düzenleyin.
+    
+- **ConnectionStrings:** `server`, `Database`, ve diğer bağlantı ayarlarını kendi sisteminize göre düzenleyin.
    - **ApiSettings:** `Secret` anahtarını, güvenliğinizi sağlamak için kendi özel ve gizli bir anahtarla değiştirin.
 
 5. Veritabanını oluşturun:
-    ```sh
+sh
     dotnet ef database update
-    ```
-
+    
 6. Uygulamayı çalıştırın:
-    ```sh
+sh
     dotnet run
-    ```
-
+    
 ## Kullanım
 
 - **Giriş Yapma:** Kullanıcılar e-posta adresleri ile sisteme giriş yapabilir.
