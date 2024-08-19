@@ -48,9 +48,6 @@ Proje, **RESTful API** mimarisi kullanılarak geliştirilmiştir. **JWT (JSON We
 
 TaskManagerContext sınıfı, Entity Framework Core kullanılarak veritabanı işlemlerinin yönetildiği temel sınıftır. Bu sınıf, veritabanı bağlantısı ve veritabanı üzerinde gerçekleştirilecek işlemler için gerekli olan yapılandırmaları içerir.
 
-csharp
-public class TaskManagerContext : DbContext
-{
     public TaskManagerContext(DbContextOptions<TaskManagerContext> options) : base(options)
     {
     }
@@ -88,8 +85,11 @@ public class TaskManagerContext : DbContext
             .HasForeignKey(u => u.DepartmentId)
             .OnDelete(DeleteBehavior.Restrict);  // Silme işlemi kısıtlı
     }
-}
 
+`TaskManagerContext` sınıfı ile tanımlanan veritabanı tablolarının Entity sınıfları ve aralarındaki ilişkiler yukarıda belirtilmiştir. Bu sınıf, Entity Framework Core kullanılarak oluşturulmuş olup, veritabanı işlemlerinin ve tablolar arası ilişkilerin yönetimini sağlar. 
+
+Bu yapıda, kullanıcılar ve görevler arasındaki ilişkiler ile departmanlar ve görevler arasındaki ilişkiler doğru ve güvenli bir şekilde yönetilmiştir. Özellikle `DeleteBehavior.Restrict` kullanılarak, bağlı olan verilerin kazara silinmesini engelleyecek şekilde yapılandırma yapılmıştır.
+    
 ### Entity Sınıfları ve İlişkileri
 
 #### 1. **User (Kullanıcı) Sınıfı**
