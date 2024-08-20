@@ -82,7 +82,7 @@
                                     foreach (var task in userViewModel.AssignedTasks)
                                     {
                                         <tr>
-                                            <td class="assigned-user">@task.AsaignedUserName @task.AsaignedUserLastName  </td>
+                                            <td class="assigned-user">@task.AsaignedUserName @task.AsaignedUserLastName</td>
                                             <td class="email">@task.AsaignedUserEmail</td>
                                             <td class="department">@task.Department.DepartmentName</td>
                                             <td class="task-name">@task.TaskName</td>
@@ -140,36 +140,47 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
+            // Türkçe diline özel toLowerCase fonksiyonu
+            function turkishToLower(str) {
+                var letters = { "İ": "i", "I": "ı", "Ş": "ş", "Ğ": "ğ", "Ü": "ü", "Ö": "ö", "Ç": "ç" };
+                str = str.replace(/(([İIŞĞÜÇÖ]))/g, function (letter) { return letters[letter]; });
+                return str.toLowerCase();
+            }
+
             function filterTable() {
-                var searchAssignedUserName = $("#searchAssignedUserName").val().toLowerCase();
-                var searchEmail = $("#searchEmail").val().toLowerCase();
-                var searchDepartment = $("#searchDepartment").val().toLowerCase();
-                var searchTaskName = $("#searchTaskName").val().toLowerCase();
-                var searchCreatorUserName = $("#searchCreatorUserName").val().toLowerCase();
-                var searchStatus = $("#searchStatus").val().toLowerCase();
+                var searchAssignedUserName = turkishToLower($("#searchAssignedUserName").val());
+                var searchEmail = turkishToLower($("#searchEmail").val());
+                var searchDepartment = turkishToLower($("#searchDepartment").val());
+                var searchTaskName = turkishToLower($("#searchTaskName").val());
+                var searchCreatorUserName = turkishToLower($("#searchCreatorUserName").val());
 
-                $("#usersTable tbody tr").filter(function () {
-                    var assignedUserMatch = $(this).find(".assigned-user").text().toLowerCase().indexOf(searchAssignedUserName) > -1;
-                    var emailMatch = $(this).find(".email").text().toLowerCase().indexOf(searchEmail) > -1;
-                    var departmentMatch = $(this).find(".department").text().toLowerCase().indexOf(searchDepartment) > -1;
-                    var taskNameMatch = $(this).find(".task-name").text().toLowerCase().indexOf(searchTaskName) > -1 || searchTaskName === '';
-                    var creatorUserMatch = $(this).find(".creator-user").text().toLowerCase().indexOf(searchCreatorUserName) > -1 || searchCreatorUserName === '';
-                    var statusMatch = $(this).find(".status").text().toLowerCase().indexOf(searchStatus) > -1 || searchStatus === '';
+                $("#usersTable tbody tr").each(function () {
+                    var assignedUserMatch = turkishToLower($(this).find(".assigned-user").text()).includes(searchAssignedUserName);
+                    var emailMatch = turkishToLower($(this).find(".email").text()).includes(searchEmail);
+                    var departmentMatch = turkishToLower($(this).find(".department").text()).includes(searchDepartment);
+                    var taskNameMatch = turkishToLower($(this).find(".task-name").text()).includes(searchTaskName);
+                    var creatorUserMatch = turkishToLower($(this).find(".creator-user").text()).includes(searchCreatorUserName);
 
-                    $(this).toggle(assignedUserMatch && emailMatch && departmentMatch && taskNameMatch && creatorUserMatch && statusMatch);
+                    if (assignedUserMatch && emailMatch && departmentMatch && taskNameMatch && creatorUserMatch) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
                 });
             }
 
             function clearFilters() {
-                $("#searchAssignedUserName, #searchEmail, #searchDepartment, #searchTaskName, #searchCreatorUserName, #searchStatus").val('');
+                $("#searchAssignedUserName, #searchEmail, #searchDepartment, #searchTaskName, #searchCreatorUserName").val('');
                 $("#usersTable tbody tr").show();
             }
 
+            // Temizleme düğmesine basıldığında filtreleri temizle
             $("#clearFiltersButton").click(function () {
                 clearFilters();
             });
 
-            $("#searchAssignedUserName, #searchEmail, #searchDepartment, #searchTaskName, #searchCreatorUserName, #searchStatus").on("keyup", filterTable);
+            // Arama kutularında yazı yazıldığında filtreleme işlemini gerçekleştir
+            $("#searchAssignedUserName, #searchEmail, #searchDepartment, #searchTaskName, #searchCreatorUserName").on("keyup", filterTable);
         });
     </script>
 }
