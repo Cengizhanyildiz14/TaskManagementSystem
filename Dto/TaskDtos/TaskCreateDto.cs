@@ -7,5 +7,6 @@
         public int CreaterUserId { get; set; }
         public int AsaignedUserId { get; set; }
         public int Status { get; set; }
+        public DateTime AssignmentDate { get; set; }
     }
 }

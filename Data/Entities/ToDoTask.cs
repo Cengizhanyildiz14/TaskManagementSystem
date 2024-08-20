@@ -13,5 +13,6 @@ namespace Data.Entities
         public User AsaignedUser { get; set; }
         public int AsaignedUserId { get; set; }
         public TaskStatusEnum Status { get; set; }
+        public DateTime AssignmentDate { get; set; }
     }
 }

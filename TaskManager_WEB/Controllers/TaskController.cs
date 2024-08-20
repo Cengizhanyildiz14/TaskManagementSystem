@@ -159,7 +159,8 @@ namespace TaskManager_WEB.Controllers
                 DepartmentId = taskCreateVM.TaskCreateDto.DepartmentId,
                 CreaterUserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)),
                 AsaignedUserId = taskCreateVM.TaskCreateDto.AsaignedUserId,
-                Status = taskCreateVM.TaskCreateDto.Status
+                Status = taskCreateVM.TaskCreateDto.Status,
+               AssignmentDate=DateTime.Now.Date,
             };
 
             // API'ye istek gönderme

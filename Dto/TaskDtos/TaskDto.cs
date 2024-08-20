@@ -15,4 +15,5 @@ public class TaskDto
     public string CreaterUserEmail { get; set; } // Atayan kişinin e-posta adresi
     public int CreaterUserId { get; set; }
     public int Status { get; set; }
+    public DateTime AssignmentDate { get; set; }
 }
