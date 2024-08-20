@@ -160,7 +160,7 @@ namespace TaskManager_WEB.Controllers
                 CreaterUserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)),
                 AsaignedUserId = taskCreateVM.TaskCreateDto.AsaignedUserId,
                 Status = taskCreateVM.TaskCreateDto.Status,
-               AssignmentDate=DateTime.Now.Date,
+                AssignmentDate = DateTime.Now,
             };
 
             // API'ye istek gönderme
@@ -225,30 +225,28 @@ namespace TaskManager_WEB.Controllers
         [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(TaskUpdateVM taskUpdateVM)
-
         {
-            if (!ModelState.IsValid)
-            {
 
-                var departmentsResponse = await _departmentService.GetAll<APIResponse>();
-                var departments = departmentsResponse != null && departmentsResponse.IsSuccess
-                    ? JsonConvert.DeserializeObject<List<DepartmentDto>>(Convert.ToString(departmentsResponse.result))
-                    : new List<DepartmentDto>();
-                taskUpdateVM.DepartmentList = new SelectList(departments, "Id", "DepartmentName");
 
-                var usersResponse = await _userService.GetAll<APIResponse>();
-                var userResults = usersResponse != null && usersResponse.IsSuccess
-                    ? JsonConvert.DeserializeObject<List<UserResult>>(Convert.ToString(usersResponse.result))
-                    : new List<UserResult>();
+            var departmentsResponse = await _departmentService.GetAll<APIResponse>();
+            var departments = departmentsResponse != null && departmentsResponse.IsSuccess
+                ? JsonConvert.DeserializeObject<List<DepartmentDto>>(Convert.ToString(departmentsResponse.result))
+                : new List<DepartmentDto>();
+            taskUpdateVM.DepartmentList = new SelectList(departments, "Id", "DepartmentName");
 
-                var currentUserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-                var userList = userResults.Any()
-                    ? userResults.Select(ur => ur.User).Where(u => u.Id != currentUserId).ToList()
-                    : new List<UserDto>();
+            var usersResponse = await _userService.GetAll<APIResponse>();
+            var userResults = usersResponse != null && usersResponse.IsSuccess
+                ? JsonConvert.DeserializeObject<List<UserResult>>(Convert.ToString(usersResponse.result))
+                : new List<UserResult>();
 
-                taskUpdateVM.UserList = new SelectList(userList, "Id", "Name");
+            var currentUserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var userList = userResults.Any()
+                ? userResults.Select(ur => ur.User).Where(u => u.Id != currentUserId).ToList()
+                : new List<UserDto>();
 
-            }
+            taskUpdateVM.UserList = new SelectList(userList, "Id", "Name");
+
+            taskUpdateVM.TaskUpdateDto.AssignmentDate = DateTime.Now;
 
             var response = await _taskService.UpdateTask<APIResponse>(taskUpdateVM.TaskUpdateDto.Id, taskUpdateVM.TaskUpdateDto);
             if (response == null || !response.IsSuccess)

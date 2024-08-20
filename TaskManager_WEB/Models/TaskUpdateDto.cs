@@ -10,5 +10,6 @@ namespace TaskManager_WEB.Models
         public int CreaterUserId { get; set; }
         public int AsaignedUserId { get; set; }
         public TaskStatusEnum Status { get; set; }
+        public DateTime AssignmentDate { get; set; }
     }
 }

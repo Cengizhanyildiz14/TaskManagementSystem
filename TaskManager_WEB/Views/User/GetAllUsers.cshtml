@@ -19,7 +19,7 @@
                     <img src="@profileImage" class="rounded-circle img-fluid mb-3" alt="Profile Image" style="width: 120px; height: 120px; object-fit: cover;">
                     <h5 class="card-title">@ViewBag.FullName</h5>
                     <p class="card-text">
-                        <strong>Email:</strong> <a href="mailto:@ViewBag.Email">@ViewBag.Email</a><br />
+                        <strong>Email:</strong><br /> <a href="mailto:@ViewBag.Email">@ViewBag.Email</a><br />
                         <strong>Departman: <br /></strong> @ViewBag.DepartmentName <br />
                         <a asp-controller="user" asp-action="UsersTask" asp-route-id="@ViewBag.Id" class="btn btn-secondary rounded-pill mt-3">Görevlerim</a>
                     </p>
@@ -31,7 +31,7 @@
             <div class="w-100">
                 <h2 class="mb-4">Görev Takip Listesi</h2>
 
-                <div class="d-flex justify-content-end mb-2">
+                <div class="d-flex justify-content-end mb-3">
                     <a asp-controller="Task" asp-action="Create" class="btn btn-secondary rounded-pill me-2">+ Yeni Görev Ekle</a>
                     @if (HttpAcc.HttpContext.User.IK())
                     {
@@ -41,7 +41,7 @@
                     }
                 </div>
 
-                <div class="alert alert-info d-flex align-items-center mb-3" role="alert">
+                <div class="alert alert-info d-flex align-items-center rounded-pill mb-2" role="alert">
                     <div>
                         <i class="fas fa-check-circle text-success me-2"></i> Tamamlandı
                     </div>
@@ -90,7 +90,7 @@
                                             <td class="assigned-user">@task.AsaignedUserName @task.AsaignedUserLastName</td>
                                             <td class="email">@task.AsaignedUserEmail</td>
                                             <td class="department">@task.Department.DepartmentName</td>
-                                            <td class="task-name">@task.TaskName</td>
+                                            <td class="task-name text-center">@task.TaskName</td>
                                             <td class="creator-user text-center">@task.CreaterUserName @task.CreaterUserLastName</td>
                                             <td class="status text-center">
                                                 @if (task.StatusDescription == "Tamamlandı")

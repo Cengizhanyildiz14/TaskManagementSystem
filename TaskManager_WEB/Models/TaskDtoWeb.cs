@@ -11,6 +11,7 @@ namespace TaskManager_WEB.Models
         public int AsaignedUserId { get; set; }
         public string AsaignedUserName { get; set; }
         public string AsaignedUserLastName { get; set; }
+        public DateTime AssignmentDate { get; set; }
         public string AsaignedUserEmail { get; set; } // Atanan kişinin e-posta adresi
         public string CreaterUserName { get; set; }
         public string CreaterUserLastName { get; set; }
