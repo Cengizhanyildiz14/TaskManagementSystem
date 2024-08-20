@@ -103,6 +103,14 @@ Bu enum, görev durumlarını standartlaştırmak ve bu durumların yönetimini 
      }
  }
 ```
+- **Gender Genişletme Metodu:** Bu metod, kullanıcının (`ClaimsPrincipal`) cinsiyet bilgisini kontrol eder ve kullanıcının cinsiyetinin "Female" olup olmadığını belirler. Eğer kullanıcının cinsiyet "Female" ise `true`, aksi halde `false` döner.
+
+```csharp
+ public static bool IsFemale(this ClaimsPrincipal user)
+ {
+     return user.Claims.FirstOrDefault(c => c.Type == "Gender")?.Value == "Female";
+ }
+```
 
 ---
 
