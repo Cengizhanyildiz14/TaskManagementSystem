@@ -264,6 +264,7 @@ Bu yapıda, kullanıcılar ve görevler arasındaki ilişkiler ile departmanlar 
   - `AsaignedUser`: Göreve atanan kullanıcı. Bu, `User` entity'si ile olan bir ilişkidir.
   - `AsaignedUserId`: Göreve atanan kullanıcının kimlik numarası.
   - `Status`: Görevin durumu. Bu, `TaskStatusEnum` ile tanımlanmış bir durum bilgisidir.
+  - `AssignmentDate`: Görevin kullanıcıya atandığı tarih bilgisidir.
 
 **İlişkiler:**
 - `ToDoTask` sınıfı ile `Department` sınıfı arasında bire çok (one-to-many) bir ilişki vardır. Her görev, belirli bir departmana aittir.
@@ -596,7 +597,7 @@ Bu yapılandırma, `TaskManagementAPI` servisini `https://localhost:7178 adresin
 ---
 - **Görevlerim Sayfası:** Kullanıcıya ait görevlerin listelendiği ekran.
 
-  <img src="https://github.com/user-attachments/assets/e6ff8d73-7679-4dbb-8e93-2aafc9755bca" alt="Görevlerim Sayfası" width="600"/>
+  <img src="https://github.com/user-attachments/assets/0fe5f09a-e757-4f3f-ba8e-9ca3c8f65110" alt="Görevlerim Sayfası" width="600"/>
 ---
 - **Profil Bilgilerim Sayfası:** Kullanıcının profil bilgilerini görüntüleyebildiği ekran.
 
