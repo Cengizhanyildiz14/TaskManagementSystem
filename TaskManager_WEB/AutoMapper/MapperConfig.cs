@@ -13,6 +13,7 @@ namespace TaskManager_WEB.AutoMapper
             CreateMap<ToDoTask, TaskDtoWeb>()
             .ForMember(dest => dest.AsaignedUserName, opt => opt.MapFrom(src => src.AsaignedUser.Name))
             .ForMember(dest => dest.AsaignedUserEmail, opt => opt.MapFrom(src => src.AsaignedUser.Email))
+            .ForMember(dest => dest.AsaignedUserLastName, opt => opt.MapFrom(src => src.AsaignedUser.LastName))
             .ReverseMap();
 
             CreateMap<TaskCreateDto, ToDoTask>().ReverseMap();
@@ -21,7 +22,9 @@ namespace TaskManager_WEB.AutoMapper
             CreateMap<Department, DepartmentDto>().ReverseMap();
             CreateMap<DepartmentCreateDto, DepartmentDto>().ReverseMap();
 
-
+            CreateMap<UserResult, UserViewModel>()
+           .ForMember(dest => dest.User, opt => opt.MapFrom(src => src.User))
+           .ForMember(dest => dest.AssignedTasks, opt => opt.MapFrom(src => src.AssignedTasks));
         }
     }
 }

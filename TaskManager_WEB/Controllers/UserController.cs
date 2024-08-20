@@ -31,12 +31,17 @@ namespace TaskManager_WEB.Controllers
         {
             var token = HttpContext.Request.Cookies["AuthToken"];
             var handler = new JwtSecurityTokenHandler();
-            var jwtToken = handler.ReadJwtToken(token);
+            JwtSecurityToken jwtToken = null;
 
-            ViewBag.Id = jwtToken.Claims.FirstOrDefault(c => c.Type == "nameid")?.Value;
-            ViewBag.FullName = jwtToken.Claims.FirstOrDefault(c => c.Type == "FullName")?.Value;
-            ViewBag.Email = jwtToken.Claims.FirstOrDefault(c => c.Type == "email")?.Value;
-            ViewBag.DepartmentName = jwtToken.Claims.FirstOrDefault(c => c.Type == "DepartmentName")?.Value;
+            if (handler.CanReadToken(token))
+            {
+                jwtToken = handler.ReadJwtToken(token);
+            }
+
+            ViewBag.Id = jwtToken?.Claims.FirstOrDefault(c => c.Type == "nameid")?.Value;
+            ViewBag.FullName = jwtToken?.Claims.FirstOrDefault(c => c.Type == "FullName")?.Value;
+            ViewBag.Email = jwtToken?.Claims.FirstOrDefault(c => c.Type == "email")?.Value;
+            ViewBag.DepartmentName = jwtToken?.Claims.FirstOrDefault(c => c.Type == "DepartmentName")?.Value;
 
             var response = await _userService.GetAll<APIResponse>();
 
@@ -47,20 +52,11 @@ namespace TaskManager_WEB.Controllers
 
             var users = JsonConvert.DeserializeObject<List<UserResult>>(Convert.ToString(response.result));
 
-            var viewModel = users.Select(user =>
-            {
-                var allTasks = user.AssignedTasks ?? new List<TaskDtoWeb>();
-
-                return new UserViewModel
-                {
-                    User = _mapper.Map<UserDto>(user.User),
-                    AssignedTasks = allTasks,
-                    CreatedTasks = new List<TaskDtoWeb>()
-                };
-            }).ToList();
+            var viewModel = _mapper.Map<List<UserViewModel>>(users);
 
             return View(viewModel);
         }
+
 
         [HttpGet]
         [Authorize]
@@ -141,6 +137,7 @@ namespace TaskManager_WEB.Controllers
                 Email = userCreateVm.UserCreateDto.Email,
                 Name = userCreateVm.UserCreateDto.Name,
                 LastName = userCreateVm.UserCreateDto.LastName,
+                Gender=userCreateVm.UserCreateDto.Gender,
             };
 
             var response = await _userService.PostUser<APIResponse>(userCreateDto);

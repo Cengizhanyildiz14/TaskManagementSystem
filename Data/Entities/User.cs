@@ -10,5 +10,6 @@
         public int DepartmentId { get; set; }
         public List<ToDoTask> Tasks { get; set; }
         public List<ToDoTask> CreatedTasks { get; set; }
+        public string Gender { get; set; }
     }
 }

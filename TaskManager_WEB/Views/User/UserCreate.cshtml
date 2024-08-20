@@ -23,6 +23,18 @@
         <span asp-validation-for="UserCreateDto.Email" class="text-danger"></span>
     </div>
     <div class="form-group">
+        <label asp-for="UserCreateDto.Gender" class="control-label">Cinsiyet</label>
+        <div>
+            <label class="radio-inline">
+                <input asp-for="UserCreateDto.Gender" type="radio" value="Male" /> Bay
+            </label>
+            <label class="radio-inline">
+                <input asp-for="UserCreateDto.Gender" type="radio" value="Female" /> Bayan
+            </label>
+        </div>
+        <span asp-validation-for="UserCreateDto.Gender" class="text-danger"></span>
+    </div>
+    <div class="form-group">
         <label asp-for="UserCreateDto.DepartmentId" class="control-label">Departman</label>
         <select asp-for="UserCreateDto.DepartmentId" class="form-control" asp-items="Model.DepartmentList">
             <option value="">Seçiniz...</option>
@@ -34,6 +46,3 @@
         <a asp-action="GetAllusers" asp-controller="user" class="btn btn-secondary">Geri Dön</a>
     </div>
 </form>
-
-
-

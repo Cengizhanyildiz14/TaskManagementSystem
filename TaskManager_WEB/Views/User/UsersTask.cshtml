@@ -27,7 +27,7 @@
                         <tr>
                             <td class="align-middle">@task.TaskName</td>
                             <td class="align-middle">@task.Department.DepartmentName</td>
-                            <td class="align-middle">@task.CreaterUser</td>
+                            <td class="align-middle">@task.CreaterUserName @task.CreaterUserLastName</td>
                             <td class="align-middle fw-bold text-uppercase">
                                 @task.StatusDescription
                                 @if (task.StatusDescription == "Tamamlandı")

@@ -36,6 +36,21 @@
                     }
                 </div>
 
+                <div class="alert alert-info d-flex align-items-center mb-3" role="alert">
+                    <div>
+                        <i class="fas fa-check-circle text-success me-2"></i> Tamamlandı
+                    </div>
+                    <div class="ms-4">
+                        <i class="fas fa-times-circle text-danger me-2"></i> Reddedildi
+                    </div>
+                    <div class="ms-4">
+                        <i class="fas fa-clock text-warning me-2"></i> Beklemede
+                    </div>
+                    <div class="ms-4">
+                        <i class="fas fa-minus-circle text-muted me-2"></i> Mevcut Değil
+                    </div>
+                </div>
+
                 <div class="table-responsive">
                     <table class="table table-striped" id="usersTable">
                         <thead class="thead-light">
@@ -55,51 +70,60 @@
                                 <th>
                                     <input type="text" id="searchCreatorUserName" class="form-control rounded-pill" placeholder="Atama Yapan Kişi Ara">
                                 </th>
-                                <th>
-                                    <input type="text" id="searchStatus" class="form-control rounded-pill" placeholder="Durum Ara">
-                                </th>
-                                <th>
-                                    <button id="clearFiltersButton" type="button" class="btn btn-secondary rounded-pill">Temizle</button>
-                                </th>
-                            </tr>
-                            <tr>
-                                <th>Atanan Ad-Soyad</th>
-                                <th>Mail Adresi</th>
-                                <th>Departman</th>
-                                <th>İş ve Görev Tanımı</th>
-                                <th>Atama Yapan Kişi</th>
-                                <th>Durum</th>
+                                <th class="text-center">Durum</th>
                                 <th>Detay</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var userViewModel in Model)
                             {
-                                foreach (var task in userViewModel.AssignedTasks)
+                                if (userViewModel.AssignedTasks.Any())
+                                {
+                                    foreach (var task in userViewModel.AssignedTasks)
+                                    {
+                                        <tr>
+                                            <td class="assigned-user">@task.AsaignedUserName @task.AsaignedUserLastName  </td>
+                                            <td class="email">@task.AsaignedUserEmail</td>
+                                            <td class="department">@task.Department.DepartmentName</td>
+                                            <td class="task-name">@task.TaskName</td>
+                                            <td class="creator-user">@task.CreaterUserName @task.CreaterUserLastName</td>
+                                            <td class="status text-center">
+                                                @if (task.StatusDescription == "Tamamlandı")
+                                                {
+                                                    <i class="fas fa-check-circle text-success"></i>
+                                                }
+                                                else if (task.StatusDescription == "Reddedildi")
+                                                {
+                                                    <i class="fas fa-times-circle text-danger"></i>
+                                                }
+                                                else if (task.StatusDescription == "Beklemede")
+                                                {
+                                                    <i class="fas fa-clock text-warning"></i>
+                                                }
+                                            </td>
+                                            <td class="text-center">
+                                                <a asp-action="TaskDetails" asp-controller="Task" asp-route-id="@task.Id" class="btn btn-secondary btn-sm">Detay</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
                                 {
                                     <tr>
-                                        <td class="assigned-user">@task.AsaignedUserName</td>
-                                        <td class="email">@task.AsaignedUserEmail</td>
-                                        <td class="department">@task.Department.DepartmentName</td>
-                                        <td class="task-name">@task.TaskName</td>
-                                        <td class="creator-user">@task.CreaterUser</td>
-                                        <td class="status">
-                                            @task.StatusDescription
-                                            @if (task.StatusDescription == "Tamamlandı")
-                                            {
-                                                <i class="fas fa-check-circle text-success"></i>
-                                            }
-                                            else if (task.StatusDescription == "Reddedildi")
-                                            {
-                                                <i class="fas fa-times-circle text-danger"></i>
-                                            }
-                                            else if (task.StatusDescription == "Beklemede")
-                                            {
-                                                <i class="fas fa-clock text-warning"></i>
-                                            }
+                                        <td class="assigned-user">@userViewModel.User.Name @userViewModel.User.LastName</td>
+                                        <td class="email">@userViewModel.User.Email</td>
+                                        <td class="department">@userViewModel.User.Department.DepartmentName</td>
+                                        <td class="task-name text-center">
+                                            <i class="fas fa-minus-circle text-muted"></i>
                                         </td>
-                                        <td>
-                                            <a asp-action="TaskDetails" asp-controller="Task" asp-route-id="@task.Id" class="btn btn-secondary btn-sm">Detay</a>
+                                        <td class="creator-user text-center">
+                                            <i class="fas fa-minus-circle text-muted"></i>
+                                        </td>
+                                        <td class="status text-center">
+                                            <i class="fas fa-minus-circle text-muted"></i>
+                                        </td>
+                                        <td class="text-center">
+                                            <i class="fas fa-minus-circle text-muted"></i>
                                         </td>
                                     </tr>
                                 }
@@ -128,9 +152,9 @@
                     var assignedUserMatch = $(this).find(".assigned-user").text().toLowerCase().indexOf(searchAssignedUserName) > -1;
                     var emailMatch = $(this).find(".email").text().toLowerCase().indexOf(searchEmail) > -1;
                     var departmentMatch = $(this).find(".department").text().toLowerCase().indexOf(searchDepartment) > -1;
-                    var taskNameMatch = $(this).find(".task-name").text().toLowerCase().indexOf(searchTaskName) > -1;
-                    var creatorUserMatch = $(this).find(".creator-user").text().toLowerCase().indexOf(searchCreatorUserName) > -1;
-                    var statusMatch = $(this).find(".status").text().toLowerCase().indexOf(searchStatus) > -1;
+                    var taskNameMatch = $(this).find(".task-name").text().toLowerCase().indexOf(searchTaskName) > -1 || searchTaskName === '';
+                    var creatorUserMatch = $(this).find(".creator-user").text().toLowerCase().indexOf(searchCreatorUserName) > -1 || searchCreatorUserName === '';
+                    var statusMatch = $(this).find(".status").text().toLowerCase().indexOf(searchStatus) > -1 || searchStatus === '';
 
                     $(this).toggle(assignedUserMatch && emailMatch && departmentMatch && taskNameMatch && creatorUserMatch && statusMatch);
                 });
@@ -138,7 +162,7 @@
 
             function clearFilters() {
                 $("#searchAssignedUserName, #searchEmail, #searchDepartment, #searchTaskName, #searchCreatorUserName, #searchStatus").val('');
-                $("#usersTable tbody tr").show(); 
+                $("#usersTable tbody tr").show();
             }
 
             $("#clearFiltersButton").click(function () {
