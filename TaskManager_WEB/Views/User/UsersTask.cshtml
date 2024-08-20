@@ -45,23 +45,28 @@
                             </td>
                             <td class="text-center align-middle">
                                 <div class="d-flex justify-content-center">
-                                    <form asp-action="TaskStatusUpdate" asp-controller="task" method="post" class="m-2">
-                                        <input type="hidden" name="TaskId" value="@task.Id" />
-                                        <input type="hidden" name="Status" value="Onayla" />
-                                        <button type="submit" class="btn btn-success btn-sm me-2">Onayla</button>
-                                    </form>
-                                    <form asp-action="TaskStatusUpdate" asp-controller="task" method="post" class="m-2">
-                                        <input type="hidden" name="TaskId" value="@task.Id" />
-                                        <input type="hidden" name="Status" value="Reddet" />
-                                        <button type="submit" class="btn btn-danger btn-sm">Reddet</button>
-                                    </form>
+                                    @if (task.StatusDescription != "Tamamlandı" && task.StatusDescription != "Reddedildi")
+                                    {
+                                        <form asp-action="TaskStatusUpdate" asp-controller="task" method="post" class="m-2">
+                                            <input type="hidden" name="TaskId" value="@task.Id" />
+                                            <input type="hidden" name="Status" value="Onayla" />
+                                            <button type="submit" class="btn btn-success btn-sm me-2">Onayla</button>
+                                        </form>
+                                        <form asp-action="TaskStatusUpdate" asp-controller="task" method="post" class="m-2">
+                                            <input type="hidden" name="TaskId" value="@task.Id" />
+                                            <input type="hidden" name="Status" value="Reddet" />
+                                            <button type="submit" class="btn btn-danger btn-sm">Reddet</button>
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">Durum güncellenmiş</span>
+                                    }
                                 </div>
                             </td>
                         </tr>
                     }
                 </tbody>
-
-
             </table>
         </div>
     }
