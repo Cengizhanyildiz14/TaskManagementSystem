@@ -220,6 +220,7 @@ Bu yapıda, kullanıcılar ve görevler arasındaki ilişkiler ile departmanlar 
 - **Properties:**
   - `Id`: Kullanıcının benzersiz kimlik numarası.
   - `Name`: Kullanıcının adı.
+  - `Gender`: Kullanıcının cinsiyeti.
   - `LastName`: Kullanıcının soyadı.
   - `Email`: Kullanıcının e-posta adresi.
   - `Department`: Kullanıcının bağlı olduğu departman. Bu, `Department` entity'si ile olan bir ilişkidir.
@@ -583,7 +584,7 @@ Bu yapılandırma, `TaskManagementAPI` servisini `https://localhost:7178 adresin
 ---
 - **Anasayfa:** Görev yönetim işlemlerinin yapıldığı ana ekran.
 
-  <img src="https://github.com/user-attachments/assets/8d2941c0-5787-43f4-b316-9a3ba2f6fe76" alt="Anasayfa" width="600"/>
+  <img src="https://github.com/user-attachments/assets/bf2a5db0-c515-47ce-8dd6-9ce4ea149331" alt="Anasayfa" width="600"/>
 ---
 - **Görevlerim Sayfası:** Kullanıcıya ait görevlerin listelendiği ekran.
 
@@ -595,7 +596,7 @@ Bu yapılandırma, `TaskManagementAPI` servisini `https://localhost:7178 adresin
 ---
 - **Görev Detayları Sayfası:** Bir görevin detaylarının görüntülendiği ekran.
 
-  <img src="https://github.com/user-attachments/assets/94ce2230-cb44-48b1-aeb7-96a5b8568e3c" alt="Görev Detayları Sayfası" width="600"/>
+  <img src="https://github.com/user-attachments/assets/3029b4be-b147-4cf5-b17b-e1218e4c9503" alt="Görev Detayları Sayfası" width="600"/>
 ---
 - **Yeni Görev Ekleme Sayfası:** Yeni bir görev oluşturma ekranı.
 
