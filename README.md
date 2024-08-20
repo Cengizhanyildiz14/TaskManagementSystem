@@ -48,6 +48,64 @@ Proje, **RESTful API** mimarisi kullanılarak geliştirilmiştir. **JWT (JSON We
 
 ---
 
+## Utility Katmanı
+
+**Utility katmanı**, projede genel amaçlı yardımcı sınıfların ve yapıların tanımlandığı katmandır. Bu katman, uygulamanın farklı yerlerinde kullanılabilecek ortak fonksiyonları, sabit değerleri ve genişletme metodlarını içerir. İşte bu katmandaki bazı önemli sınıf ve yapılar:
+
+### `SD` Sınıfı
+
+`SD` (Static Details) sınıfı, projede kullanılan sabit değerlerin ve yapıların saklandığı bir sınıftır. Bu sınıf, projede merkezi bir sabit veriler kaynağı sağlar. İçeriğinde, API çağrıları için kullanılan HTTP yöntemlerini (GET, POST, PUT, DELETE) temsil eden bir enum (`ApiType`) ve kullanıcı oturumları için kullanılan token değerinin saklandığı bir `SessionToken` sabiti bulunmaktadır.
+
+- **ApiType Enum:** Bu enum, HTTP istek türlerini temsil eder ve API çağrıları sırasında kullanılabilir.
+  - **GET:** Veri almak için kullanılır.
+  - **POST:** Yeni veri oluşturmak için kullanılır.
+  - **PUT:** Mevcut veriyi güncellemek için kullanılır.
+  - **DELETE:** Veriyi silmek için kullanılır.
+
+- **SessionToken:** Kullanıcı oturumları için kullanılan JWT (JSON Web Token) token'ını saklamak için kullanılan bir sabittir.
+
+```csharp
+ public class SD
+ {
+     public enum ApiType
+     {
+         GET,
+         POST,
+         PUT,
+         DELETE
+     }
+     public static string SessionToken = "JWTToken";
+ }
+```
+
+### `TaskStatusEnum` Enum
+
+`TaskStatusEnum`, görevlerin durumlarını temsil eden bir numaralandırmadır (enum). Bu enum, görevlerin hangi durumda olduğunu belirlemek için kullanılır ve aşağıdaki durumları içerebilir:
+- **Beklemede**: Görev beklemede.
+- **Tamamlandı**: Görev tamamlandı.
+- **Reddedildi**: Görev reddedildi.
+
+Bu enum, görev durumlarını standartlaştırmak ve bu durumların yönetimini kolaylaştırmak amacıyla kullanılır.
+
+
+### `UserExtension` Sınıfı
+
+`UserExtension` sınıfı, `ClaimsPrincipal` nesnesine eklenen genişletme metodlarını içerir. Bu genişletme metodları, mevcut `User` nesnesine ekstra işlevler ekler. Örneğin, kullanıcının "İnsan Kaynakları Uzmanı" departmanına ait olup olmadığını kontrol etmek için kullanılır.
+
+- **IK Genişletme Metodu:** Bu metod, kullanıcının (`ClaimsPrincipal`) departman bilgisini kontrol eder ve kullanıcının "İnsan Kaynakları Uzmanı" olup olmadığını belirler. Eğer kullanıcı "İnsan Kaynakları Uzmanı" ise `true`, aksi halde `false` döner.
+
+```csharp
+ public static class UserExtension
+ {
+     public static bool IK(this ClaimsPrincipal user)
+     {
+         return user.Claims.FirstOrDefault(d => d.Type == "DepartmentName")?.Value == "İnsan Kaynakları Uzmanı";
+     }
+ }
+```
+
+---
+
 ## Business Katmanı
 
 **Business katmanı**, uygulamanın iş mantığını ve veri işleme süreçlerini yöneten katmandır. Bu katman, veri tabanı ile uygulama arasındaki etkileşimi yönetir ve iş kurallarını uygular. İşte bu katmandaki bazı önemli sınıf ve arayüzlerin açıklamaları:
@@ -327,6 +385,137 @@ builder.Services.AddAuthentication(a =>
 });
 ```
 Bu yapı, API katmanındaki controller'ların, iş mantığı ve veri erişim katmanlarıyla düzgün bir şekilde çalışmasını sağlar ve bu katmanlar arasındaki bağımlılıkları yönetir.
+
+---
+
+## Web Katmanı
+
+**Web katmanı**, bu proje ASP.NET Core MVC mimarisi kullanılarak geliştirilmiştir. Bu katman, uygulamanın kullanıcı arayüzünü oluşturur ve kullanıcıların çeşitli işlemleri gerçekleştirebileceği sayfaları yönetir.
+
+### wwwroot Klasörü
+
+`wwwroot` klasörü, projenin statik dosyalarının (CSS, JavaScript, resimler vb.) saklandığı yerdir. Bu projede, **Bootstrap** kütüphanesi kuruludur ve stil dosyaları burada bulunur. Ayrıca, `images` klasöründe projede kullanılan resimler depolanmaktadır.
+
+### AutoMapper
+
+`AutoMapper`, veri transfer nesneleri (DTO) ve ViewModel'ler arasında nesne eşlemesi yapmak için kullanılır. `MapperConfig.cs` dosyasında, projede kullanılan tüm mapping konfigürasyonları tanımlanmıştır.
+
+### Controllers
+
+`Controllers` klasörü, kullanıcılardan gelen HTTP isteklerini işleyen ve ilgili View'leri döndüren sınıfları içerir. Bu projede, aşağıdaki kontrolörler bulunmaktadır:
+
+- **AuthController:** Kullanıcı kimlik doğrulama işlemlerini yönetir. Kullanıcıların giriş yapması gibi işlemleri içerir.
+- **DepartmentController:** Departmanlarla ilgili işlemleri yönetir. Yeni departman oluşturma, güncelleme gibi işlemleri içerir.
+- **HomeController:** Genel sayfaların yönetimini sağlar. Örneğin, anasayfa, erişim engellendi sayfası ve gizlilik politikası gibi genel sayfaları döndürür.
+- **TaskController:** Görevlerle ilgili işlemleri yönetir. Görev oluşturma, güncelleme, silme ve detaylarını görüntüleme gibi işlemleri içerir.
+- **UserController:** Kullanıcılarla ilgili işlemleri yönetir. Kullanıcı profili, kullanıcı oluşturma, güncelleme gibi işlemleri içerir.
+
+Bu kontrolörler, `Services` klasörü altında tanımlanan servisler aracılığıyla backend ile iletişim kurar. Gelen veriyi DTO ve ViewModel'lere mapleyerek frontend'e sunar.
+
+### Models
+
+`Models` klasörü, projede kullanılan veri transfer nesneleri (DTO) ve ViewModel'leri içerir. Bu dosya yapısı, verilerin frontend ile backend arasında taşınmasını ve işlenmesini sağlar. Burada tanımlı bazı önemli sınıflar şunlardır:
+
+- **APIRequest:** API'ye gönderilecek taleplerin yapılandırılmasında kullanılır. Bu sınıf, istek türünü (`ApiType`), hedef URL'yi (`Url`), ve gönderilecek veriyi (`Data`) içerir.
+
+```csharp
+ public class APIRequest
+ {
+     public ApiType ApiType { get; set; } = ApiType.GET;
+     public string Url { get; set; }
+     public object Data { get; set; }
+ }
+```
+
+- **APIResponse:** API'den dönen yanıtların yapılandırılmasında kullanılır. Bu sınıf, yanıtın başarı durumunu (`IsSuccess`), HTTP durum kodunu (`StatusCode`), hata mesajlarını (`Errors`), ve dönen veriyi (`Result`) içerir.
+
+```csharp
+ public class APIResponse
+{
+    public HttpStatusCode StatusCode { get; set; }
+    public bool IsSuccess { get; set; }
+    public List<string> ErrorMessages { get; set; }
+    public object result { get; set; }
+}
+```
+
+- **ViewModel'ler (VM):** Kullanıcı arayüzünde kullanılan veri modellerini tanımlar. Örneğin, `TaskCreateVM`, yeni bir görev oluşturma ekranında kullanılan veri modelidir. Bu modeller, kullanıcı arayüzü ile veri işleme arasında bir köprü görevi görür. ViewModel'ler, kullanıcı arayüzünden gelen verileri toplar, doğrular ve kontrolörlere aktarır.
+
+### Services
+
+`Services` klasörü, uygulamanın iş mantığını yöneten ve API ile olan tüm etkileşimleri gerçekleştiren sınıfları içerir. Her servis, ilgili API işlemlerini gerçekleştirir ve gelen veriyi kontrolörlere iletir. Her servis sınıfının bir arayüzü (`IService`) vardır, bu da Dependency Injection (DI) yoluyla bu servislerin kullanılmasını sağlar.
+
+- **Örnek:** `TaskService` sınıfı, görev oluşturma, güncelleme ve silme işlemleri gibi görev yönetimi ile ilgili tüm API çağrılarını yönetir. Bu sınıf, `BaseService`'ten türetilir ve `ITaskService` arayüzünü uygular. Servis, `IHttpClientFactory` aracılığıyla API'ye istek gönderir ve API'den gelen yanıtları işler.
+
+```csharp
+public class TaskService : BaseService, ITaskService
+{
+    private readonly IHttpClientFactory _httpClientFactory;
+    private string taskUrl;
+
+    public TaskService(IHttpClientFactory httpClientFactory, IConfiguration configuration) : base(httpClientFactory)
+    {
+        _httpClientFactory = httpClientFactory;
+        taskUrl = configuration.GetValue<string>("ServiceUrls:TaskManagementAPI");
+    }
+
+    public Task<T> CreateTask<T>(TaskCreateDto dto)
+    {
+        return Send<T>(new APIRequest()
+        {
+            ApiType = SD.ApiType.POST,
+            Data = dto,
+            Url = taskUrl + "/api/Task/CreateTask/"
+        });
+    }
+}
+```
+Bu örnekte, `taskUrl` değeri `appsettings.json` dosyasındaki `"ServiceUrls:TaskManagementAPI"` ayarından alınmaktadır. Bu ayar, API'nin taban URL'sini belirler ve HTTP isteklerinin doğru sunucuya yönlendirilmesini sağlar.
+
+`appsettings.json` dosyasındaki yapılandırma şu şekildedir:
+
+```json
+{
+  "ServiceUrls": {
+    "TaskManagementAPI": "https://localhost:7178"
+  }
+}
+```
+Bu yapılandırma, `TaskManagementAPI` servisini `https://localhost:7178 adresine yönlendirir`, bu da `TaskService` sınıfında yapılan tüm API çağrılarının bu adrese yapılmasını sağlar.
+
+### Views
+
+`Views` klasörü, kullanıcı arayüzünü oluşturmak için kullanılan Razor sayfalarını içerir. Bu klasörde, her bir kontrolör için ayrı bir alt klasör bulunur ve her klasör, ilgili kontrolörün döndürdüğü sayfaları barındırır.
+
+- **Auth:** Kullanıcı kimlik doğrulama ile ilgili sayfaları içerir.
+  - `Login.cshtml`: Kullanıcıların sisteme giriş yapmalarını sağlayan sayfa.
+
+- **Department:** Departmanlarla ilgili sayfaları içerir.
+  - `DepartmentCreate.cshtml`: Yeni bir departman oluşturma sayfası.
+
+- **Home:** Genel sayfaları içerir.
+  - `AccessDenied.cshtml`: Erişim izni olmayan kullanıcılar için görüntülenen sayfa.
+  - `NotFoundPage.cshtml`: Bulunamayan sayfalar için gösterilen hata sayfası.
+  - `Privacy.cshtml`: Gizlilik politikası sayfası.
+
+- **Task:** Görevlerle ilgili sayfaları içerir.
+  - `Create.cshtml`: Yeni bir görev oluşturma sayfası.
+  - `TaskDetails.cshtml`: Bir görevin detaylarını görüntüleme sayfası.
+  - `Update.cshtml`: Mevcut bir görevi güncelleme sayfası.
+
+- **User:** Kullanıcılarla ilgili sayfaları içerir.
+  - `GetAllUsers.cshtml`: Tüm kullanıcıları listeleme sayfası.
+  - `Profile.cshtml`: Kullanıcının profil bilgilerini görüntüleme sayfası.
+  - `UserCreate.cshtml`: Yeni bir kullanıcı oluşturma sayfası.
+  - `UserList.cshtml`: Kullanıcıları listeleme sayfası.
+  - `UsersTask.cshtml`: Kullanıcının kendisine atanmış görevleri görüntüleme sayfası.
+
+- **Shared:** Uygulamanın tüm sayfaları için ortak olan Razor bileşenlerini içerir.
+  - `_Layout.cshtml`: Uygulamanın genel yapısını tanımlayan düzen sayfası.
+  - `_Layout.cshtml.css`: `_Layout.cshtml` için stil tanımlamalarını içerir.
+
+`Views` klasörü, MVC mimarisinde "View" katmanını temsil eder ve bu sayede kullanıcıya görsel bir arayüz sunar.
+
 
 ---
 
