@@ -1,10 +1,18 @@
-﻿<div class="container d-flex justify-content-center align-items-center min-vh-100">
+﻿@using Utility
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpAcc
+
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
     <div class="row">
         <div class="col-md-12">
             <div class="row">
                 <div class="col-md-3">
                     <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                        <img class="rounded-circle mt-5" width="300px" src="@Url.Content("~/images/pp.png")">
+                        @{
+                            var profileImage = HttpAcc.HttpContext.User.IsFemale()
+                            ? Url.Content("~/images/femaleicon.png")
+                            : Url.Content("~/images/pp.png");
+                        }
+                        <img class="rounded-circle mt-5" width="300px" src="@profileImage">
                         <span class="font-weight-bold fw-bold">@ViewBag.FullName</span>
                         <span class="text-black-50 fw-bold">@ViewBag.Email</span>
                         <span></span>
