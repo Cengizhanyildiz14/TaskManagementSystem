@@ -94,15 +94,19 @@ namespace Business.Services
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(secretKey);
 
+            // Cinsiyet bilgisini ekleyin
+            var claims = new List<Claim>
+    {
+        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+        new Claim(ClaimTypes.Email, user.Email),
+        new Claim("FullName", $"{user.Name} {user.LastName}"),  // FullName claim'i ekleniyor
+        new Claim("DepartmentName", user.Department?.DepartmentName ?? ""),  // Departman adı token'a ekleniyor
+        new Claim("Gender", user.Gender) // Cinsiyet bilgisi token'a ekleniyor
+    };
+
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new Claim(ClaimTypes.Email, user.Email),
-            new Claim("FullName", $"{user.Name} {user.LastName}"),  // FullName claim'i ekleniyor
-            new Claim("DepartmentName", user.Department?.DepartmentName ?? "")  // Departman adı token'a ekleniyor
-                }),
+                Subject = new ClaimsIdentity(claims),
                 Expires = rememberMe ? DateTime.Now.AddDays(1) : DateTime.Now.AddMinutes(15),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
@@ -113,7 +117,6 @@ namespace Business.Services
             // Token'ı doğrudan çözümleyip NameIdentifier claim'ini kontrol edelim
             var jwtToken = tokenHandler.ReadJwtToken(tokenString);
             var nameIdentifierClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == "nameid")?.Value;
-
 
             if (nameIdentifierClaim == null)
             {

@@ -11,7 +11,12 @@
                     <h5 class="mb-0">Personel Profili</h5>
                 </div>
                 <div class="card-body text-center">
-                    <img src="@Url.Content("~/images/pp.png")" class="rounded-circle img-fluid mb-3" alt="Profile Image" style="width: 120px; height: 120px; object-fit: cover;">
+                    @{
+                        var profileImage = HttpAcc.HttpContext.User.IsFemale()
+                        ? Url.Content("~/images/femaleicon.png")
+                        : Url.Content("~/images/pp.png");
+                    }
+                    <img src="@profileImage" class="rounded-circle img-fluid mb-3" alt="Profile Image" style="width: 120px; height: 120px; object-fit: cover;">
                     <h5 class="card-title">@ViewBag.FullName</h5>
                     <p class="card-text">
                         <strong>Email:</strong> <a href="mailto:@ViewBag.Email">@ViewBag.Email</a><br />

@@ -57,6 +57,12 @@ namespace TaskManager_WEB.Controllers
                     identity.AddClaim(new Claim("FullName", fullName));
                 }
 
+                var gender = jwtToken.Claims.FirstOrDefault(c => c.Type == "Gender")?.Value;
+                if (!string.IsNullOrEmpty(gender))
+                {
+                    identity.AddClaim(new Claim("Gender", gender));
+                }
+
                 var claims = identity.Claims.ToList();
                 if (!claims.Any())
                 {

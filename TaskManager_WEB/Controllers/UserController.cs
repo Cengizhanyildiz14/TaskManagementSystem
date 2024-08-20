@@ -42,6 +42,7 @@ namespace TaskManager_WEB.Controllers
             ViewBag.FullName = jwtToken?.Claims.FirstOrDefault(c => c.Type == "FullName")?.Value;
             ViewBag.Email = jwtToken?.Claims.FirstOrDefault(c => c.Type == "email")?.Value;
             ViewBag.DepartmentName = jwtToken?.Claims.FirstOrDefault(c => c.Type == "DepartmentName")?.Value;
+            ViewBag.Gender = jwtToken?.Claims.FirstOrDefault(c=>c.Type=="Gender")?.Value;
 
             var response = await _userService.GetAll<APIResponse>();
 
