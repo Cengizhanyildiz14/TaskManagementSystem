@@ -592,7 +592,7 @@ Bu yapılandırma, `TaskManagementAPI` servisini `https://localhost:7178 adresin
 ---
 - **Anasayfa:** Görev yönetim işlemlerinin yapıldığı ana ekran.
 
-  <img src="https://github.com/user-attachments/assets/bf2a5db0-c515-47ce-8dd6-9ce4ea149331" alt="Anasayfa" width="600"/>
+  <img src="https://github.com/user-attachments/assets/e70dadfe-45c0-4e9b-b777-a245b5d352a8" alt="Anasayfa" width="600"/>
 ---
 - **Görevlerim Sayfası:** Kullanıcıya ait görevlerin listelendiği ekran.
 
