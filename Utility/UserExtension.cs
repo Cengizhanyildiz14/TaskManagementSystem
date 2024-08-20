@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace Data
+namespace Utility
 {
     public static class UserExtension
     {

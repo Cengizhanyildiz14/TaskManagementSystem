@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -7,6 +6,7 @@ using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
 using TaskManager_WEB.Models;
 using TaskManager_WEB.Services.IServices;
+using Utility;
 
 namespace TaskManager_WEB.Controllers
 {

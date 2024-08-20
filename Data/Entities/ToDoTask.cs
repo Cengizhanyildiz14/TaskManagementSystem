@@ -1,4 +1,6 @@
-﻿namespace Data.Entities
+﻿using Utility;
+
+namespace Data.Entities
 {
     public class ToDoTask
     {

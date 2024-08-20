@@ -1,4 +1,4 @@
-﻿namespace Data
+﻿namespace Utility
 {
     public enum TaskStatusEnum
     {
