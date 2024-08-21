@@ -98,24 +98,22 @@ namespace TaskManager_WEB.Controllers
                 ? JsonConvert.DeserializeObject<List<UserResult>>(Convert.ToString(usersResponse.result))
                 : new List<UserResult>();
 
-            var currentUserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var allUsers = userResults.Select(ur => ur.User).ToList();
 
-            var userList = userResults.Any()
-                ? userResults.Select(ur => ur.User)
-                    .Where(u => u.Id != currentUserId)
-                    .ToList()
-                : new List<UserDto>();
-
+            var defaultDepartmentId = (int)departments.FirstOrDefault()?.Id;
+            var filteredUsers = allUsers.Where(u => u.DepartmentId == defaultDepartmentId).ToList();
 
             var taskCreateVM = new TaskCreateVM
             {
                 TaskCreateDto = new TaskCreateDto
                 {
-                    CreaterUserId = currentUserId,
-                    Status = TaskStatusEnum.Beklemede
+                    CreaterUserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)),
+                    Status = TaskStatusEnum.Beklemede,
+                    DepartmentId = defaultDepartmentId
                 },
                 DepartmentList = departmentList,
-                UserList = new SelectList(userList, "Id", "Name")
+                UserList = new SelectList(filteredUsers, "Id", "Name"),
+                AllUsers = allUsers
             };
 
             return View(taskCreateVM);
@@ -127,32 +125,36 @@ namespace TaskManager_WEB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(TaskCreateVM taskCreateVM)
         {
+            var departmentsResponse = await _departmentService.GetAll<APIResponse>();
+            var departments = departmentsResponse != null && departmentsResponse.IsSuccess
+                ? JsonConvert.DeserializeObject<List<DepartmentDto>>(Convert.ToString(departmentsResponse.result))
+                : new List<DepartmentDto>();
+            taskCreateVM.DepartmentList = new SelectList(departments, "Id", "DepartmentName");
+
+            var usersResponse = await _userService.GetAll<APIResponse>();
+            var userResults = usersResponse != null && usersResponse.IsSuccess
+                ? JsonConvert.DeserializeObject<List<UserResult>>(Convert.ToString(usersResponse.result))
+                : new List<UserResult>();
+
+            var allUsers = userResults.Select(ur => ur.User).ToList();
+            taskCreateVM.AllUsers = allUsers;
+
+            if (taskCreateVM.TaskCreateDto.DepartmentId != 0)
+            {
+                var filteredUsers = allUsers.Where(u => u.DepartmentId == taskCreateVM.TaskCreateDto.DepartmentId).ToList();
+                taskCreateVM.UserList = new SelectList(filteredUsers, "Id", "Name");
+            }
+            else
+            {
+                taskCreateVM.UserList = new SelectList(Enumerable.Empty<SelectListItem>());
+            }
 
             if (!ModelState.IsValid)
             {
-                var departmentsResponse = await _departmentService.GetAll<APIResponse>();
-                var departments = departmentsResponse != null && departmentsResponse.IsSuccess
-                    ? JsonConvert.DeserializeObject<List<DepartmentDto>>(Convert.ToString(departmentsResponse.result))
-                    : new List<DepartmentDto>();
-                taskCreateVM.DepartmentList = new SelectList(departments, "Id", "DepartmentName");
-
-                var usersResponse = await _userService.GetAll<APIResponse>();
-                var userResults = usersResponse != null && usersResponse.IsSuccess
-                    ? JsonConvert.DeserializeObject<List<UserResult>>(Convert.ToString(usersResponse.result))
-                    : new List<UserResult>();
-
-                var currentUserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-                var userList = userResults.Any()
-                    ? userResults.Select(ur => ur.User)
-                        .Where(u => u.Id != currentUserId)
-                        .ToList()
-                    : new List<UserDto>();
-
-                taskCreateVM.UserList = new SelectList(userList, "Id", "Name");
-
-
+                return View(taskCreateVM);
             }
 
+            // Görev oluşturulması
             var taskCreateDto = new TaskCreateDto
             {
                 TaskName = taskCreateVM.TaskCreateDto.TaskName,
@@ -163,7 +165,6 @@ namespace TaskManager_WEB.Controllers
                 AssignmentDate = DateTime.Now,
             };
 
-            // API'ye istek gönderme
             var response = await _taskService.CreateTask<APIResponse>(taskCreateDto);
             if (response == null || !response.IsSuccess)
             {
@@ -173,6 +174,8 @@ namespace TaskManager_WEB.Controllers
 
             return RedirectToAction("create", "task");
         }
+
+
 
         [HttpGet]
         [Authorize]
