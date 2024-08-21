@@ -1,37 +1,41 @@
 ﻿@model List<UserListVM>
 
-<h2 class="mt-5">Tüm Kullanıcılar</h2>
+<div class="container mt-5">
+    <h2 class="mb-4">Tüm Kullanıcılar</h2>
 
-<div class="table-responsive">
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Ad</th>
-                <th>Soyad</th>
-                <th>E-posta</th>
-                <th>Departman</th>
-                <th class="text-center align-middle">İşemler</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var user in Model)
-            {
+    <div class="form-group mt-3 d-flex justify-content-end">
+        <a asp-action="GetAllusers" asp-controller="user" class="btn btn-secondary">Geri Dön</a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
                 <tr>
-                    <td>@user.User.Name</td>
-                    <td>@user.User.LastName</td>
-                    <td>@user.User.Email</td>
-                    <td>@user.User.Department.DepartmentName</td>
-                    <td class="text-center align-middle">
-                        <div class="d-flex justify-content-center">
-                            <form asp-action="UserDelete" asp-controller="user" method="post">
-                                <input type="hidden" name="id" value="@user.User.Id" />
-                                <button type="submit" class="btn btn-danger btn-sm">Sil</button>
-                            </form>
-                        </div>
-                    </td>
+                    <th>Ad</th>
+                    <th>Soyad</th>
+                    <th>E-posta</th>
+                    <th>Departman</th>
+                    <th class="text-center align-middle">İşlemler</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td>@user.User.Name</td>
+                        <td>@user.User.LastName</td>
+                        <td>@user.User.Email</td>
+                        <td>@user.User.Department.DepartmentName</td>
+                        <td class="text-center align-middle">
+                            <div class="d-flex justify-content-center">
+                                <form asp-action="UserDelete" asp-controller="user" method="post">
+                                    <input type="hidden" name="id" value="@user.User.Id" />
+                                    <button type="submit" class="btn btn-danger btn-sm">Sil</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
-
