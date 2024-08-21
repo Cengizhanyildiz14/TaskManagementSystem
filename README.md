@@ -593,7 +593,7 @@ Bu yapılandırma, `TaskManagementAPI` servisini `https://localhost:7178 adresin
 ---
 - **Anasayfa:** Görev yönetim işlemlerinin yapıldığı ana ekran.
 
-  <img src="https://github.com/user-attachments/assets/b9fc1edf-3a6d-42c8-9368-1ea143b14d00" alt="Anasayfa" width="600"/>
+  <img src="https://github.com/user-attachments/assets/4ca542d5-b558-4418-9481-8dbfd493fb31" alt="Anasayfa" width="600"/>
 ---
 - **Görevlerim Sayfası:** Kullanıcıya ait görevlerin listelendiği ekran.
 
@@ -625,7 +625,7 @@ Bu yapılandırma, `TaskManagementAPI` servisini `https://localhost:7178 adresin
 ---
 - **Personel Listesi Ekranı:** (İK Uzmanı için) Sistemdeki personelin listelendiği ekran.
 
-  <img src="https://github.com/user-attachments/assets/bad93264-54a2-4cc0-8c09-ce8b9e838872" alt="Personel Listesi Ekranı" width="600"/>
+  <img src="https://github.com/user-attachments/assets/c9885364-d24f-4192-98e9-08083787580b" alt="Personel Listesi Ekranı" width="600"/>
 ---
 - **Access Denied Sayfası:** Erişim izni olmayan kullanıcılar için özel erişim engellendi sayfası.
 
