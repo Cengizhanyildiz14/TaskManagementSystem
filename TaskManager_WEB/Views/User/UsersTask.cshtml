@@ -32,27 +32,15 @@
                             <td class="align-middle">@task.TaskName</td>
                             <td class="align-middle">@task.Department.DepartmentName</td>
                             <td class="align-middle">@task.CreaterUserName @task.CreaterUserLastName</td>
-                            <td class="align-middle fw-bold text-uppercase">
-                                @task.StatusDescription
-                                @if (task.StatusDescription == "Tamamlandı")
-                                {
-                                    <i class="fas fa-check-circle text-success"></i>
-                                }
-                                else if (task.StatusDescription == "Reddedildi")
-                                {
-                                    <i class="fas fa-times-circle text-danger"></i>
-                                }
-                                else if (task.StatusDescription == "Beklemede")
-                                {
-                                    <i class="fas fa-clock text-warning"></i>
-                                }
+                            <td id="status_@countdownId" class="align-middle fw-bold text-uppercase">
+                                @task.StatusDescription                              
                             </td>
                             <td class="align-middle text-center">
                                 @if (task.StatusDescription == "Beklemede")
                                 {
                                     <span id="@countdownId"></span>
                                     <script>
-                                        function updateCountdown(id, endTime) {
+                                        function updateCountdown(id, endTime, taskId) {
                                             var countdownElement = document.getElementById(id);
                                             var interval = setInterval(function () {
                                                 var now = new Date().getTime();
@@ -68,12 +56,30 @@
                                                 } else {
                                                     countdownElement.innerHTML = "<span class='text-danger'>Süre doldu</span>";
                                                     clearInterval(interval);
+
+                                                    // Süre dolduğunda AJAX isteği gönder
+                                                    $.ajax({
+                                                        url: '@Url.Action("TaskStatusUpdate", "Task")',
+                                                        type: 'POST',
+                                                        data: {
+                                                            TaskId: taskId,
+                                                            Status: "Süre Doldu"
+                                                        },
+                                                        success: function (response) {
+                                                            // Başarıyla güncellendiğinde durumu sayfada güncelle
+                                                            document.getElementById('status_' + id).innerHTML = "SüreDoldu";
+                                                            document.getElementById('status_detail_' + id).innerHTML = "Durum güncellenmiş";
+                                                        },
+                                                        error: function (xhr, status, error) {
+                                                            console.log("Görev güncellenirken bir hata oluştu: " + error);
+                                                        }
+                                                    });
                                                 }
                                             }, 1000);
                                         }
 
                                         var endTime = new Date("@endTime.ToString("MM/dd/yyyy HH:mm:ss")").getTime();
-                                        updateCountdown("@countdownId", endTime);
+                                        updateCountdown("@countdownId", endTime, "@task.Id");
                                     </script>
                                 }
                                 else
@@ -81,7 +87,7 @@
                                     <span class="text-danger">Süre doldu</span>
                                 }
                             </td>
-                            <td class="text-center align-middle">
+                            <td id="status_detail_@countdownId" class="text-center align-middle">
                                 <div class="d-flex justify-content-center">
                                     @if (task.StatusDescription == "Beklemede")
                                     {

@@ -4,6 +4,7 @@
     {
         Beklemede,
         Tamamlandı,
-        Reddedildi
+        Reddedildi,
+        SüreDoldu
     }
 }

@@ -52,7 +52,7 @@
                         <i class="fas fa-clock text-warning me-2"></i> Beklemede
                     </div>
                     <div class="ms-4">
-                        <i class="fas fa-minus-circle text-muted me-2"></i> Mevcut Değil
+                        <i class="fas fa-exclamation-circle text-danger me-2"></i> Süre Doldu
                     </div>
                 </div>
 
@@ -86,6 +86,7 @@
                                 {
                                     foreach (var task in userViewModel.AssignedTasks)
                                     {
+                                        
                                         <tr>
                                             <td class="assigned-user">@task.AsaignedUserName @task.AsaignedUserLastName</td>
                                             <td class="email">@task.AsaignedUserEmail</td>
@@ -100,6 +101,10 @@
                                                 else if (task.StatusDescription == "Reddedildi")
                                                 {
                                                     <i class="fas fa-times-circle text-danger"></i>
+                                                }
+                                                else if (task.StatusDescription == "SüreDoldu")
+                                                {
+                                                    <i class="fas fa-exclamation-circle text-danger"></i>
                                                 }
                                                 else if (task.StatusDescription == "Beklemede")
                                                 {

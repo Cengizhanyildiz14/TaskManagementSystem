@@ -278,6 +278,10 @@ namespace TaskManager_WEB.Controllers
             {
                 task.Status = (int)TaskStatusEnum.Reddedildi;
             }
+            else if (Status == "Süre Doldu")
+            {
+                task.Status = (int)TaskStatusEnum.SüreDoldu;
+            }
 
             var taskUpdateDto = _mapper.Map<TaskUpdateDto>(task);
 
@@ -292,5 +296,6 @@ namespace TaskManager_WEB.Controllers
 
             return RedirectToAction("userstask", "user", new { id = userId });
         }
+
     }
 }
