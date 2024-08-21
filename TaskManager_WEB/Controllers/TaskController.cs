@@ -100,8 +100,10 @@ namespace TaskManager_WEB.Controllers
 
             var allUsers = userResults.Select(ur => ur.User).ToList();
 
+            var currentUserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
             var defaultDepartmentId = (int)departments.FirstOrDefault()?.Id;
-            var filteredUsers = allUsers.Where(u => u.DepartmentId == defaultDepartmentId).ToList();
+            var filteredUsers = allUsers.Where(u => u.DepartmentId == defaultDepartmentId && u.Id != currentUserId).ToList();
 
             var taskCreateVM = new TaskCreateVM
             {
