@@ -3,17 +3,19 @@
 <div class="container mt-5">
     <h2 class="mb-4">Tüm Kullanıcılar</h2>
 
-    <div class="form-group mt-3 d-flex justify-content-end">
+    <div class="form-group mt-3 d-flex justify-content-end mb-2">
         <a asp-action="GetAllusers" asp-controller="user" class="btn btn-secondary">Geri Dön</a>
     </div>
+
     <div class="table-responsive">
-        <table class="table table-striped">
+        <table class="table table-striped table-bordered">
             <thead>
                 <tr>
-                    <th>Ad</th>
-                    <th>Soyad</th>
-                    <th>E-posta</th>
-                    <th>Departman</th>
+                    <th class="text-center align-middle">Ad</th>
+                    <th class="text-center align-middle">Soyad</th>
+                    <th class="text-center align-middle">E-posta</th>
+                    <th class="text-center align-middle">Departman</th>
+                    <th class="text-center align-middle">Görev Durumu</th>
                     <th class="text-center align-middle">İşlemler</th>
                 </tr>
             </thead>
@@ -21,10 +23,17 @@
                 @foreach (var user in Model)
                 {
                     <tr>
-                        <td>@user.User.Name</td>
-                        <td>@user.User.LastName</td>
-                        <td>@user.User.Email</td>
-                        <td>@user.User.Department.DepartmentName</td>
+                        <td class="text-center align-middle">@user.User.Name</td>
+                        <td class="text-center align-middle">@user.User.LastName</td>
+                        <td class="text-center align-middle">@user.User.Email</td>
+                        <td class="text-center align-middle">@user.User.Department.DepartmentName</td>
+                        <td class="text-center align-middle" data-bs-toggle="tooltip" title="
+                        Tamamlanan Görevler: @user.CompletedTasksCount<br>
+    Reddedilen Görevler: @user.RejectedTasksCount<br>
+    Süresi Dolan Görevler: @user.ExpiredTasksCount<br>
+    Beklemede Olan Görevler: @user.PendingTasksCount">
+                                    Toplam Görev: @(@user.CompletedTasksCount + @user.RejectedTasksCount + @user.ExpiredTasksCount + @user.PendingTasksCount)
+                                </td>
                         <td class="text-center align-middle">
                             <div class="d-flex justify-content-center">
                                 <form asp-action="UserDelete" asp-controller="user" method="post">
@@ -39,3 +48,14 @@
         </table>
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl, {
+                html: true
+            });
+        });
+    });
+</script>

@@ -42,7 +42,7 @@ namespace TaskManager_WEB.Controllers
             ViewBag.FullName = jwtToken?.Claims.FirstOrDefault(c => c.Type == "FullName")?.Value;
             ViewBag.Email = jwtToken?.Claims.FirstOrDefault(c => c.Type == "email")?.Value;
             ViewBag.DepartmentName = jwtToken?.Claims.FirstOrDefault(c => c.Type == "DepartmentName")?.Value;
-            ViewBag.Gender = jwtToken?.Claims.FirstOrDefault(c=>c.Type=="Gender")?.Value;
+            ViewBag.Gender = jwtToken?.Claims.FirstOrDefault(c => c.Type == "Gender")?.Value;
 
             var response = await _userService.GetAll<APIResponse>();
 
@@ -138,7 +138,7 @@ namespace TaskManager_WEB.Controllers
                 Email = userCreateVm.UserCreateDto.Email,
                 Name = userCreateVm.UserCreateDto.Name,
                 LastName = userCreateVm.UserCreateDto.LastName,
-                Gender=userCreateVm.UserCreateDto.Gender,
+                Gender = userCreateVm.UserCreateDto.Gender,
             };
 
             var response = await _userService.PostUser<APIResponse>(userCreateDto);
@@ -165,7 +165,11 @@ namespace TaskManager_WEB.Controllers
 
             var viewModel = users.Select(user => new UserListVM
             {
-                User = user.User
+                User = user.User,
+                CompletedTasksCount = user.AssignedTasks.Count(t => t.Status == (int)TaskStatusEnum.Tamamlandı),
+                RejectedTasksCount = user.AssignedTasks.Count(t => t.Status == (int)TaskStatusEnum.Reddedildi),
+                ExpiredTasksCount = user.AssignedTasks.Count(t => t.Status == (int)TaskStatusEnum.SüreDoldu),
+                PendingTasksCount = user.AssignedTasks.Count(t => t.Status == (int)TaskStatusEnum.Beklemede)
             }).ToList();
 
             return View(viewModel);
