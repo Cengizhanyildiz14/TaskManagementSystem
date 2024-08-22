@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using TaskManager_WEB.AutoMapper;
+using TaskManager_WEB.Models;
 using TaskManager_WEB.Services;
 using TaskManager_WEB.Services.IServices;
 
@@ -34,18 +35,19 @@ builder.Services.AddDistributedMemoryCache();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(opt =>
 {
     opt.Cookie.HttpOnly = true;
-    opt.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+    opt.ExpireTimeSpan = TimeSpan.FromMinutes(1); // Set to 1 minute for testing
     opt.LoginPath = "/auth/login";
     opt.AccessDeniedPath = "/home/AccessDenied";
-    opt.SlidingExpiration = true;
+    opt.SlidingExpiration = false; // Enable sliding expiration
 });
 
 builder.Services.AddSession(opt =>
 {
-    opt.IdleTimeout = TimeSpan.FromMinutes(15);
+    opt.IdleTimeout = TimeSpan.FromMinutes(15); // Set session timeout to 1 minute for testing
     opt.Cookie.HttpOnly = true;
     opt.Cookie.IsEssential = true;
 });
+
 
 var app = builder.Build();
 
@@ -53,7 +55,6 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -69,10 +70,62 @@ app.UseAuthorization();
 app.UseStatusCodePagesWithReExecute("/Home/NotFoundPage");
 
 app.MapControllerRoute(
+    name: "profile",
+    pattern: "Profile/{id?}",
+    defaults: new { controller = "User", action = "Profile" }
+);
+
+app.MapControllerRoute(
+    name: "TaskCreate",
+    pattern: "TaskCreate",
+    defaults: new { controller = "Task", action = "Create" }
+);
+
+app.MapControllerRoute(
+    name: "MyTasks",
+    pattern: "UsersTask/{id?}",
+    defaults: new { controller = "User", action = "UsersTask" }
+);
+
+app.MapControllerRoute(
+    name: "TaskDetail",
+    pattern: "TaskDetail/{id?}",
+    defaults: new { controller = "Task", action = "TaskDetails" }
+);
+
+app.MapControllerRoute(
+    name: "TaskUpdate",
+    pattern: "TaskUpdate/{id?}",
+    defaults: new { controller = "Task", action = "TaskUpdate" }
+);
+
+app.MapControllerRoute(
+    name: "Privacy",
+    pattern: "Privacy",
+    defaults: new { controller = "Home", action = "Privacy" }
+);
+
+app.MapControllerRoute(
+    name: "DepartmentCreate",
+    pattern: "DepartmentCreate",
+    defaults: new { controller = "Department", action = "DepartmentCreate" }
+);
+
+app.MapControllerRoute(
+    name: "UserCreate",
+    pattern: "UserCreate",
+    defaults: new { controller = "User", action = "UserCreate" }
+);
+
+app.MapControllerRoute(
+    name: "UserList",
+    pattern: "Staff List",
+    defaults: new { controller = "User", action = "UserList" }
+);
+
+app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=user}/{action=GetAllusers}/{id?}"
-
-    );
-
+    pattern: "{controller=user}/{action=getallusers}/{id?}"
+);
 
 app.Run();

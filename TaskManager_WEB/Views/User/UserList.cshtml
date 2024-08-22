@@ -1,4 +1,5 @@
 ﻿@model List<UserListVM>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
 <div class="container mt-5">
     <h2 class="mb-4">Tüm Kullanıcılar</h2>
@@ -33,6 +34,7 @@
     Süresi Dolan Görevler: @user.ExpiredTasksCount<br>
     Beklemede Olan Görevler: @user.PendingTasksCount">
                                     Toplam Görev: @(@user.CompletedTasksCount + @user.RejectedTasksCount + @user.ExpiredTasksCount + @user.PendingTasksCount)
+                                        <i class="fa-solid fa-circle-info ms-2"></i>
                                 </td>
                         <td class="text-center align-middle">
                             <div class="d-flex justify-content-center">

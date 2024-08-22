@@ -57,7 +57,6 @@
                                                     countdownElement.innerHTML = "<span class='text-danger'>Süre doldu</span>";
                                                     clearInterval(interval);
 
-                                                    // Süre dolduğunda AJAX isteği gönder
                                                     $.ajax({
                                                         url: '@Url.Action("TaskStatusUpdate", "Task")',
                                                         type: 'POST',

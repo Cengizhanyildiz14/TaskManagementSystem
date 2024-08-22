@@ -25,6 +25,9 @@ namespace TaskManager_WEB.AutoMapper
             CreateMap<UserResult, UserViewModel>()
            .ForMember(dest => dest.User, opt => opt.MapFrom(src => src.User))
            .ForMember(dest => dest.AssignedTasks, opt => opt.MapFrom(src => src.AssignedTasks));
+            CreateMap<UserResult, ProfileVM>().ReverseMap();
+            CreateMap<UserDto, ProfileVM>().ReverseMap();
+
         }
     }
 }

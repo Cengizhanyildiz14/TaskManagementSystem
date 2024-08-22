@@ -1,5 +1,9 @@
-﻿@using Utility
+﻿@using System.Security.Claims
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpAcc
+
+@{
+    var userId = HttpAcc.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +32,7 @@
                         @if (HttpAcc.HttpContext.User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="user" asp-action="profile">Profil Bilgilerim</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="user" asp-action="Profile" asp-route-id="@userId">Profil Bilgilerim</a>
                             </li>
                             <li class="nav-item justify-content-end">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="LogOut">Çıkış yap</a>

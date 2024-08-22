@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -61,25 +62,23 @@ namespace TaskManager_WEB.Controllers
 
         [HttpGet]
         [Authorize]
-        [Route("Profil")]
         public async Task<IActionResult> Profile(int id)
         {
-            var token = HttpContext.Request.Cookies["AuthToken"];
-            var handler = new JwtSecurityTokenHandler();
-            var jwtToken = handler.ReadJwtToken(token);
+            var response = await _userService.GetAll<APIResponse>();
+            var users = JsonConvert.DeserializeObject<List<UserResult>>(Convert.ToString(response.result));
 
-            var fullname = jwtToken.Claims.FirstOrDefault(c => c.Type == "FullName")?.Value;
+            var user = users.FirstOrDefault(u => u.User.Id == id)?.User;
 
-            var nameParts = fullname.Split(' ');
-            ViewBag.FirstName = nameParts.Length > 0 ? nameParts[0] : string.Empty;
-            ViewBag.LastName = nameParts.Length > 1 ? string.Join(" ", nameParts.Skip(1)) : string.Empty;
+            if (user == null)
+            {
+                return NotFound();
+            }
 
+            var viewModel = _mapper.Map<ProfileVM>(user);
 
-            ViewBag.FullName = fullname;
-            ViewBag.Email = jwtToken.Claims.FirstOrDefault(c => c.Type == "email")?.Value;
-            ViewBag.DepartmentName = jwtToken.Claims.FirstOrDefault(c => c.Type == "DepartmentName")?.Value;
-            return View();
+            return View(viewModel);
         }
+
 
 
         [HttpGet]
@@ -110,10 +109,7 @@ namespace TaskManager_WEB.Controllers
 
             var userCreateVM = new UserCreateVm
             {
-                UserCreateDto = new UserCreateDto
-                {
-
-                },
+                UserCreateDto = new UserCreateDto(),
                 DepartmentList = departmentList
             };
 
@@ -139,6 +135,11 @@ namespace TaskManager_WEB.Controllers
                 Name = userCreateVm.UserCreateDto.Name,
                 LastName = userCreateVm.UserCreateDto.LastName,
                 Gender = userCreateVm.UserCreateDto.Gender,
+                Adress = userCreateVm.UserCreateDto.Adress,
+                Country = userCreateVm.UserCreateDto.Country,
+                State = userCreateVm.UserCreateDto.State,
+                PhoneNumber = userCreateVm.UserCreateDto.PhoneNumber,
+                Education = userCreateVm.UserCreateDto.Education,
             };
 
             var response = await _userService.PostUser<APIResponse>(userCreateDto);

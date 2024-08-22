@@ -63,20 +63,14 @@ namespace TaskManager_WEB.Controllers
                     identity.AddClaim(new Claim("Gender", gender));
                 }
 
-                var claims = identity.Claims.ToList();
-                if (!claims.Any())
-                {
-                    throw new Exception("identity'e eklenmiş claim bulunamadı");
-                }
-
-                var principal = new ClaimsPrincipal(identity);
                 var authProperties = new AuthenticationProperties
                 {
-                    IsPersistent = rememberMe,
-                    ExpiresUtc = rememberMe ? DateTimeOffset.UtcNow.AddDays(1) : DateTimeOffset.UtcNow.AddMinutes(15)
+                    IsPersistent = true,
+                    ExpiresUtc = rememberMe ? DateTimeOffset.UtcNow.AddDays(1) : DateTimeOffset.UtcNow.AddMinutes(15),
+                    AllowRefresh = true,
                 };
 
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, authProperties);
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity), authProperties);
 
                 HttpContext.Session.SetString(SD.SessionToken, model.Token);
                 HttpContext.Response.Cookies.Append("AuthToken", model.Token, new CookieOptions
@@ -85,12 +79,6 @@ namespace TaskManager_WEB.Controllers
                     Secure = true,
                     Expires = authProperties.ExpiresUtc
                 });
-
-                var userId = principal.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-                if (userId == null)
-                {
-                    ModelState.AddModelError("CustomError", "Kullanıcı Bulunamadı.");
-                }
 
                 return RedirectToAction("getallusers", "user");
             }
@@ -101,6 +89,7 @@ namespace TaskManager_WEB.Controllers
             }
         }
 
+
         public async Task<IActionResult> LogOut()
         {
             HttpContext.Session.Clear();
@@ -110,7 +99,6 @@ namespace TaskManager_WEB.Controllers
             }
 
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-
 
             return RedirectToAction("getallusers", "user");
         }

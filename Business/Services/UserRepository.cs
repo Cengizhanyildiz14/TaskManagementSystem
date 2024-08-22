@@ -30,10 +30,10 @@ namespace Business.Services
         {
             var users = _context.Users
                    .Include(u => u.Department)
-                   .Include(u => u.Tasks) // Kullanıcıya atanmış görevleri getir
-                   .ThenInclude(t => t.Department) // Görevlerin departman bilgilerini dahil et
-                   .Include(u => u.CreatedTasks) // Kullanıcının yarattığı görevleri getir
-                   .ThenInclude(t => t.Department) // Görevlerin departman bilgilerini dahil et
+                   .Include(u => u.Tasks)
+                   .ThenInclude(t => t.Department) 
+                   .Include(u => u.CreatedTasks) 
+                   .ThenInclude(t => t.Department) 
                    .ToList();
 
             return users;
@@ -77,9 +77,8 @@ namespace Business.Services
 
         public LoginResponseDto Login(LoginRequestDto loginRequestDto, bool rememberMe)
         {
-            // Kullanıcıyı e-posta adresine göre bulma
             var user = _context.Users
-                .Include(u => u.Department) // Kullanıcının departman bilgisiyle birlikte çekildiğinden emin olun
+                .Include(u => u.Department)
                 .FirstOrDefault(u => u.Email.ToLower() == loginRequestDto.Email.ToLower());
 
             if (user == null)
@@ -94,44 +93,35 @@ namespace Business.Services
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(secretKey);
 
-            // Cinsiyet bilgisini ekleyin
             var claims = new List<Claim>
     {
         new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
         new Claim(ClaimTypes.Email, user.Email),
-        new Claim("FullName", $"{user.Name} {user.LastName}"),  // FullName claim'i ekleniyor
-        new Claim("DepartmentName", user.Department?.DepartmentName ?? ""),  // Departman adı token'a ekleniyor
-        new Claim("Gender", user.Gender) // Cinsiyet bilgisi token'a ekleniyor
+        new Claim("FullName", $"{user.Name} {user.LastName}"),
+        new Claim("DepartmentName", user.Department?.DepartmentName ?? ""),
+        new Claim("Gender", user.Gender)
     };
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = rememberMe ? DateTime.Now.AddDays(1) : DateTime.Now.AddMinutes(15),
+                Expires = rememberMe ? DateTime.Now.AddDays(1) : DateTime.Now.AddMinutes(15), 
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
 
-            // Token'ı doğrudan çözümleyip NameIdentifier claim'ini kontrol edelim
-            var jwtToken = tokenHandler.ReadJwtToken(tokenString);
-            var nameIdentifierClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == "nameid")?.Value;
-
-            if (nameIdentifierClaim == null)
-            {
-                throw new Exception("NameIdentifier claim is missing in the generated token.");
-            }
-
-            // AutoMapper kullanarak User nesnesini UserDto'ya dönüştürme
             var userDto = _mapper.Map<UserDto>(user);
 
             return new LoginResponseDto()
             {
                 Token = tokenString,
-                User = userDto // Dönüştürülmüş UserDto'yu kullanıyoruz
+                User = userDto
             };
         }
+
+
 
         public User UpdateUser(User user)
         {

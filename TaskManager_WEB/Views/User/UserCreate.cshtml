@@ -42,10 +42,34 @@
             </select>
             <span asp-validation-for="UserCreateDto.DepartmentId" class="text-danger"></span>
         </div>
+        <div class="form-group">
+            <label asp-for="UserCreateDto.Adress" class="control-label">Adres</label>
+            <input asp-for="UserCreateDto.Adress" class="form-control" />
+            <span asp-validation-for="UserCreateDto.Adress" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="UserCreateDto.Country" class="control-label">Ülke</label>
+            <input asp-for="UserCreateDto.Country" class="form-control" />
+            <span asp-validation-for="UserCreateDto.Country" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="UserCreateDto.State" class="control-label">Şehir</label>
+            <input asp-for="UserCreateDto.State" class="form-control" />
+            <span asp-validation-for="UserCreateDto.State" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="UserCreateDto.PhoneNumber" class="control-label">Telefon Numarası</label>
+            <input asp-for="UserCreateDto.PhoneNumber" class="form-control" />
+            <span asp-validation-for="UserCreateDto.PhoneNumber" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="UserCreateDto.Education" class="control-label">Eğitim</label>
+            <input asp-for="UserCreateDto.Education" class="form-control" />
+            <span asp-validation-for="UserCreateDto.Education" class="text-danger"></span>
+        </div>
         <div class="form-group mt-3">
             <input type="submit" value="Oluştur" class="btn btn-primary" />
-            <a asp-action="GetAllusers" asp-controller="user" class="btn btn-secondary">Geri Dön</a>
+            <a asp-action="GetAllUsers" asp-controller="user" class="btn btn-secondary">Geri Dön</a>
         </div>
     </form>
 </div>
-
