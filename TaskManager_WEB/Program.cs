@@ -35,15 +35,15 @@ builder.Services.AddDistributedMemoryCache();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(opt =>
 {
     opt.Cookie.HttpOnly = true;
-    opt.ExpireTimeSpan = TimeSpan.FromMinutes(1); // Set to 1 minute for testing
+    opt.ExpireTimeSpan = TimeSpan.FromMinutes(1); 
     opt.LoginPath = "/auth/login";
     opt.AccessDeniedPath = "/home/AccessDenied";
-    opt.SlidingExpiration = false; // Enable sliding expiration
+    opt.SlidingExpiration = true; 
 });
 
 builder.Services.AddSession(opt =>
 {
-    opt.IdleTimeout = TimeSpan.FromMinutes(15); // Set session timeout to 1 minute for testing
+    opt.IdleTimeout = TimeSpan.FromMinutes(15); 
     opt.Cookie.HttpOnly = true;
     opt.Cookie.IsEssential = true;
 });
