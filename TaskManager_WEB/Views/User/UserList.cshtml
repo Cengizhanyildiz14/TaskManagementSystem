@@ -33,9 +33,9 @@
     Reddedilen Görevler: @user.RejectedTasksCount<br>
     Süresi Dolan Görevler: @user.ExpiredTasksCount<br>
     Beklemede Olan Görevler: @user.PendingTasksCount">
-                                    Toplam Görev: @(@user.CompletedTasksCount + @user.RejectedTasksCount + @user.ExpiredTasksCount + @user.PendingTasksCount)
-                                        <i class="fa-solid fa-circle-info ms-2"></i>
-                                </td>
+                                            Toplam Görev: <strong>@(@user.CompletedTasksCount + @user.RejectedTasksCount + @user.ExpiredTasksCount + @user.PendingTasksCount)</strong>
+                                                        <i class="fa-solid fa-circle-info ms-2" style="color:#4169e1; font-size: 1.5rem;"></i>
+                                    </td>
                         <td class="text-center align-middle">
                             <div class="d-flex justify-content-center">
                                 <form asp-action="UserDelete" asp-controller="user" method="post">

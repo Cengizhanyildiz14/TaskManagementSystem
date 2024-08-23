@@ -31,9 +31,9 @@ namespace Business.Services
             var users = _context.Users
                    .Include(u => u.Department)
                    .Include(u => u.Tasks)
-                   .ThenInclude(t => t.Department) 
-                   .Include(u => u.CreatedTasks) 
-                   .ThenInclude(t => t.Department) 
+                   .ThenInclude(t => t.Department)
+                   .Include(u => u.CreatedTasks)
+                   .ThenInclude(t => t.Department)
                    .ToList();
 
             return users;
@@ -105,7 +105,7 @@ namespace Business.Services
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = rememberMe ? DateTime.Now.AddDays(1) : DateTime.Now.AddMinutes(15), 
+                Expires = rememberMe ? DateTime.Now.AddDays(1) : DateTime.Now.AddMinutes(15),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 
@@ -120,8 +120,6 @@ namespace Business.Services
                 User = userDto
             };
         }
-
-
 
         public User UpdateUser(User user)
         {

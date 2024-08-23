@@ -1,12 +1,10 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using TaskManager_WEB.AutoMapper;
-using TaskManager_WEB.Models;
 using TaskManager_WEB.Services;
 using TaskManager_WEB.Services.IServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddAuthorization(opt =>
@@ -35,19 +33,18 @@ builder.Services.AddDistributedMemoryCache();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(opt =>
 {
     opt.Cookie.HttpOnly = true;
-    opt.ExpireTimeSpan = TimeSpan.FromMinutes(1); 
+    opt.ExpireTimeSpan = TimeSpan.FromMinutes(1);
     opt.LoginPath = "/auth/login";
     opt.AccessDeniedPath = "/home/AccessDenied";
-    opt.SlidingExpiration = true; 
+    opt.SlidingExpiration = true;
 });
 
 builder.Services.AddSession(opt =>
 {
-    opt.IdleTimeout = TimeSpan.FromMinutes(15); 
+    opt.IdleTimeout = TimeSpan.FromMinutes(15);
     opt.Cookie.HttpOnly = true;
     opt.Cookie.IsEssential = true;
 });
-
 
 var app = builder.Build();
 

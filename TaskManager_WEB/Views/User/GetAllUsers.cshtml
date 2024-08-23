@@ -55,10 +55,10 @@
                         <i class="fas fa-clock text-warning me-2"></i> Beklemede
                     </div>
                     <div class="ms-4">
-                        <i class="fas fa-exclamation-circle text-danger me-2"></i> Süre Doldu
+                        <i class="fas fa-exclamation-circle me-2" style="color:#FF5F15"></i> Süre Doldu
                     </div>
                     <div class="ms-4">
-                        <i class="fas fa-minus-circle text-muted me-2"></i> Yok
+                        <i class="fas fa-minus-circle text-dark me-2"></i> Yok
                     </div>
                 </div>
 
@@ -109,7 +109,7 @@
                                                 }
                                                 else if (task.StatusDescription == "SüreDoldu")
                                                 {
-                                                    <i class="fas fa-exclamation-circle text-danger"></i>
+                                                    <i class="fas fa-exclamation-circle" style="color:#FF5F15"></i>
                                                 }
                                                 else if (task.StatusDescription == "Beklemede")
                                                 {
@@ -129,16 +129,16 @@
                                         <td class="email text-center align-middle">@userViewModel.User.Email</td>
                                         <td class="department text-center align-middle">@userViewModel.User.Department.DepartmentName</td>
                                         <td class="task-name text-center align-middle">
-                                            <i class="fas fa-minus-circle text-muted"></i>
+                                            <i class="fas fa-minus-circle text-dark"></i>
                                         </td>
                                         <td class="creator-user text-center align-middle">
-                                            <i class="fas fa-minus-circle text-muted"></i>
+                                            <i class="fas fa-minus-circle text-dark"></i>
                                         </td>
                                         <td class="status text-center align-middle">
-                                            <i class="fas fa-minus-circle text-muted"></i>
+                                            <i class="fas fa-minus-circle text-dark"></i>
                                         </td>
                                         <td class="text-center align-middle">
-                                            <i class="fas fa-minus-circle text-muted"></i>
+                                            <i class="fas fa-minus-circle text-dark"></i>
                                         </td>
                                     </tr>
                                 }
@@ -199,6 +199,12 @@
     </script>
 }
 
+
+<style>
+    i.fas {
+        font-size: 1.5rem;
+    }
+</style>
 
 
   
