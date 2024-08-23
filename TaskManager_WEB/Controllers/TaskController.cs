@@ -151,12 +151,6 @@ namespace TaskManager_WEB.Controllers
                 taskCreateVM.UserList = new SelectList(Enumerable.Empty<SelectListItem>());
             }
 
-            if (!ModelState.IsValid)
-            {
-                return View(taskCreateVM);
-            }
-
-            // Görev oluşturulması
             var taskCreateDto = new TaskCreateDto
             {
                 TaskName = taskCreateVM.TaskCreateDto.TaskName,
