@@ -231,6 +231,11 @@ Bu yapıda, kullanıcılar ve görevler arasındaki ilişkiler ile departmanlar 
   - `Gender`: Kullanıcının cinsiyeti.
   - `LastName`: Kullanıcının soyadı.
   - `Email`: Kullanıcının e-posta adresi.
+  - `Education`: Kullanıcının eğitim durumu.
+  - `Address`: Kullanıcının adres bilgisi.
+  - `Country`: Kullanıcının ülke bilgisi.
+  - `State`: Kullanıcının şehir bilgisi.
+  - `PhoneNumber`: Kullanıcının telefon bilgisi.
   - `Department`: Kullanıcının bağlı olduğu departman. Bu, `Department` entity'si ile olan bir ilişkidir.
   - `DepartmentId`: Kullanıcının hangi departmana ait olduğunu belirten yabancı anahtar (foreign key).
   - `Tasks`: Kullanıcıya atanmış görevlerin listesi. Bu, `ToDoTask` entity'si ile olan bir ilişkidir.
