@@ -20,7 +20,7 @@ Proje, **RESTful API** mimarisi kullanılarak geliştirilmiştir. **JWT (JSON We
 - **Görev Onaylama/Reddetme:** Kullanıcılar kendilerine atanan görevleri onaylayabilir veya reddedebilir.
 - **Kullanıcı Profili:** Kullanıcılar profil bilgilerini görüntüleyebilir.
 - **Oturum Yönetimi:**
-  - **Beni Hatırla:** Giriş ekranında bulunan "Beni Hatırla" butonu ile kullanıcıların oturumları 1 gün boyunca açık kalabilir.
+  - **Beni Hatırla:** Giriş ekranında bulunan "Beni Hatırla" butonu ile kullanıcıların oturumları 1 gün boyunca açık kalabilir. Aksi takirde kullanıcılar herhangi bir işlem yapadıklarında oturumları 15 dakkikanın ardından sonlanmaktadır.
 - **Yetkilendirme ve Yönlendirme:**
   - **İnsan Kaynakları Uzmanı** olan kişiler departman ekleyebilir, kullanıcı ekleyebilir ve kullanıcı silebilir.
   - Bu yetkiye sahip olmayan kişiler, departman ve kullanıcı yönetimi sayfalarına girmeye çalıştıklarında özel bir "access denied" sayfasına yönlendirilir.
@@ -45,6 +45,7 @@ Proje, **RESTful API** mimarisi kullanılarak geliştirilmiştir. **JWT (JSON We
 - Bootstrap
 - JavaScript
 - FontAwesome
+- AutoMapper
 
 ---
 
