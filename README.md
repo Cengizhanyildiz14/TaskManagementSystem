@@ -16,9 +16,9 @@ Proje, **RESTful API** mimarisi kullanılarak geliştirilmiştir. **JWT (JSON We
 
 - **Görev Yönetimi:** Kullanıcılar görev oluşturabilir, atayabilir ve yönetebilir.
 - **Filtreleme:** Kullanıcılar, görev listesi üzerinde çeşitli filtreler kullanarak belirli görevleri arayabilir.
-- **Görev Durumu:** Görevlerin durumu (Beklemede, Tamamlandı, Reddedildi) takip edilebilir.
+- **Görev Durumu:** Görevlerin durumu (Beklemede, Tamamlandı, Reddedildi,Süresi Doldu) takip edilebilir.
 - **Görev Onaylama/Reddetme:** Kullanıcılar kendilerine atanan görevleri onaylayabilir veya reddedebilir.
-- **Kullanıcı Profili:** Kullanıcılar profil bilgilerini görüntüleyebilir.
+- **Kullanıcı Profili:** Kullanıcılar profil bilgilerini görüntüleyebilir ve güncelleyebilir.
 - **Oturum Yönetimi:**
   - **Beni Hatırla:** Giriş ekranında bulunan "Beni Hatırla" butonu ile kullanıcıların oturumları 1 gün boyunca açık kalabilir. Aksi takirde kullanıcılar herhangi bir işlem yapadıklarında oturumları 15 dakkikanın ardından sonlanmaktadır.
 - **Yetkilendirme ve Yönlendirme:**
