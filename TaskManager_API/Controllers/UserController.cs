@@ -127,22 +127,31 @@ namespace TaskManager_API.Controllers
                     _response.StatusCode = HttpStatusCode.BadRequest;
                     return BadRequest(_response);
                 }
+
                 var user = _userRepository.Get(u => u.Id == id);
                 if (user == null)
                 {
-                    ModelState.AddModelError("CustomErrorMessages", "Kulanıcı Bulunamadı");
+                    ModelState.AddModelError("CustomErrorMessages", "Kullanıcı Bulunamadı");
                     return BadRequest(ModelState);
                 }
-                _mapper.Map(userUpdateDto, user);
-                var department = _departmentRepository.Get(d => d.Id == userUpdateDto.DepartmentId);
+
+                // Gelen DepartmentDto nesnesini kullanarak departmanı güncelle
+                var department = _departmentRepository.Get(d => d.Id == userUpdateDto.Department.Id);
                 if (department == null)
                 {
                     ModelState.AddModelError("CustomErrorMessage", "Böyle Bir Departman Bulunamadı");
                     return BadRequest(ModelState);
                 }
 
+                // User nesnesine haritalama işlemini yap
                 user.Department = department;
+                user.Email = userUpdateDto.Email;
+                user.PhoneNumber = userUpdateDto.PhoneNumber;
+                user.Education = userUpdateDto.Education;
+                user.Adress = userUpdateDto.Adress;
+
                 _userRepository.UpdateUser(user);
+
                 _response.Result = _mapper.Map<UserDto>(user);
                 _response.IsSuccess = true;
                 _response.StatusCode = HttpStatusCode.OK;
@@ -153,9 +162,10 @@ namespace TaskManager_API.Controllers
             {
                 _response.IsSuccess = false;
                 _response.Errors = new List<string> { ex.ToString() };
+                return _response;
             }
-            return _response;
         }
+
 
         [HttpDelete("DeleteUser/{id}")]
         public ActionResult<APIResponse> DeleteUser(int id)

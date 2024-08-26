@@ -47,7 +47,7 @@ namespace TaskManager_WEB.Services
             return Send<T>(new APIRequest()
             {
                 ApiType = SD.ApiType.GET,
-                Url = taskUrl + "api/TaskManager/getuser/" + id
+                Url = taskUrl + "/api/TaskManager/GetUser/" + id
             });
         }
 
@@ -58,6 +58,16 @@ namespace TaskManager_WEB.Services
                 ApiType = SD.ApiType.POST,
                 Data = userCreateDto,
                 Url = taskUrl + "/api/TaskManager/postuser"
+            });
+        }
+
+        public Task<T> PutUser<T>(UserUpdateDto userUpdateDto, int id)
+        {
+            return Send<T>(new APIRequest()
+            {
+                ApiType = SD.ApiType.PUT,
+                Data = userUpdateDto,
+                Url = taskUrl + "/api/TaskManager/putuser/" +  id
             });
         }
     }

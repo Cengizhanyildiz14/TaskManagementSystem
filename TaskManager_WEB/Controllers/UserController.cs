@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using TaskManager_WEB.Models;
 using TaskManager_WEB.Services.IServices;
 using Utility;
@@ -200,5 +201,68 @@ namespace TaskManager_WEB.Controllers
             return View(tasks);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> UpdateProfile(int id)
+        {
+            var response = await _userService.GetUserWithDetails<APIResponse>(id);
+
+            if (response != null && response.IsSuccess)
+            {
+                var user = JsonConvert.DeserializeObject<UserResult>(Convert.ToString(response.result));
+                var viewModel = _mapper.Map<UserUpdateDto>(user.User);
+
+                var profileUpdateVM = new ProfileUpdateVM
+                {
+                    userUpdateDto = viewModel
+                };
+
+                return View(profileUpdateVM);
+            }
+            else
+            {
+                ModelState.AddModelError("", "Kullanıcı bilgileri yüklenirken bir hata oluştu.");
+                return RedirectToAction("profile", "user");
+            }
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateProfile(ProfileUpdateVM profileUpdateVM)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(profileUpdateVM);
+            }
+
+            // UserUpdateDto'yu mapleme işlemi
+            var userUpdateDto = new UserUpdateDto
+            {
+                Id = profileUpdateVM.userUpdateDto.Id,
+                Email = profileUpdateVM.userUpdateDto.Email,
+                PhoneNumber = profileUpdateVM.userUpdateDto.PhoneNumber,
+                Education = profileUpdateVM.userUpdateDto.Education,
+                Adress = profileUpdateVM.userUpdateDto.Adress,
+                Department = new DepartmentDto
+                {
+                    Id = profileUpdateVM.userUpdateDto.Department.Id,
+                    DepartmentName = profileUpdateVM.userUpdateDto.Department.DepartmentName
+                }
+            };
+
+            var response = await _userService.PutUser<APIResponse>(userUpdateDto, userUpdateDto.Id);
+
+            if (response != null && response.IsSuccess)
+            {
+                return RedirectToAction("Profile", new { id = userUpdateDto.Id });
+            }
+            else
+            {
+                ModelState.AddModelError("", "Güncelleme sırasında bir hata oluştu.");
+                return View(profileUpdateVM);
+            }
+        }
+
+
     }
 }
+

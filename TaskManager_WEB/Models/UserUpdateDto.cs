@@ -1,6 +1,4 @@
-﻿using Dto.DepartmentDtos;
-
-namespace Dto.UserDtos
+﻿namespace TaskManager_WEB.Models
 {
     public class UserUpdateDto
     {
@@ -9,7 +7,6 @@ namespace Dto.UserDtos
         public string PhoneNumber { get; set; }
         public string Education { get; set; }
         public string Adress { get; set; }
-
-        public DepartmentDto Department { get; set; }
+        public DepartmentDto Department { get; set; } 
     }
 }

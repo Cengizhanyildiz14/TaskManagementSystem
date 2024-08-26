@@ -15,8 +15,8 @@
                 <div class="card-body text-center">
                     @{
                         var profileImage = HttpAcc.HttpContext.User.IsFemale()
-                        ? Url.Content("~/images/femaleicon.png")
-                        : Url.Content("~/images/pp.png");
+                        ? Url.Content("~/images/female.png")
+                        : Url.Content("~/images/male.png");
                     }
                     <img src="@profileImage" class="rounded-circle img-fluid mb-3" alt="Profile Image" style="width: 120px; height: 120px; object-fit: cover;">
                     <h5 class="card-title">@ViewBag.FullName</h5>
