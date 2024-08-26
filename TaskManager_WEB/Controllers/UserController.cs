@@ -30,6 +30,7 @@ namespace TaskManager_WEB.Controllers
         [Authorize]
         public async Task<IActionResult> GetAllUsers()
         {
+            // JWT token'ı al
             var token = HttpContext.Request.Cookies["AuthToken"];
             var handler = new JwtSecurityTokenHandler();
             JwtSecurityToken jwtToken = null;
@@ -39,25 +40,40 @@ namespace TaskManager_WEB.Controllers
                 jwtToken = handler.ReadJwtToken(token);
             }
 
-            ViewBag.Id = jwtToken?.Claims.FirstOrDefault(c => c.Type == "nameid")?.Value;
-            ViewBag.FullName = jwtToken?.Claims.FirstOrDefault(c => c.Type == "FullName")?.Value;
-            ViewBag.Email = jwtToken?.Claims.FirstOrDefault(c => c.Type == "email")?.Value;
-            ViewBag.DepartmentName = jwtToken?.Claims.FirstOrDefault(c => c.Type == "DepartmentName")?.Value;
-            ViewBag.Gender = jwtToken?.Claims.FirstOrDefault(c => c.Type == "Gender")?.Value;
+            var userId = jwtToken?.Claims.FirstOrDefault(c => c.Type == "nameid")?.Value;
 
-            var response = await _userService.GetAll<APIResponse>();
+            var userResponse = await _userService.GetUserWithDetails<APIResponse>(int.Parse(userId));
 
-            if (response == null || !response.IsSuccess)
+            if (userResponse != null && userResponse.IsSuccess)
+            {
+                var user = JsonConvert.DeserializeObject<UserResult>(Convert.ToString(userResponse.result));
+
+                // Kullanıcı bilgilerini ViewBag'e atayalım
+                ViewBag.Id = user.User.Id.ToString();
+                ViewBag.FullName = $"{user.User.Name} {user.User.LastName}";
+                ViewBag.Email = user.User.Email;
+                ViewBag.DepartmentName = user.User.Department?.DepartmentName;
+                ViewBag.Gender = user.User.Gender;
+            }
+            else
             {
                 return NotFound();
             }
 
-            var users = JsonConvert.DeserializeObject<List<UserResult>>(Convert.ToString(response.result));
+            // Tüm kullanıcıların listesini alalım
+            var allUsersResponse = await _userService.GetAll<APIResponse>();
 
+            if (allUsersResponse == null || !allUsersResponse.IsSuccess)
+            {
+                return NotFound();
+            }
+
+            var users = JsonConvert.DeserializeObject<List<UserResult>>(Convert.ToString(allUsersResponse.result));
             var viewModel = _mapper.Map<List<UserViewModel>>(users);
 
             return View(viewModel);
         }
+
 
 
         [HttpGet]
