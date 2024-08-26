@@ -607,39 +607,41 @@ Bu yapılandırma, `TaskManagementAPI` servisini `https://localhost:7178 adresin
 ---
 - **Profil Bilgilerim Sayfası:** Kullanıcının profil bilgilerini görüntüleyebildiği ekran.
 
-  <img src="https://github.com/user-attachments/assets/841ef3fc-269f-48b6-bf00-af22ec90f688" alt="Profil Bilgilerim Sayfası" width="600" style="display:block; margin:auto; background-color:#fff;">
+  <img src="https://github.com/user-attachments/assets/841ef3fc-269f-48b6-bf00-af22ec90f688" alt="Profil Bilgilerim Sayfası"/>
 ---
+
 - **Profil Güncelleme Sayfası:** Kullanıcının profil bilgilerini güncelleyebildiği ekran.
 
-<img src="https://github.com/user-attachments/assets/b9e71ccd-a65f-4853-9715-04eb92a7dd1f" alt="Profil Bilgilerim Sayfası" width="600" style="display:block; margin:auto; background-color:#fff;">
-  ---
+<img src="https://github.com/user-attachments/assets/b9e71ccd-a65f-4853-9715-04eb92a7dd1f" alt="Profil Bilgilerim Sayfası" width="600"/>
+---
+
 - **Görev Detayları Sayfası:** Bir görevin detaylarının görüntülendiği ekran.
 
-  <img src="https://github.com/user-attachments/assets/3029b4be-b147-4cf5-b17b-e1218e4c9503" alt="Görev Detayları Sayfası" width="600">
+  <img src="https://github.com/user-attachments/assets/3029b4be-b147-4cf5-b17b-e1218e4c9503" alt="Görev Detayları Sayfası" width="600"/>
 ---
 - **Yeni Görev Ekleme Sayfası:** Yeni bir görev oluşturma ekranı.
 
-  <img src="https://github.com/user-attachments/assets/354da73a-cc6f-41c1-b2b3-1cd0f61a186e" alt="Yeni Görev Ekleme Sayfası" width="600">
+  <img src="https://github.com/user-attachments/assets/354da73a-cc6f-41c1-b2b3-1cd0f61a186e" alt="Yeni Görev Ekleme Sayfası" width="600"/>
 ---
 - **Görev Güncelleme Sayfası:** Mevcut bir görevin güncellenebildiği ekran.
 
-  <img src="https://github.com/user-attachments/assets/18a7d0c7-1fcd-48cb-aa6a-d9a2d10d211d" alt="Görev Güncelleme Sayfası" width="600">
+  <img src="https://github.com/user-attachments/assets/18a7d0c7-1fcd-48cb-aa6a-d9a2d10d211d" alt="Görev Güncelleme Sayfası" width="600"/>
 ---
 - **Departman Ekleme Sayfası:** (İK Uzmanı için) Yeni departman ekleme ekranı.
 
-  <img src="https://github.com/user-attachments/assets/9689b86e-aa20-4e5e-bb7a-7d91903a7bc4" alt="Departman Ekleme Sayfası" width="600">
+  <img src="https://github.com/user-attachments/assets/9689b86e-aa20-4e5e-bb7a-7d91903a7bc4" alt="Departman Ekleme Sayfası" width="600"/>
 ---
 - **Personel Ekleme Sayfası:** (İK Uzmanı için) Yeni personel ekleme ekranı.
 
-  <img src="https://github.com/user-attachments/assets/dee63a88-5a37-47de-8d26-6fdea0c176f8" alt="Personel Ekleme Sayfası" width="600">
+  <img src="https://github.com/user-attachments/assets/dee63a88-5a37-47de-8d26-6fdea0c176f8" alt="Personel Ekleme Sayfası" width="600"/>
 ---
 - **Personel Listesi Ekranı:** (İK Uzmanı için) Sistemdeki personelin listelendiği ekran.
 
-  <img src="https://github.com/user-attachments/assets/0b0ec24a-20a4-46ef-aec9-d0525ce3362a" alt="Personel Listesi Ekranı" width="600">
+  <img src="https://github.com/user-attachments/assets/0b0ec24a-20a4-46ef-aec9-d0525ce3362a" alt="Personel Listesi Ekranı" width="600"/>
 ---
 - **Access Denied Sayfası:** Erişim izni olmayan kullanıcılar için özel erişim engellendi sayfası.
 
-  <img src="https://github.com/user-attachments/assets/a7e0cdb4-7f88-455c-8d62-babb2e6c8fcd" alt="Access Denied Sayfası" width="600">
+  <img src="https://github.com/user-attachments/assets/a7e0cdb4-7f88-455c-8d62-babb2e6c8fcd" alt="Access Denied Sayfası" width="600"/>
 ---
 - **Not Found Sayfası:** Mevcut olmayan bir sayfa talebi durumunda gösterilen sayfa.
 
