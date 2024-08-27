@@ -1,75 +1,77 @@
-﻿@model UserCreateVm
+﻿@using TaskManager_WEB.Resources
+@model UserCreateVm
+@inject LanguageService ShareLocalizer
 
 @{
-    ViewData["Title"] = "Kullanıcı Oluştur";
+    ViewData["Title"] = @ShareLocalizer.Getkey("CreateUser").Value;
 }
 
 <div class="container mt-5">
-    <h2 class="mb-4">Kullanıcı Oluştur</h2>
+    <h2 class="mb-4">@ShareLocalizer.Getkey("CreateUser").Value</h2>
 
     <form asp-action="UserCreate" method="post">
         <div class="form-group">
-            <label asp-for="UserCreateDto.Name" class="control-label">Ad</label>
+            <label asp-for="UserCreateDto.Name" class="control-label">@ShareLocalizer.Getkey("FirstName").Value</label>
             <input asp-for="UserCreateDto.Name" class="form-control" />
             <span asp-validation-for="UserCreateDto.Name" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="UserCreateDto.LastName" class="control-label">Soyad</label>
+            <label asp-for="UserCreateDto.LastName" class="control-label">@ShareLocalizer.Getkey("LastName").Value</label>
             <input asp-for="UserCreateDto.LastName" class="form-control" />
             <span asp-validation-for="UserCreateDto.LastName" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="UserCreateDto.Email" class="control-label">E-posta</label>
+            <label asp-for="UserCreateDto.Email" class="control-label">@ShareLocalizer.Getkey("Email").Value</label>
             <input asp-for="UserCreateDto.Email" class="form-control" />
             <span asp-validation-for="UserCreateDto.Email" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="UserCreateDto.Gender" class="control-label">Cinsiyet</label>
+            <label asp-for="UserCreateDto.Gender" class="control-label">@ShareLocalizer.Getkey("Gender").Value</label>
             <div>
                 <label class="radio-inline">
-                    <input asp-for="UserCreateDto.Gender" type="radio" value="Male" /> Bay
+                    <input asp-for="UserCreateDto.Gender" type="radio" value="Male" /> @ShareLocalizer.Getkey("Male").Value
                 </label>
                 <label class="radio-inline">
-                    <input asp-for="UserCreateDto.Gender" type="radio" value="Female" /> Bayan
+                    <input asp-for="UserCreateDto.Gender" type="radio" value="Female" /> @ShareLocalizer.Getkey("Female").Value
                 </label>
             </div>
             <span asp-validation-for="UserCreateDto.Gender" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="UserCreateDto.DepartmentId" class="control-label">Departman</label>
+            <label asp-for="UserCreateDto.DepartmentId" class="control-label">@ShareLocalizer.Getkey("Department").Value</label>
             <select asp-for="UserCreateDto.DepartmentId" class="form-control" asp-items="Model.DepartmentList">
-                <option value="">Seçiniz...</option>
+                <option value="">@ShareLocalizer.Getkey("Select").Value</option>
             </select>
             <span asp-validation-for="UserCreateDto.DepartmentId" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="UserCreateDto.Adress" class="control-label">Adres</label>
+            <label asp-for="UserCreateDto.Adress" class="control-label">@ShareLocalizer.Getkey("Address").Value</label>
             <input asp-for="UserCreateDto.Adress" class="form-control" />
             <span asp-validation-for="UserCreateDto.Adress" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="UserCreateDto.Country" class="control-label">Ülke</label>
+            <label asp-for="UserCreateDto.Country" class="control-label">@ShareLocalizer.Getkey("Country").Value</label>
             <input asp-for="UserCreateDto.Country" class="form-control" />
             <span asp-validation-for="UserCreateDto.Country" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="UserCreateDto.State" class="control-label">Şehir</label>
+            <label asp-for="UserCreateDto.State" class="control-label">@ShareLocalizer.Getkey("State").Value</label>
             <input asp-for="UserCreateDto.State" class="form-control" />
             <span asp-validation-for="UserCreateDto.State" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="UserCreateDto.PhoneNumber" class="control-label">Telefon Numarası</label>
+            <label asp-for="UserCreateDto.PhoneNumber" class="control-label">@ShareLocalizer.Getkey("PhoneNumber").Value</label>
             <input asp-for="UserCreateDto.PhoneNumber" class="form-control" />
             <span asp-validation-for="UserCreateDto.PhoneNumber" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="UserCreateDto.Education" class="control-label">Eğitim</label>
+            <label asp-for="UserCreateDto.Education" class="control-label">@ShareLocalizer.Getkey("Education").Value</label>
             <input asp-for="UserCreateDto.Education" class="form-control" />
             <span asp-validation-for="UserCreateDto.Education" class="text-danger"></span>
         </div>
         <div class="form-group mt-3">
-            <input type="submit" value="Oluştur" class="btn btn-primary" />
-            <a asp-action="GetAllUsers" asp-controller="user" class="btn btn-secondary">Geri Dön</a>
+            <input type="submit" value="@ShareLocalizer.Getkey("Submit").Value" class="btn btn-primary" />
+            <a asp-action="GetAllUsers" asp-controller="user" class="btn btn-secondary">@ShareLocalizer.Getkey("Back").Value</a>
         </div>
     </form>
 </div>

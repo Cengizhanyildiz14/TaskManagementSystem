@@ -1,22 +1,24 @@
-﻿@model TaskCreateVM
+﻿@using TaskManager_WEB.Resources
+@model TaskCreateVM
+@inject LanguageService ShareLocalizer
 
 <div class="container mt-5">
-    <h2 class="mb-4">Yeni Görev Ekle</h2>
+    <h2 class="mb-4">@ShareLocalizer.Getkey("AddNewTask1").Value</h2>
     <form asp-action="Create" method="post">
         <div class="form-group">
-            <label asp-for="TaskCreateDto.TaskName" class="control-label">Görev Adı</label>
+            <label asp-for="TaskCreateDto.TaskName" class="control-label">@ShareLocalizer.Getkey("TaskName").Value</label>
             <input asp-for="TaskCreateDto.TaskName" class="form-control" />
             <span asp-validation-for="TaskCreateDto.TaskName" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="TaskCreateDto.DepartmentId" class="control-label">Departman Adı</label>
+            <label asp-for="TaskCreateDto.DepartmentId" class="control-label">@ShareLocalizer.Getkey("DepartmentName").Value</label>
             <select asp-for="TaskCreateDto.DepartmentId" class="form-control" asp-items="Model.DepartmentList" onchange="this.form.submit();"></select>
             <span asp-validation-for="TaskCreateDto.DepartmentId" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="TaskCreateDto.AsaignedUserId" class="control-label">Atanacak Kişi</label>
+            <label asp-for="TaskCreateDto.AsaignedUserId" class="control-label">@ShareLocalizer.Getkey("AssignedUser").Value</label>
             <select asp-for="TaskCreateDto.AsaignedUserId" class="form-control" asp-items="Model.UserList"></select>
             <span asp-validation-for="TaskCreateDto.AsaignedUserId" class="text-danger"></span>
         </div>
@@ -24,8 +26,8 @@
         <input type="hidden" asp-for="TaskCreateDto.CreaterUserId" />
 
         <div class="form-group mt-3">
-            <input type="submit" value="Görev Oluştur" class="btn btn-primary" />
-            <a asp-action="GetAllUsers" asp-controller="user" class="btn btn-secondary">Geri Dön</a>
+            <input type="submit" value="@ShareLocalizer.Getkey("CreateTask").Value" class="btn btn-primary" />
+            <a asp-action="GetAllUsers" asp-controller="user" class="btn btn-secondary">@ShareLocalizer.Getkey("Back").Value</a>
         </div>
     </form>
 </div>

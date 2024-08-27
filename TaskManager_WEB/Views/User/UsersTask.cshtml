@@ -1,12 +1,14 @@
-﻿@model List<TaskDtoWeb>
+﻿@using TaskManager_WEB.Resources
+@model List<TaskDtoWeb>
+@inject LanguageService ShareLocalizer
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
 <div class="container mt-5">
-    <h2 class="mb-4">Görevlerim</h2>
+    <h2 class="mb-4">@ShareLocalizer.Getkey("MyTasks").Value</h2>
 
     @if (Model == null || !Model.Any())
     {
-        <p>Henüz atanmış bir göreviniz bulunmuyor.</p>
+        <p>@ShareLocalizer.Getkey("NoTasks").Value</p>
     }
     else
     {
@@ -14,12 +16,12 @@
             <table class="table table-striped">
                 <thead class="thead-light">
                     <tr>
-                        <th>Görev Adı</th>
-                        <th>Departman</th>
-                        <th>Atama Yapan Kişi</th>
-                        <th class="text-center">Durum</th>
-                        <th class="text-center">Kalan Süre</th>
-                        <th class="text-center">Detay</th>
+                        <th>@ShareLocalizer.Getkey("TaskName").Value</th>
+                        <th>@ShareLocalizer.Getkey("Department").Value</th>
+                        <th>@ShareLocalizer.Getkey("AssignedBy").Value</th>
+                        <th class="text-center">@ShareLocalizer.Getkey("Status").Value</th>
+                        <th class="text-center">@ShareLocalizer.Getkey("RemainingTime").Value</th>
+                        <th class="text-center">@ShareLocalizer.Getkey("Details").Value</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,7 +35,7 @@
                             <td class="align-middle">@task.Department.DepartmentName</td>
                             <td class="align-middle">@task.CreaterUserName @task.CreaterUserLastName</td>
                             <td id="status_@countdownId" class="align-middle fw-bold text-uppercase">
-                                @task.StatusDescription                              
+                                @task.StatusDescription
                             </td>
                             <td class="align-middle text-center">
                                 @if (task.StatusDescription == "Beklemede")
@@ -54,7 +56,7 @@
                                                 if (distance > 0) {
                                                     countdownElement.innerHTML = days + " gün " + hours + " saat " + minutes + " dakika " + seconds + " saniye";
                                                 } else {
-                                                    countdownElement.innerHTML = "<span class='text-danger'>Süre doldu</span>";
+                                                    countdownElement.innerHTML = "<span class='text-danger'>@ShareLocalizer.Getkey("TimeExpired").Value</span>";
                                                     clearInterval(interval);
 
                                                     $.ajax({
@@ -62,15 +64,14 @@
                                                         type: 'POST',
                                                         data: {
                                                             TaskId: taskId,
-                                                            Status: "Süre Doldu"
+                                                            Status: "@ShareLocalizer.Getkey("TimeExpired").Value"
                                                         },
                                                         success: function (response) {
-                                                            // Başarıyla güncellendiğinde durumu sayfada güncelle
-                                                            document.getElementById('status_' + id).innerHTML = "SüreDoldu";
-                                                            document.getElementById('status_detail_' + id).innerHTML = "Durum güncellenmiş";
+                                                            document.getElementById('status_' + id).innerHTML = "@ShareLocalizer.Getkey("TimeExpired").Value";
+                                                            document.getElementById('status_detail_' + id).innerHTML = "@ShareLocalizer.Getkey("StatusUpdated").Value";
                                                         },
                                                         error: function (xhr, status, error) {
-                                                            console.log("Görev güncellenirken bir hata oluştu: " + error);
+                                                            console.log("@ShareLocalizer.Getkey("ConfirmUpdate").Value: " + error);
                                                         }
                                                     });
                                                 }
@@ -83,7 +84,7 @@
                                 }
                                 else
                                 {
-                                    <span class="text-danger">Süre doldu</span>
+                                    <span class="text-danger">@ShareLocalizer.Getkey("TimeExpired").Value</span>
                                 }
                             </td>
                             <td id="status_detail_@countdownId" class="text-center align-middle">
@@ -93,17 +94,17 @@
                                         <form asp-action="TaskStatusUpdate" asp-controller="task" method="post" class="m-2">
                                             <input type="hidden" name="TaskId" value="@task.Id" />
                                             <input type="hidden" name="Status" value="Onayla" />
-                                            <button type="submit" class="btn btn-success btn-sm me-2">Onayla</button>
+                                            <button type="submit" class="btn btn-success btn-sm me-2">@ShareLocalizer.Getkey("Approve").Value</button>
                                         </form>
                                         <form asp-action="TaskStatusUpdate" asp-controller="task" method="post" class="m-2">
                                             <input type="hidden" name="TaskId" value="@task.Id" />
                                             <input type="hidden" name="Status" value="Reddet" />
-                                            <button type="submit" class="btn btn-danger btn-sm">Reddet</button>
+                                            <button type="submit" class="btn btn-danger btn-sm">@ShareLocalizer.Getkey("Reject").Value</button>
                                         </form>
                                     }
                                     else
                                     {
-                                        <span class="text-muted">Durum güncellenmiş</span>
+                                        <span class="text-muted">@ShareLocalizer.Getkey("StatusUpdated").Value</span>
                                     }
                                 </div>
                             </td>

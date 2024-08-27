@@ -1,11 +1,32 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.Extensions.Options;
+using System.Globalization;
 using TaskManager_WEB.AutoMapper;
+using TaskManager_WEB.Resources;
 using TaskManager_WEB.Services;
 using TaskManager_WEB.Services.IServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddMvc();
+builder.Services.AddSingleton<LanguageService>();
+
+builder.Services.AddLocalization(opt => opt.ResourcesPath = "Resources");
+builder.Services.Configure<RequestLocalizationOptions>(opt =>
+{
+    var supportCulture = new List<CultureInfo>
+    {
+        new CultureInfo("tr-TR"),
+        new CultureInfo("en-US")
+    };
+    opt.DefaultRequestCulture = new RequestCulture(culture: "tr-TR", uiCulture: "tr-TR");
+    opt.SupportedCultures = supportCulture;
+    opt.SupportedUICultures = supportCulture;
+
+    opt.RequestCultureProviders.Insert(0, new QueryStringRequestCultureProvider());
+});
 
 builder.Services.AddAuthorization(opt =>
 {
@@ -57,6 +78,8 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+app.UseRequestLocalization(app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
 
 app.UseRouting();
 app.UseSession();

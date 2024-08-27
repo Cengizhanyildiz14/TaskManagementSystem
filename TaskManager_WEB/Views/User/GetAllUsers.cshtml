@@ -1,16 +1,17 @@
-﻿@using Utility
+﻿@using TaskManager_WEB.Resources
+@using Utility
 @model List<UserViewModel>
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpAcc
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+@inject LanguageService ShareLocalizer
 
 <div class="container-fluid mt-5 px-5">
     <div class="row gx-3">
         <!-- Profil Kartı Container -->
         <div class="col-2" style="padding-left: 0; margin-top: 180px;">
-            <!-- Added margin-top here -->
             <div class="card shadow-sm w-100">
                 <div class="card-header bg-secondary text-white text-center">
-                    <h5 class="mb-0">Personel Profili</h5>
+                    <h5 class="mb-0">@ShareLocalizer.Getkey("ProfileTitle").Value</h5>
                 </div>
                 <div class="card-body text-center">
                     @{
@@ -21,44 +22,44 @@
                     <img src="@profileImage" class="rounded-circle img-fluid mb-3" alt="Profile Image" style="width: 120px; height: 120px; object-fit: cover;">
                     <h5 class="card-title">@ViewBag.FullName</h5>
                     <p class="card-text">
-                        <strong>Email:</strong><br /> <a href="mailto:@ViewBag.Email">@ViewBag.Email</a><br />
-                        <strong>Departman: <br /></strong> @ViewBag.DepartmentName <br />
-                        <a asp-controller="user" asp-action="UsersTask" asp-route-id="@ViewBag.Id" class="btn btn-secondary rounded-pill mt-3">Görevlerim</a>
+                        <strong>@ShareLocalizer.Getkey("Email").Value:</strong><br /> <a href="mailto:@ViewBag.Email">@ViewBag.Email</a><br />
+                        <strong>@ShareLocalizer.Getkey("Department").Value: <br /></strong> @ViewBag.DepartmentName <br />
+                        <a asp-controller="user" asp-action="UsersTask" asp-route-id="@ViewBag.Id" class="btn btn-secondary rounded-pill mt-3">@ShareLocalizer.Getkey("MyTasks").Value</a>
                     </p>
                 </div>
             </div>
         </div>
-    
+
         <!-- Görev Takip Listesi Container -->
         <div class="col-10" style="padding-right: 0;">
             <div class="container-fluid p-0">
-                <h2 class="mb-4">Görev Takip Listesi</h2>
+                <h2 class="mb-4">@ShareLocalizer.Getkey("TaskTrackingList").Value</h2>
 
                 <div class="d-flex justify-content-end mb-3">
-                    <a asp-controller="Task" asp-action="Create" class="btn btn-secondary rounded-pill me-2">+ Yeni Görev Ekle</a>
+                    <a asp-controller="Task" asp-action="Create" class="btn btn-secondary rounded-pill me-2">@ShareLocalizer.Getkey("AddNewTask").Value</a>
                     @if (HttpAcc.HttpContext.User.IK())
                     {
-                        <a asp-controller="Department" asp-action="DepartmentCreate" class="btn btn-secondary rounded-pill me-2">+ Departman Ekle</a>
-                        <a asp-controller="user" asp-action="UserCreate" class="btn btn-secondary rounded-pill me-2">+ Personel Ekle</a>
-                        <a asp-controller="user" asp-action="UserList" class="btn btn-secondary rounded-pill">+ Personel Listesi</a>
+                        <a asp-controller="Department" asp-action="DepartmentCreate" class="btn btn-secondary rounded-pill me-2">@ShareLocalizer.Getkey("AddDepartment").Value</a>
+                        <a asp-controller="user" asp-action="UserCreate" class="btn btn-secondary rounded-pill me-2">@ShareLocalizer.Getkey("AddPersonnel").Value</a>
+                        <a asp-controller="user" asp-action="UserList" class="btn btn-secondary rounded-pill">@ShareLocalizer.Getkey("PersonnelList").Value</a>
                     }
                 </div>
 
                 <div class="alert alert-info d-flex align-items-center rounded-pill mb-2" role="alert">
                     <div>
-                        <i class="fas fa-check-circle text-success me-2"></i> Tamamlandı
+                        <i class="fas fa-check-circle text-success me-2"></i> @ShareLocalizer.Getkey("Completed").Value
                     </div>
                     <div class="ms-4">
-                        <i class="fas fa-times-circle text-danger me-2"></i> Reddedildi
+                        <i class="fas fa-times-circle text-danger me-2"></i> @ShareLocalizer.Getkey("Rejected").Value
                     </div>
                     <div class="ms-4">
-                        <i class="fas fa-clock text-warning me-2"></i> Beklemede
+                        <i class="fas fa-clock text-warning me-2"></i> @ShareLocalizer.Getkey("Pending").Value
                     </div>
                     <div class="ms-4">
-                        <i class="fas fa-exclamation-circle me-2" style="color:#FF5F15"></i> Süre Doldu
+                        <i class="fas fa-exclamation-circle me-2" style="color:#FF5F15"></i> @ShareLocalizer.Getkey("TimeExpired").Value
                     </div>
                     <div class="ms-4">
-                        <i class="fas fa-minus-circle text-dark me-2"></i> Yok
+                        <i class="fas fa-minus-circle text-dark me-2"></i> @ShareLocalizer.Getkey("None").Value
                     </div>
                 </div>
 
@@ -67,22 +68,22 @@
                         <thead class="thead-light">
                             <tr>
                                 <th>
-                                    <input type="text" id="searchAssignedUserName" class="form-control rounded-pill" placeholder="Atanan Ad-Soyad Ara">
+                                    <input type="text" id="searchAssignedUserName" class="form-control rounded-pill" placeholder="@ShareLocalizer.Getkey("SearchAssignedUserName").Value">
                                 </th>
                                 <th>
-                                    <input type="text" id="searchEmail" class="form-control rounded-pill" placeholder="Mail Adresi Ara">
+                                    <input type="text" id="searchEmail" class="form-control rounded-pill" placeholder="@ShareLocalizer.Getkey("SearchEmail").Value">
                                 </th>
                                 <th>
-                                    <input type="text" id="searchDepartment" class="form-control rounded-pill" placeholder="Departman Ara">
+                                    <input type="text" id="searchDepartment" class="form-control rounded-pill" placeholder="@ShareLocalizer.Getkey("SearchDepartment").Value">
                                 </th>
                                 <th>
-                                    <input type="text" id="searchTaskName" class="form-control rounded-pill" placeholder="İş ve Görev Tanımı Ara">
+                                    <input type="text" id="searchTaskName" class="form-control rounded-pill" placeholder="@ShareLocalizer.Getkey("SearchTaskName").Value">
                                 </th>
                                 <th>
-                                    <input type="text" id="searchCreatorUserName" class="form-control rounded-pill" placeholder="Atama Yapan Kişi Ara">
+                                    <input type="text" id="searchCreatorUserName" class="form-control rounded-pill" placeholder="@ShareLocalizer.Getkey("SearchCreatorUserName").Value">
                                 </th>
-                                <th class="text-center">Durum</th>
-                                <th>Detay</th>
+                                <th class="text-center">@ShareLocalizer.Getkey("Detail").Value</th>
+                                <th>@ShareLocalizer.Getkey("Detail").Value</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -117,7 +118,7 @@
                                                 }
                                             </td>
                                             <td class="text-center align-middle">
-                                                <a asp-action="TaskDetails" asp-controller="Task" asp-route-id="@task.Id" class="btn btn-secondary btn-sm">Detay</a>
+                                                <a asp-action="TaskDetails" asp-controller="Task" asp-route-id="@task.Id" class="btn btn-secondary btn-sm">@ShareLocalizer.Getkey("Detail").Value</a>
                                             </td>
                                         </tr>
                                     }
@@ -199,12 +200,8 @@
     </script>
 }
 
-
 <style>
     i.fas {
         font-size: 1.5rem;
     }
 </style>
-
-
-  

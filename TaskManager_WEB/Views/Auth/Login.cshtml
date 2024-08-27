@@ -1,4 +1,6 @@
-﻿@model LoginRequestDto
+﻿@using TaskManager_WEB.Resources
+@model LoginRequestDto
+@inject LanguageService ShareLocalizer
 
 <section class="vh-100" style="background-color: #9A616D;">
     <div class="container py-5 h-100">
@@ -19,24 +21,24 @@
                                         <img src="@Url.Content("~/images/1583011018.png")" alt="Logo" class="me-3" style="height: 250px;" />
                                     </div>
 
-                                    <h5 class="fw-bold" style="letter-spacing: 1px;">Hesabına Giriş Yap</h5>
+                                    <h5 class="fw-bold" style="letter-spacing: 1px;">@ShareLocalizer.Getkey("SignIn").Value</h5>
 
                                     <div data-mdb-input-init class="form-outline mb-4">
-                                        <input type="email" id="Email" asp-for="Email" required class="form-control form-control-lg" placeholder="Email" />
+                                        <input type="email" id="Email" asp-for="Email" required class="form-control form-control-lg" placeholder="@ShareLocalizer.Getkey("Email").Value" />
                                         <span asp-validation-for="Email" class="text-danger"></span>
                                     </div>
 
                                     <div class="form-check mb-4">
                                         <input type="checkbox" id="RememberMe" asp-for="RememberMe" class="form-check-input" />
-                                        <label for="RememberMe" class="form-check-label">Beni Hatırla</label>
+                                        <label for="RememberMe" class="form-check-label">@ShareLocalizer.Getkey("RememberMe").Value</label>
                                     </div>
 
                                     <div class="mb-4">
-                                        <button data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-lg btn-block w-100" type="submit">Giriş Yap</button>
+                                        <button data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-lg btn-block w-100" type="submit">@ShareLocalizer.Getkey("SignInButton").Value</button>
                                     </div>
 
-                                    <a href="#!" class="small text-muted">Terms of use.</a>
-                                    <a href="#!" class="small text-muted">Privacy policy</a>
+                                    <a href="#!" class="small text-muted">@ShareLocalizer.Getkey("TermsOfUse").Value</a>
+                                    <a href="#!" class="small text-muted">@ShareLocalizer.Getkey("PrivacyPolicy").Value</a>
                                 </form>
 
                             </div>

@@ -1,7 +1,9 @@
-﻿@model ProfileUpdateVM
+﻿@using TaskManager_WEB.Resources
+@model ProfileUpdateVM
+@inject LanguageService ShareLocalizer
 
 <div class="container mt-5">
-    <h2 class="mb-4">Profil Güncelleme</h2>
+    <h2 class="mb-4">@ShareLocalizer.Getkey("UpdateProfile").Value</h2>
 
     <form asp-action="UpdateProfile" asp-controller="User" method="post">
         <!-- Kullanıcı ID'sini gizli bir alan olarak ekleyin -->
@@ -14,27 +16,27 @@
         <input asp-for="userUpdateDto.Department.DepartmentName" type="hidden" />
 
         <div class="form-group">
-            <label asp-for="userUpdateDto.PhoneNumber"></label>
+            <label asp-for="userUpdateDto.PhoneNumber">@ShareLocalizer.Getkey("PhoneNumber").Value</label>
             <input asp-for="userUpdateDto.PhoneNumber" class="form-control" />
         </div>
         <div class="form-group">
-            <label asp-for="userUpdateDto.Email"></label>
+            <label asp-for="userUpdateDto.Email">@ShareLocalizer.Getkey("Email").Value</label>
             <input asp-for="userUpdateDto.Email" class="form-control" />
         </div>
         <div class="form-group">
-            <label asp-for="userUpdateDto.Education"></label>
+            <label asp-for="userUpdateDto.Education">@ShareLocalizer.Getkey("Education").Value</label>
             <input asp-for="userUpdateDto.Education" class="form-control" />
         </div>
         <div class="form-group">
-            <label>Departman</label>
+            <label>@ShareLocalizer.Getkey("Department").Value</label>
             <input value="@Model.userUpdateDto.Department.DepartmentName" class="form-control" readonly="readonly" /> <!-- Departman adı sadece okunabilir -->
         </div>
         <div class="form-group">
-            <label asp-for="userUpdateDto.Adress"></label>
+            <label asp-for="userUpdateDto.Adress">@ShareLocalizer.Getkey("Address").Value</label>
             <input asp-for="userUpdateDto.Adress" class="form-control" />
         </div>
         <div class="form-group mt-3">
-            <button type="submit" class="btn btn-primary">Güncelle</button>
+            <button type="submit" class="btn btn-primary">@ShareLocalizer.Getkey("Update").Value</button>
         </div>
     </form>
 </div>
