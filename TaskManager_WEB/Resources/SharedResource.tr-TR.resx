@@ -120,6 +120,9 @@
   <data name="AccessAmendDeleteObject" xml:space="preserve">
     <value>Toplanan Verilere Nasıl Erişilir, Düzenlenir, Silinir veya İtiraz Edilir</value>
   </data>
+  <data name="AccessAmendDeleteObjectDescription" xml:space="preserve">
+    <value>Kişisel verilerinizi toplayıp toplamadığımızı, bu verileri nasıl kullandığımızı, kişisel verilerinizi kime açıkladığımızı öğrenmek isterseniz veya verilerinizi silmek veya değiştirmek isterseniz, gizlilik sorumlumuzla şu adresten iletişime geçebilirsiniz:</value>
+  </data>
   <data name="Actions" xml:space="preserve">
     <value>İşlemler</value>
   </data>
@@ -128,6 +131,9 @@
   </data>
   <data name="AddDepartment" xml:space="preserve">
     <value>+ Departman Ekle</value>
+  </data>
+  <data name="AdditionalConditions" xml:space="preserve">
+    <value>Bu Gizlilik Politikası, Sitemizin kullanım koşullarına ek olarak uygulanır.</value>
   </data>
   <data name="AddNewDepartment" xml:space="preserve">
     <value>Yeni Departman Ekle</value>
@@ -150,6 +156,9 @@
   <data name="AnalyticalCookies" xml:space="preserve">
     <value>Analitik çerezler</value>
   </data>
+  <data name="AnalyticalCookiesDescription" xml:space="preserve">
+    <value>Analitik çerezler, sitemize nasıl eriştiğiniz, içeriklere ne kadar süreyle eriştiğiniz gibi verileri toplayarak sitemizin tasarımını ve işlevselliğini geliştirmemize olanak tanır.</value>
+  </data>
   <data name="Approve" xml:space="preserve">
     <value>Onayla</value>
   </data>
@@ -171,11 +180,20 @@
   <data name="Changes" xml:space="preserve">
     <value>Değişiklikler</value>
   </data>
+  <data name="ChangesDescription" xml:space="preserve">
+    <value>Bu Gizlilik Politikası, yasalara uymak ve veri toplama sürecimizde yapılan herhangi bir değişikliği yansıtmak amacıyla zaman zaman değiştirilebilir. Bu Gizlilik Politikasında değişiklik yaptığımızda, bu Gizlilik Politikasının üst kısmındaki "Yürürlük Tarihi"ni güncelleriz. Kullanıcılarımızın düzenli olarak Gizlilik Politikamızı gözden geçirmesini ve herhangi bir güncellemeden haberdar olmalarını öneririz. Gerekirse, değişiklikler hakkında kullanıcıları e-posta yoluyla bilgilendirebiliriz.</value>
+  </data>
   <data name="Children" xml:space="preserve">
     <value>Çocuklar</value>
   </data>
+  <data name="ChildrenDescription" xml:space="preserve">
+    <value>Sitemizi kullanmak için minimum yaş 18'dir. 13 yaşından küçük çocuklardan bilerek kişisel veri toplamaz veya kullanmayız. 13 yaşından küçük bir çocuktan kişisel veri topladığımızı öğrenirsek, bu veriler en kısa sürede silinecektir. 13 yaşından küçük bir çocuk bize kişisel veriler sağlamışsa, ebeveyn veya vasi gizlilik sorumlumuzla iletişime geçebilir.</value>
+  </data>
   <data name="CollectedPersonalData" xml:space="preserve">
     <value>Topladığımız Kişisel Veriler</value>
+  </data>
+  <data name="CollectedPersonalDataDescription" xml:space="preserve">
+    <value>Bu Gizlilik Politikasında belirtilen amaçları yerine getirmemize yardımcı olan verileri toplarız. Aşağıda belirtilen veriler dışında başka bir veri toplamayız:</value>
   </data>
   <data name="Completed" xml:space="preserve">
     <value>Tamamlandı</value>
@@ -192,14 +210,26 @@
   <data name="Consent" xml:space="preserve">
     <value>Onay</value>
   </data>
+  <data name="ConsentDescription" xml:space="preserve">
+    <value>Sitemizi kullanarak, kullanıcılar şu koşulları kabul eder:</value>
+  </data>
   <data name="ContactInfo" xml:space="preserve">
     <value>İletişim Bilgileri</value>
+  </data>
+  <data name="ContactInfoDescription" xml:space="preserve">
+    <value>Herhangi bir sorunuz, endişeniz veya şikayetiniz varsa, gizlilik sorumlumuz Cengizhan Yıldız ile şu adresten iletişime geçebilirsiniz:</value>
   </data>
   <data name="Cookie" xml:space="preserve">
     <value>Çerez</value>
   </data>
+  <data name="CookieDescription" xml:space="preserve">
+    <value>Çerez, bir web sitesi tarafından kullanıcının sabit diskinde depolanan küçük bir dosyadır. Çerezin amacı, kullanıcının tarama alışkanlıkları ile ilgili verileri toplamaktır. Her çerez gönderildiğinde bildirim almayı seçebilirsiniz. Ayrıca, tarayıcınızda çerezleri tamamen devre dışı bırakmayı seçebilirsiniz, ancak bu kullanıcı deneyiminizin kalitesini düşürebilir.</value>
+  </data>
   <data name="CookiePolicy" xml:space="preserve">
     <value>Çerez Politikası</value>
+  </data>
+  <data name="CookieTypes" xml:space="preserve">
+    <value>Sitemizde aşağıdaki çerez türlerini kullanıyoruz:</value>
   </data>
   <data name="Country" xml:space="preserve">
     <value>Ülke</value>
@@ -213,17 +243,35 @@
   <data name="CreatorFullName" xml:space="preserve">
     <value>Atama Yapan Kişi</value>
   </data>
+  <data name="DataCollectionMethods" xml:space="preserve">
+    <value>Bu veriler şu yöntemlerle toplanabilir:</value>
+  </data>
+  <data name="DataCollectionUsageStorage" xml:space="preserve">
+    <value>Bu Gizlilik Politikasında belirtilen verilerin toplanması, kullanılması ve saklanması.</value>
+  </data>
   <data name="DataProtection" xml:space="preserve">
     <value>Kişisel Verilerinizi Nasıl Koruruz</value>
   </data>
+  <data name="DataProtectionDescription" xml:space="preserve">
+    <value>Kullanıcı verilerinin güvenliğini sağlamak ve kullanıcıların korunmasını sağlamak için makul tüm önlemleri alırız, ancak internette her zaman bir güvenlik riski bulunduğundan, kullanıcı verilerinin güvenliğini garanti edemeyiz.</value>
+  </data>
   <data name="DataRetention" xml:space="preserve">
     <value>Kişisel Verileri Ne Kadar Süre Saklarız</value>
+  </data>
+  <data name="DataRetentionDescription" xml:space="preserve">
+    <value>Kullanıcı verileri, toplama amacının yerine getirilmesi için gerekli olduğu sürece saklanacaktır. Bu süreden daha uzun süre saklanacaksa sizi bilgilendireceğiz.</value>
   </data>
   <data name="DataSharing" xml:space="preserve">
     <value>Kişisel Verileri Kiminle Paylaşıyoruz</value>
   </data>
   <data name="DataUsage" xml:space="preserve">
     <value>Kişisel Verileri Nasıl Kullanırız</value>
+  </data>
+  <data name="DataUsageDescription" xml:space="preserve">
+    <value>Sitemizde toplanan veriler yalnızca bu Gizlilik Politikasında belirtilen amaçlar doğrultusunda kullanılacaktır. Bu Gizlilik Politikasında belirtilmeyen amaçlar için verilerinizi kullanmayacağız.</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>günü</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Sil</value>
@@ -258,11 +306,11 @@
   <data name="EmailAddress" xml:space="preserve">
     <value>Mail Adresi</value>
   </data>
-  <data name="EmailAddress1" xml:space="preserve">
-    <value>E-posta adresi</value>
-  </data>
   <data name="Employees" xml:space="preserve">
     <value>Çalışanlar</value>
+  </data>
+  <data name="EmployeesDataSharing" xml:space="preserve">
+    <value>Kullanıcı verilerini, Gizlilik Politikasında belirtilen amaçları yerine getirmek için gerekli olduğu düşünülen herhangi bir kuruluş üyesiyle paylaşabiliriz.</value>
   </data>
   <data name="EnterDepartmentName" xml:space="preserve">
     <value>Departman adı girin</value>
@@ -279,6 +327,9 @@
   <data name="FunctionalCookies" xml:space="preserve">
     <value>Fonksiyonel çerezler</value>
   </data>
+  <data name="FunctionalCookiesDescription" xml:space="preserve">
+    <value>Fonksiyonel çerezler, sonraki ziyaretleriniz için sitemizdeki seçimlerinizi hatırlamak için kullanılır.</value>
+  </data>
   <data name="Gender" xml:space="preserve">
     <value>Cinsiyet</value>
   </data>
@@ -290,6 +341,9 @@
   </data>
   <data name="LastName" xml:space="preserve">
     <value>Soyad</value>
+  </data>
+  <data name="LegalProcess" xml:space="preserve">
+    <value>Herhangi bir yasal süreç için gerekli olduğunda</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>Giriş yap</value>
@@ -309,8 +363,14 @@
   <data name="NameAndSurname" xml:space="preserve">
     <value>Ad ve Soyad</value>
   </data>
+  <data name="NoControlOverLinks" xml:space="preserve">
+    <value>Sitemizden başka bir siteye yönlendiren bağlantıları takip ederseniz, bu sitelerin gizlilik politikaları üzerinde kontrolümüz olmadığını unutmayın.</value>
+  </data>
   <data name="NonAutomaticData" xml:space="preserve">
     <value>Otomatik Olmayan Şekilde Toplanan Veriler</value>
+  </data>
+  <data name="NonAutomaticDataDescription" xml:space="preserve">
+    <value>Sitemizde belirli işlevleri yerine getirdiğinizde aşağıdaki verileri toplayabiliriz:</value>
   </data>
   <data name="None" xml:space="preserve">
     <value>Yok</value>
@@ -323,6 +383,9 @@
   </data>
   <data name="OtherDisclosures" xml:space="preserve">
     <value>Diğer Açıklamalar</value>
+  </data>
+  <data name="OtherDisclosuresDescription" xml:space="preserve">
+    <value>Verilerinizi diğer üçüncü şahıslarla paylaşmayacağız veya satmayacağız, aşağıdaki durumlar dışında:</value>
   </data>
   <data name="PageNotFound" xml:space="preserve">
     <value>Aradığınız sayfa bulunamadı.</value>
@@ -339,17 +402,26 @@
   <data name="PhoneNumber" xml:space="preserve">
     <value>Telefon Numarası</value>
   </data>
+  <data name="PotentialBuyers" xml:space="preserve">
+    <value>Şirketi satmaya karar verdiğimizde potansiyel alıcılar</value>
+  </data>
   <data name="PrivacyPolicy" xml:space="preserve">
     <value>Gizlilik Politikası</value>
   </data>
-  <data name="PrivacyPolicy1" xml:space="preserve">
-    <value>Gizlilik Politikası</value>
+  <data name="PrivacyPolicyPurpose" xml:space="preserve">
+    <value>Bu gizlilik politikasının amacı ("Gizlilik Politikası"), Site kullanıcılarına şu konularda bilgi vermektir:</value>
+  </data>
+  <data name="PrivacyPolicyTerms" xml:space="preserve">
+    <value>Bu Gizlilik Politikasında belirtilen koşullar</value>
   </data>
   <data name="Profile" xml:space="preserve">
     <value>Profil Bilgilerim</value>
   </data>
   <data name="ProfileTitle" xml:space="preserve">
     <value>Personel Profili</value>
+  </data>
+  <data name="ProtectRights" xml:space="preserve">
+    <value>Yasal haklarımızı kanıtlamak veya korumak için</value>
   </data>
   <data name="Purpose" xml:space="preserve">
     <value>Amaç</value>
@@ -369,6 +441,9 @@
   <data name="RememberMe" xml:space="preserve">
     <value>Beni Hatırla</value>
   </data>
+  <data name="RequiredByLaw" xml:space="preserve">
+    <value>Yasa gerektirdiğinde</value>
+  </data>
   <data name="SearchAssignedUserName" xml:space="preserve">
     <value>Atanan Ad-Soyad Ara</value>
   </data>
@@ -383,6 +458,9 @@
   </data>
   <data name="SearchTaskName" xml:space="preserve">
     <value>İş ve Görev Tanımı Ara</value>
+  </data>
+  <data name="SecurityRiskWarning" xml:space="preserve">
+    <value>Kullanıcı verilerinin güvenliğini sağlamak ve kullanıcıların korunmasını sağlamak için makul tüm önlemleri alırız, ancak internette her zaman bir güvenlik riski bulunduğundan, kullanıcı verilerinin güvenliğini garanti edemeyiz.</value>
   </data>
   <data name="Select" xml:space="preserve">
     <value>Seçiniz...</value>
@@ -408,11 +486,17 @@
   <data name="TargetingCookies" xml:space="preserve">
     <value>Hedefleme çerezleri</value>
   </data>
+  <data name="TargetingCookiesDescription" xml:space="preserve">
+    <value>Hedefleme çerezleri, siteyi nasıl kullandığınıza dair veriler toplar ve tercihlerinizi kaydeder. Bu, sitemizde size özelleştirilmiş bilgileri sunmamızı sağlar.</value>
+  </data>
   <data name="TaskDescription" xml:space="preserve">
     <value>İş ve Görev Tanımı</value>
   </data>
   <data name="TaskDetails" xml:space="preserve">
     <value>Görev Detayları</value>
+  </data>
+  <data name="TaskManagementSystem" xml:space="preserve">
+    <value>Görev Yönetim Sistemi</value>
   </data>
   <data name="TaskName" xml:space="preserve">
     <value>Görev Adı</value>
@@ -428,6 +512,9 @@
   </data>
   <data name="ThirdPartyCookies" xml:space="preserve">
     <value>Üçüncü Taraf Çerezler</value>
+  </data>
+  <data name="ThirdPartyCookiesDescription" xml:space="preserve">
+    <value>Üçüncü taraf çerezleri bizim dışımızda bir web sitesi tarafından oluşturulur. Aşağıdaki amaçlar için üçüncü taraf çerezlerini kullanabiliriz:</value>
   </data>
   <data name="TimeExpired" xml:space="preserve">
     <value>Süre Doldu</value>
@@ -449,6 +536,9 @@
   </data>
   <data name="UserProfile" xml:space="preserve">
     <value>Kullanıcı Profili</value>
+  </data>
+  <data name="UserRights" xml:space="preserve">
+    <value>Site kullanıcılarının hakları</value>
   </data>
   <data name="Website" xml:space="preserve">
     <value>Web sitesi</value>

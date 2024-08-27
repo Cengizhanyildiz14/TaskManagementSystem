@@ -5,66 +5,20 @@
 @inject LanguageService ShareLocalizer
 
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ShareLocalizer.Getkey("PrivacyPolicy").Value</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-        }
-
-        h1, h2, h3 {
-            text-align: left;
-            margin-top: 20px;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 20px;
-        }
-
-        h2 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-        }
-
-        h3 {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-        }
-
-        p, ul, address {
-            margin-bottom: 15px;
-        }
-
-        ul {
-            padding-left: 20px;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: auto;
-            padding: 20px;
-        }
-
-        .text-muted {
-            color: #6c757d;
-        }
-    </style>
 </head>
 <body>
     <div class="container">
         <h1 class="text-center">@ShareLocalizer.Getkey("PrivacyPolicy").Value</h1>
         <p class="text-center text-muted">https://localhost:7183 @ShareLocalizer.Getkey("PrivacyPolicy").Value</p>
-        <p><strong>@ShareLocalizer.Getkey("WebsiteType").Value:</strong> Görev Yönetim Sistemi</p>
-        <p><strong>@ShareLocalizer.Getkey("EffectiveDate").Value:</strong> _________ günü, ______________, _________</p>
-        <p>https://localhost:7183 ("@ShareLocalizer.Getkey("Website").Value") Görev Yönetim Sistemi tarafından sahiplenilmekte ve işletilmektedir. Görev Yönetim Sistemi’ne şu adresten ulaşılabilir:</p>
+        <p><strong>@ShareLocalizer.Getkey("WebsiteType").Value:</strong> @ShareLocalizer.Getkey("TaskManagementSystem").Value</p>
+        <p><strong>@ShareLocalizer.Getkey("EffectiveDate").Value:</strong> _________ @ShareLocalizer.Getkey("Day").Value, ______________, _________</p>
+        <p>https://localhost:7183 ("@ShareLocalizer.Getkey("Website").Value") @ShareLocalizer.Getkey("TaskManagementSystem").Value tarafından sahiplenilmekte ve işletilmektedir. @ShareLocalizer.Getkey("TaskManagementSystem").Value’ne şu adresten ulaşılabilir:</p>
         <address>
             taskmanagement@yopmail.com<br>
             (123) 456-7890<br>
@@ -72,68 +26,68 @@
         </address>
 
         <h2>@ShareLocalizer.Getkey("Purpose").Value</h2>
-        <p>Bu @ShareLocalizer.Getkey("PrivacyPolicy").Value'nın amacı ("@ShareLocalizer.Getkey("PrivacyPolicy").Value"), Site kullanıcılarına şu konularda bilgi vermektir:</p>
+        <p>@ShareLocalizer.Getkey("PrivacyPolicyPurpose").Value</p>
         <ul>
-            <li>@ShareLocalizer.Getkey("CollectedPersonalData").Value;</li>
-            <li>@ShareLocalizer.Getkey("DataUsage").Value;</li>
-            <li>@ShareLocalizer.Getkey("DataSharing").Value;</li>
-            <li>Site kullanıcılarının hakları; ve</li>
-            <li>@ShareLocalizer.Getkey("CookiePolicy").Value.</li>
+            <li>@ShareLocalizer.Getkey("CollectedPersonalData").Value</li>
+            <li>@ShareLocalizer.Getkey("DataUsage").Value</li>
+            <li>@ShareLocalizer.Getkey("DataSharing").Value</li>
+            <li>@ShareLocalizer.Getkey("UserRights").Value</li>
+            <li>@ShareLocalizer.Getkey("CookiePolicy").Value</li>
         </ul>
-        <p>Bu @ShareLocalizer.Getkey("PrivacyPolicy").Value, Sitemizin kullanım koşullarına ek olarak uygulanır.</p>
+        <p>@ShareLocalizer.Getkey("AdditionalConditions").Value</p>
 
         <h2>@ShareLocalizer.Getkey("Consent").Value</h2>
-        <p>Sitemizi kullanarak, kullanıcılar şu koşulları kabul eder:</p>
+        <p>@ShareLocalizer.Getkey("ConsentDescription").Value</p>
         <ul>
-            <li>Bu @ShareLocalizer.Getkey("PrivacyPolicy").Value'nda belirtilen koşullar; ve</li>
-            <li>Bu @ShareLocalizer.Getkey("PrivacyPolicy").Value'nda belirtilen verilerin toplanması, kullanılması ve saklanması.</li>
+            <li>@ShareLocalizer.Getkey("PrivacyPolicyTerms").Value</li>
+            <li>@ShareLocalizer.Getkey("DataCollectionUsageStorage").Value</li>
         </ul>
 
         <h2>@ShareLocalizer.Getkey("CollectedPersonalData").Value</h2>
-        <p>Bu @ShareLocalizer.Getkey("PrivacyPolicy").Value'nda belirtilen amaçları yerine getirmemize yardımcı olan verileri toplarız. Aşağıda belirtilen veriler dışında başka bir veri toplamayız:</p>
+        <p>@ShareLocalizer.Getkey("CollectedPersonalDataDescription").Value</p>
 
         <h3>@ShareLocalizer.Getkey("NonAutomaticData").Value</h3>
-        <p>Sitemizde belirli işlevleri yerine getirdiğinizde aşağıdaki verileri toplayabiliriz:</p>
+        <p>@ShareLocalizer.Getkey("NonAutomaticDataDescription").Value</p>
         <ul>
-            <li>@ShareLocalizer.Getkey("NameAndSurname").Value;</li>
-            <li>@ShareLocalizer.Getkey("EmailAddress").Value; ve</li>
-            <li>@ShareLocalizer.Getkey("AutofillData").Value.</li>
+            <li>@ShareLocalizer.Getkey("NameAndSurname").Value</li>
+            <li>@ShareLocalizer.Getkey("EmailAddress").Value</li>
+            <li>@ShareLocalizer.Getkey("AutofillData").Value</li>
         </ul>
-        <p>Bu veriler şu yöntemlerle toplanabilir:</p>
+        <p>@ShareLocalizer.Getkey("DataCollectionMethods").Value</p>
         <ul>
-            <li>@ShareLocalizer.Getkey("Cookie").Value.</li>
+            <li>@ShareLocalizer.Getkey("Cookie").Value</li>
         </ul>
 
         <h2>@ShareLocalizer.Getkey("DataUsage").Value</h2>
-        <p>Sitemizde toplanan veriler yalnızca bu @ShareLocalizer.Getkey("PrivacyPolicy").Value'nda belirtilen amaçlar doğrultusunda kullanılacaktır. Bu @ShareLocalizer.Getkey("PrivacyPolicy").Value'nda belirtilmeyen amaçlar için verilerinizi kullanmayacağız.</p>
+        <p>@ShareLocalizer.Getkey("DataUsageDescription").Value</p>
 
         <h2>@ShareLocalizer.Getkey("DataSharing").Value</h2>
 
         <h3>@ShareLocalizer.Getkey("Employees").Value</h3>
-        <p>Kullanıcı verilerini, @ShareLocalizer.Getkey("PrivacyPolicy").Value'nda belirtilen amaçları yerine getirmek için gerekli olduğu düşünülen herhangi bir kuruluş üyesiyle paylaşabiliriz.</p>
+        <p>@ShareLocalizer.Getkey("EmployeesDataSharing").Value</p>
 
         <h3>@ShareLocalizer.Getkey("OtherDisclosures").Value</h3>
-        <p>Verilerinizi diğer üçüncü şahıslarla paylaşmayacağız veya satmayacağız, aşağıdaki durumlar dışında:</p>
+        <p>@ShareLocalizer.Getkey("OtherDisclosuresDescription").Value</p>
         <ul>
-            <li>Yasa gerektirdiğinde;</li>
-            <li>Herhangi bir yasal süreç için gerekli olduğunda;</li>
-            <li>Yasal haklarımızı kanıtlamak veya korumak için; ve</li>
-            <li>Şirketi satmaya karar verdiğimizde potansiyel alıcılar.</li>
+            <li>@ShareLocalizer.Getkey("RequiredByLaw").Value</li>
+            <li>@ShareLocalizer.Getkey("LegalProcess").Value</li>
+            <li>@ShareLocalizer.Getkey("ProtectRights").Value</li>
+            <li>@ShareLocalizer.Getkey("PotentialBuyers").Value</li>
         </ul>
-        <p>Sitemizden başka bir siteye yönlendiren bağlantıları takip ederseniz, bu sitelerin gizlilik politikaları üzerinde kontrolümüz olmadığını unutmayın.</p>
+        <p>@ShareLocalizer.Getkey("NoControlOverLinks").Value</p>
 
         <h2>@ShareLocalizer.Getkey("DataRetention").Value</h2>
-        <p>Kullanıcı verileri, toplama amacının yerine getirilmesi için gerekli olduğu sürece saklanacaktır. Bu süreden daha uzun süre saklanacaksa sizi bilgilendireceğiz.</p>
+        <p>@ShareLocalizer.Getkey("DataRetentionDescription").Value</p>
 
         <h2>@ShareLocalizer.Getkey("DataProtection").Value</h2>
-        <p>fazla fazla güvenlik önlemi</p>
-        <p>Kullanıcı verilerinin güvenliğini sağlamak ve kullanıcıların korunmasını sağlamak için makul tüm önlemleri alırız, ancak internette her zaman bir güvenlik riski bulunduğundan, kullanıcı verilerinin güvenliğini garanti edemeyiz.</p>
+        <p>@ShareLocalizer.Getkey("DataProtectionDescription").Value</p>
+        <p>@ShareLocalizer.Getkey("SecurityRiskWarning").Value</p>
 
         <h2>@ShareLocalizer.Getkey("Children").Value</h2>
-        <p>Sitemizi kullanmak için minimum yaş 18'dir. 13 yaşından küçük çocuklardan bilerek kişisel veri toplamaz veya kullanmayız. 13 yaşından küçük bir çocuktan kişisel veri topladığımızı öğrenirsek, bu veriler en kısa sürede silinecektir. 13 yaşından küçük bir çocuk bize kişisel veriler sağlamışsa, ebeveyn veya vasi gizlilik sorumlumuzla iletişime geçebilir.</p>
+        <p>@ShareLocalizer.Getkey("ChildrenDescription").Value</p>
 
         <h2>@ShareLocalizer.Getkey("AccessAmendDeleteObject").Value</h2>
-        <p>Kişisel verilerinizi toplayıp toplamadığımızı, bu verileri nasıl kullandığımızı, kişisel verilerinizi kime açıkladığımızı öğrenmek isterseniz veya verilerinizi silmek veya değiştirmek isterseniz, gizlilik sorumlumuzla şu adresten iletişime geçebilirsiniz:</p>
+        <p>@ShareLocalizer.Getkey("AccessAmendDeleteObjectDescription").Value</p>
         <address>
             Cengizhan Yıldız<br>
             cengiz@mail.com<br>
@@ -142,21 +96,21 @@
         </address>
 
         <h2>@ShareLocalizer.Getkey("CookiePolicy").Value</h2>
-        <p>Çerez, bir web sitesi tarafından kullanıcının sabit diskinde depolanan küçük bir dosyadır. Çerezin amacı, kullanıcının tarama alışkanlıkları ile ilgili verileri toplamaktır. Her çerez gönderildiğinde bildirim almayı seçebilirsiniz. Ayrıca, tarayıcınızda çerezleri tamamen devre dışı bırakmayı seçebilirsiniz, ancak bu kullanıcı deneyiminizin kalitesini düşürebilir.</p>
+        <p>@ShareLocalizer.Getkey("CookieDescription").Value</p>
 
-        <h3>@ShareLocalizer.Getkey("CookiePolicy").Value'nda @ShareLocalizer.Getkey("Website").Value'de aşağıdaki çerez türlerini kullanıyoruz:</h3>
+        <h3>@ShareLocalizer.Getkey("CookieTypes").Value</h3>
         <ul>
-            <li><strong>@ShareLocalizer.Getkey("FunctionalCookies").Value:</strong> Fonksiyonel çerezler, sonraki ziyaretleriniz için sitemizdeki seçimlerinizi hatırlamak için kullanılır;</li>
-            <li><strong>@ShareLocalizer.Getkey("AnalyticalCookies").Value:</strong> Analitik çerezler, sitemize nasıl eriştiğiniz, içeriklere ne kadar süreyle eriştiğiniz gibi verileri toplayarak sitemizin tasarımını ve işlevselliğini geliştirmemize olanak tanır;</li>
-            <li><strong>@ShareLocalizer.Getkey("TargetingCookies").Value:</strong> Hedefleme çerezleri, siteyi nasıl kullandığınıza dair veriler toplar ve tercihlerinizi kaydeder. Bu, sitemizde size özelleştirilmiş bilgileri sunmamızı sağlar;</li>
-            <li><strong>@ShareLocalizer.Getkey("ThirdPartyCookies").Value:</strong> Üçüncü taraf çerezleri bizim dışımızda bir web sitesi tarafından oluşturulur. Aşağıdaki amaçlar için üçüncü taraf çerezlerini kullanabiliriz: _______________________________ .</li>
+            <li><strong>@ShareLocalizer.Getkey("FunctionalCookies").Value:</strong> @ShareLocalizer.Getkey("FunctionalCookiesDescription").Value</li>
+            <li><strong>@ShareLocalizer.Getkey("AnalyticalCookies").Value:</strong> @ShareLocalizer.Getkey("AnalyticalCookiesDescription").Value</li>
+            <li><strong>@ShareLocalizer.Getkey("TargetingCookies").Value:</strong> @ShareLocalizer.Getkey("TargetingCookiesDescription").Value</li>
+            <li><strong>@ShareLocalizer.Getkey("ThirdPartyCookies").Value:</strong> @ShareLocalizer.Getkey("ThirdPartyCookiesDescription").Value</li>
         </ul>
 
         <h2>@ShareLocalizer.Getkey("Changes").Value</h2>
-        <p>Bu @ShareLocalizer.Getkey("PrivacyPolicy").Value, yasalara uymak ve veri toplama sürecimizde yapılan herhangi bir değişikliği yansıtmak amacıyla zaman zaman değiştirilebilir. Bu @ShareLocalizer.Getkey("PrivacyPolicy").Value'nda değişiklik yaptığımızda, bu @ShareLocalizer.Getkey("PrivacyPolicy").Value'nın üst kısmındaki "@ShareLocalizer.Getkey("EffectiveDate").Value"ni güncelleriz. Kullanıcılarımızın düzenli olarak @ShareLocalizer.Getkey("PrivacyPolicy").Value'mizi gözden geçirmesini ve herhangi bir güncellemeden haberdar olmalarını öneririz. Gerekirse, değişiklikler hakkında kullanıcıları e-posta yoluyla bilgilendirebiliriz.</p>
+        <p>@ShareLocalizer.Getkey("ChangesDescription").Value</p>
 
         <h2>@ShareLocalizer.Getkey("ContactInfo").Value</h2>
-        <p>Herhangi bir sorunuz, endişeniz veya şikayetiniz varsa, gizlilik sorumlumuz Cengizhan Yıldız ile şu adresten iletişime geçebilirsiniz:</p>
+        <p>@ShareLocalizer.Getkey("ContactInfoDescription").Value</p>
         <address>
             cengiz@mail.com<br>
             (111) 111-1111<br>
@@ -171,3 +125,50 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+    }
+
+    h1, h2, h3 {
+        text-align: left;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    h1 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+    }
+
+    h3 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+    }
+
+    p, ul, address {
+        margin-bottom: 15px;
+    }
+
+    ul {
+        padding-left: 20px;
+    }
+
+    .container {
+        max-width: 900px;
+        margin: auto;
+        padding: 20px;
+    }
+
+    .text-muted {
+        color: #6c757d;
+    }
+</style>

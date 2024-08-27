@@ -120,6 +120,9 @@
   <data name="AccessAmendDeleteObject" xml:space="preserve">
     <value>How to Access, Amend, Delete, or Object to Collected Data</value>
   </data>
+  <data name="AccessAmendDeleteObjectDescription" xml:space="preserve">
+    <value>If you would like to know whether we have collected your personal data, how we have used your personal data, to whom we have disclosed your personal data, if you would like your data to be deleted or modified in any way, or if you would like to object to the collection and use of your data, please contact our privacy officer here:</value>
+  </data>
   <data name="Actions" xml:space="preserve">
     <value>Actions</value>
   </data>
@@ -128,6 +131,9 @@
   </data>
   <data name="AddDepartment" xml:space="preserve">
     <value>+ Add Department</value>
+  </data>
+  <data name="AdditionalConditions" xml:space="preserve">
+    <value>This Privacy Policy applies in addition to the terms of use of our Site.</value>
   </data>
   <data name="AddNewDepartment" xml:space="preserve">
     <value>Add New Department</value>
@@ -150,6 +156,9 @@
   <data name="AnalyticalCookies" xml:space="preserve">
     <value>Analytical cookies</value>
   </data>
+  <data name="AnalyticalCookiesDescription" xml:space="preserve">
+    <value>Analytical cookies allow us to improve the design and functionality of our Site by collecting data on how you access our Site, for how long you access our Site, and what you view on our Site.</value>
+  </data>
   <data name="Approve" xml:space="preserve">
     <value>Approve</value>
   </data>
@@ -171,11 +180,20 @@
   <data name="Changes" xml:space="preserve">
     <value>Changes</value>
   </data>
+  <data name="ChangesDescription" xml:space="preserve">
+    <value>This Privacy Policy may be amended from time to time to maintain compliance with the law and to reflect any changes to our data collection process. When we amend this Privacy Policy, we will update the “Effective Date” at the top of this Privacy Policy. We recommend that our users periodically review our Privacy Policy to ensure that they are notified of any updates. If necessary, we may notify users by email of changes to this Privacy Policy.</value>
+  </data>
   <data name="Children" xml:space="preserve">
     <value>Children</value>
   </data>
+  <data name="ChildrenDescription" xml:space="preserve">
+    <value>Our Site does not knowingly collect or use personal data from children under 13 years of age. If we learn that we have collected personal data from a child under 13 years of age, the personal data will be deleted as soon as possible. If a child under 13 years old has provided us with personal data, their parent or guardian may contact our privacy officer.</value>
+  </data>
   <data name="CollectedPersonalData" xml:space="preserve">
     <value>Collected Personal Data</value>
+  </data>
+  <data name="CollectedPersonalDataDescription" xml:space="preserve">
+    <value>We collect the data necessary to help us achieve the purpose set out in this Privacy Policy. We do not collect any additional data beyond what is listed below:</value>
   </data>
   <data name="Completed" xml:space="preserve">
     <value>Completed</value>
@@ -192,14 +210,26 @@
   <data name="Consent" xml:space="preserve">
     <value>Consent</value>
   </data>
+  <data name="ConsentDescription" xml:space="preserve">
+    <value>By using our Site, users agree to the following terms:</value>
+  </data>
   <data name="ContactInfo" xml:space="preserve">
     <value>Contact Information</value>
+  </data>
+  <data name="ContactInfoDescription" xml:space="preserve">
+    <value>If you have any questions, concerns, or complaints, you may contact our privacy officer, Cengizhan Yıldız, at:</value>
   </data>
   <data name="Cookie" xml:space="preserve">
     <value>Cookie</value>
   </data>
+  <data name="CookieDescription" xml:space="preserve">
+    <value>A cookie is a small file, stored on a user’s hard drive by a website. Its purpose is to collect data relating to the user’s browsing habits. You can choose to be notified each time a cookie is transmitted. You can also choose to disable cookies entirely in your internet browser, but this may decrease the quality of your user experience.</value>
+  </data>
   <data name="CookiePolicy" xml:space="preserve">
     <value>Cookie Policy</value>
+  </data>
+  <data name="CookieTypes" xml:space="preserve">
+    <value>The following types of cookies are used on our Site:</value>
   </data>
   <data name="Country" xml:space="preserve">
     <value>Country</value>
@@ -213,17 +243,35 @@
   <data name="CreatorFullName" xml:space="preserve">
     <value>Creator Full Name</value>
   </data>
+  <data name="DataCollectionMethods" xml:space="preserve">
+    <value>This data may be collected using the following methods:</value>
+  </data>
+  <data name="DataCollectionUsageStorage" xml:space="preserve">
+    <value>The collection, use, and retention of the data described in this Privacy Policy.</value>
+  </data>
   <data name="DataProtection" xml:space="preserve">
     <value>How We Protect Your Personal Data</value>
   </data>
+  <data name="DataProtectionDescription" xml:space="preserve">
+    <value>We take all reasonable precautions to protect user data and ensure that our users are protected. While we take these precautions, the Internet is not completely secure, and therefore we cannot guarantee the security of user data.</value>
+  </data>
   <data name="DataRetention" xml:space="preserve">
     <value>How Long We Retain Personal Data</value>
+  </data>
+  <data name="DataRetentionDescription" xml:space="preserve">
+    <value>User data will be kept for the time necessary to fulfill the purpose for which it was collected. We may keep your data beyond this time if it is required by law or with your consent.</value>
   </data>
   <data name="DataSharing" xml:space="preserve">
     <value>Who We Share Personal Data With</value>
   </data>
   <data name="DataUsage" xml:space="preserve">
     <value>How We Use Personal Data</value>
+  </data>
+  <data name="DataUsageDescription" xml:space="preserve">
+    <value>The data collected on our Site will only be used for the purposes specified in this Privacy Policy. We will not use your data beyond what we disclose in this Privacy Policy.</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>day</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
@@ -258,11 +306,11 @@
   <data name="EmailAddress" xml:space="preserve">
     <value>Email Address</value>
   </data>
-  <data name="EmailAddress1" xml:space="preserve">
-    <value>Email address</value>
-  </data>
   <data name="Employees" xml:space="preserve">
     <value>Employees</value>
+  </data>
+  <data name="EmployeesDataSharing" xml:space="preserve">
+    <value>We may share user data with employees of our organization who require it to fulfill the purposes of this Privacy Policy.</value>
   </data>
   <data name="EnterDepartmentName" xml:space="preserve">
     <value>Enter department name</value>
@@ -279,6 +327,9 @@
   <data name="FunctionalCookies" xml:space="preserve">
     <value>Functional cookies</value>
   </data>
+  <data name="FunctionalCookiesDescription" xml:space="preserve">
+    <value>Functional cookies are used to remember the selections you make on our Site so that your preferences can be saved for your next visits.</value>
+  </data>
   <data name="Gender" xml:space="preserve">
     <value>Gender</value>
   </data>
@@ -290,6 +341,9 @@
   </data>
   <data name="LastName" xml:space="preserve">
     <value>Last Name</value>
+  </data>
+  <data name="LegalProcess" xml:space="preserve">
+    <value>If it is required for any legal proceeding</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>Log In</value>
@@ -309,8 +363,14 @@
   <data name="NameAndSurname" xml:space="preserve">
     <value>Name and Surname</value>
   </data>
+  <data name="NoControlOverLinks" xml:space="preserve">
+    <value>Please note that we have no control over how third-party websites manage your data when you follow a link from our Site to another website. We recommend that you review the privacy policies of any other sites you visit.</value>
+  </data>
   <data name="NonAutomaticData" xml:space="preserve">
     <value>Non-Automatically Collected Data</value>
+  </data>
+  <data name="NonAutomaticDataDescription" xml:space="preserve">
+    <value>We may also collect the following data when you perform certain functions on our Site:</value>
   </data>
   <data name="None" xml:space="preserve">
     <value>None</value>
@@ -323,6 +383,9 @@
   </data>
   <data name="OtherDisclosures" xml:space="preserve">
     <value>Other Disclosures</value>
+  </data>
+  <data name="OtherDisclosuresDescription" xml:space="preserve">
+    <value>We will not sell or share your data with other third parties, except in the following cases:</value>
   </data>
   <data name="PageNotFound" xml:space="preserve">
     <value>The page you are looking for was not found.</value>
@@ -339,17 +402,26 @@
   <data name="PhoneNumber" xml:space="preserve">
     <value>Phone Number</value>
   </data>
+  <data name="PotentialBuyers" xml:space="preserve">
+    <value>To buyers or potential buyers of this company in the event that we seek to sell the company</value>
+  </data>
   <data name="PrivacyPolicy" xml:space="preserve">
     <value>Privacy Policy</value>
   </data>
-  <data name="PrivacyPolicy1" xml:space="preserve">
-    <value>Privacy policy</value>
+  <data name="PrivacyPolicyPurpose" xml:space="preserve">
+    <value>The purpose of this privacy policy ("Privacy Policy") is to inform Site users of the following:</value>
+  </data>
+  <data name="PrivacyPolicyTerms" xml:space="preserve">
+    <value>The terms set out in this Privacy Policy</value>
   </data>
   <data name="Profile" xml:space="preserve">
     <value>My Profile</value>
   </data>
   <data name="ProfileTitle" xml:space="preserve">
     <value>Personnel Profile</value>
+  </data>
+  <data name="ProtectRights" xml:space="preserve">
+    <value>To prove or protect our legal rights</value>
   </data>
   <data name="Purpose" xml:space="preserve">
     <value>Purpose</value>
@@ -369,6 +441,9 @@
   <data name="RememberMe" xml:space="preserve">
     <value>Remember Me</value>
   </data>
+  <data name="RequiredByLaw" xml:space="preserve">
+    <value>If the law requires it</value>
+  </data>
   <data name="SearchAssignedUserName" xml:space="preserve">
     <value>Search Assigned User Name</value>
   </data>
@@ -383,6 +458,9 @@
   </data>
   <data name="SearchTaskName" xml:space="preserve">
     <value>Search Task Name</value>
+  </data>
+  <data name="SecurityRiskWarning" xml:space="preserve">
+    <value>We take all reasonable precautions to protect user data and ensure that our users are protected. However, the Internet is not completely secure and therefore we cannot guarantee the security of user data.</value>
   </data>
   <data name="Select" xml:space="preserve">
     <value>Select...</value>
@@ -408,11 +486,17 @@
   <data name="TargetingCookies" xml:space="preserve">
     <value>Targeting cookies</value>
   </data>
+  <data name="TargetingCookiesDescription" xml:space="preserve">
+    <value>Targeting cookies collect data on how you use the Site and your preferences. This allows us to personalize the information you see on our Site.</value>
+  </data>
   <data name="TaskDescription" xml:space="preserve">
     <value>Task Description</value>
   </data>
   <data name="TaskDetails" xml:space="preserve">
     <value>Task Details</value>
+  </data>
+  <data name="TaskManagementSystem" xml:space="preserve">
+    <value>Task Management System</value>
   </data>
   <data name="TaskName" xml:space="preserve">
     <value>Task Name</value>
@@ -428,6 +512,9 @@
   </data>
   <data name="ThirdPartyCookies" xml:space="preserve">
     <value>Third Party Cookies</value>
+  </data>
+  <data name="ThirdPartyCookiesDescription" xml:space="preserve">
+    <value>Third-party cookies are created by a website other than ours. We may use third-party cookies to achieve the following purposes:</value>
   </data>
   <data name="TimeExpired" xml:space="preserve">
     <value>Time Expired</value>
@@ -449,6 +536,9 @@
   </data>
   <data name="UserProfile" xml:space="preserve">
     <value>User Profile</value>
+  </data>
+  <data name="UserRights" xml:space="preserve">
+    <value>Site user rights</value>
   </data>
   <data name="Website" xml:space="preserve">
     <value>Website</value>
