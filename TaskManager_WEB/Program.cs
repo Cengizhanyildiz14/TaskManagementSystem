@@ -54,17 +54,10 @@ builder.Services.AddDistributedMemoryCache();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(opt =>
 {
     opt.Cookie.HttpOnly = true;
-    opt.ExpireTimeSpan = TimeSpan.FromMinutes(1);
+    opt.ExpireTimeSpan = TimeSpan.FromMinutes(15);
     opt.LoginPath = "/auth/login";
     opt.AccessDeniedPath = "/home/AccessDenied";
     opt.SlidingExpiration = true;
-});
-
-builder.Services.AddSession(opt =>
-{
-    opt.IdleTimeout = TimeSpan.FromMinutes(15);
-    opt.Cookie.HttpOnly = true;
-    opt.Cookie.IsEssential = true;
 });
 
 var app = builder.Build();
@@ -82,7 +75,6 @@ app.UseStaticFiles();
 app.UseRequestLocalization(app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
 
 app.UseRouting();
-app.UseSession();
 app.UseAuthentication();
 
 app.UseAuthorization();

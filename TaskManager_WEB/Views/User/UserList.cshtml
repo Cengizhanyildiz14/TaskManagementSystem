@@ -30,25 +30,56 @@
             <tbody>
                 @foreach (var user in Model)
                 {
-                    <tr>
+                    <tr class="@((user.CompletedTasksCount == maxCompletedTasks) ? "highlight-row" : "")">
                         <td class="text-center align-middle">
-                            @user.User.Name
                             @if (user.CompletedTasksCount == maxCompletedTasks)
                             {
-                                <i class="fa-solid fa-crown ms-2" style="color: #BF913B;"></i>
+                                <strong>@user.User.Name</strong>
+                                <i class="fa-solid fa-crown ms-2" style="color: #d1a54e; font-size: 1.5rem;" data-bs-toggle="tooltip" title="En çok görev tamamlayan kullanıcı!"></i>
+                            }
+                            else
+                            {
+                                @user.User.Name
                             }
                         </td>
-                        <td class="text-center align-middle">@user.User.LastName</td>
-                        <td class="text-center align-middle">@user.User.Email</td>
-                        <td class="text-center align-middle">@user.User.Department.DepartmentName</td>
+                        <td class="text-center align-middle">
+                            @if (user.CompletedTasksCount == maxCompletedTasks)
+                            {
+                                <strong>@user.User.LastName</strong>
+                            }
+                            else
+                            {
+                                @user.User.LastName
+                            }
+                        </td>
+                        <td class="text-center align-middle">
+                            @if (user.CompletedTasksCount == maxCompletedTasks)
+                            {
+                                <strong>@user.User.Email</strong>
+                            }
+                            else
+                            {
+                                @user.User.Email
+                            }
+                        </td>
+                        <td class="text-center align-middle">
+                            @if (user.CompletedTasksCount == maxCompletedTasks)
+                            {
+                                <strong>@user.User.Department.DepartmentName</strong>
+                            }
+                            else
+                            {
+                                @user.User.Department.DepartmentName
+                            }
+                        </td>
                         <td class="text-center align-middle" data-bs-toggle="tooltip" title="
                         @ShareLocalizer.Getkey("CompletedTasks").Value: @user.CompletedTasksCount<br>
                         @ShareLocalizer.Getkey("RejectedTasks").Value: @user.RejectedTasksCount<br>
                         @ShareLocalizer.Getkey("ExpiredTasks").Value: @user.ExpiredTasksCount<br>
                         @ShareLocalizer.Getkey("PendingTasks").Value: @user.PendingTasksCount">
                             @ShareLocalizer.Getkey("TotalTasks").Value: <strong>@(@user.CompletedTasksCount + @user.RejectedTasksCount + @user.ExpiredTasksCount + @user.PendingTasksCount)</strong>
-                                                    <i class="fa-solid fa-circle-info ms-2" style="color:#4169e1; font-size: 1.5rem;"></i>
-                            </td>
+                                                            <i class="fa-solid fa-circle-info ms-2" style="color:#4169e1; font-size: 1.5rem;"></i>
+                                    </td>
                         <td class="text-center align-middle">
                             <div class="d-flex justify-content-center">
                                 <form asp-action="UserDelete" asp-controller="user" method="post">
@@ -74,3 +105,9 @@
         });
     });
 </script>
+
+<style>
+    .highlight-row {
+        background-color: #FFFFBC;
+    }
+</style>

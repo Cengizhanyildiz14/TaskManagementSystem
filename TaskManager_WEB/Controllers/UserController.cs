@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using TaskManager_WEB.Models;
 using TaskManager_WEB.Services.IServices;
@@ -30,25 +29,19 @@ namespace TaskManager_WEB.Controllers
         [Authorize]
         public async Task<IActionResult> GetAllUsers()
         {
-            // JWT token'ı al
-            var token = HttpContext.Request.Cookies["AuthToken"];
-            var handler = new JwtSecurityTokenHandler();
-            JwtSecurityToken jwtToken = null;
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
-            if (handler.CanReadToken(token))
+
+            if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out var userId))
             {
-                jwtToken = handler.ReadJwtToken(token);
+                return BadRequest("Token'daki kullanıcı ID'si geçersiz");
             }
 
-            var userId = jwtToken?.Claims.FirstOrDefault(c => c.Type == "nameid")?.Value;
-
-            var userResponse = await _userService.GetUserWithDetails<APIResponse>(int.Parse(userId));
+            var userResponse = await _userService.GetUserWithDetails<APIResponse>(userId);
 
             if (userResponse != null && userResponse.IsSuccess)
             {
                 var user = JsonConvert.DeserializeObject<UserResult>(Convert.ToString(userResponse.result));
-
-                // Kullanıcı bilgilerini ViewBag'e atayalım
                 ViewBag.Id = user.User.Id.ToString();
                 ViewBag.FullName = $"{user.User.Name} {user.User.LastName}";
                 ViewBag.Email = user.User.Email;
@@ -60,7 +53,6 @@ namespace TaskManager_WEB.Controllers
                 return NotFound();
             }
 
-            // Tüm kullanıcıların listesini alalım
             var allUsersResponse = await _userService.GetAll<APIResponse>();
 
             if (allUsersResponse == null || !allUsersResponse.IsSuccess)
@@ -250,7 +242,6 @@ namespace TaskManager_WEB.Controllers
                 return View(profileUpdateVM);
             }
 
-            // UserUpdateDto'yu mapleme işlemi
             var userUpdateDto = new UserUpdateDto
             {
                 Id = profileUpdateVM.userUpdateDto.Id,

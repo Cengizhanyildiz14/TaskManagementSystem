@@ -72,14 +72,6 @@ namespace TaskManager_WEB.Controllers
 
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity), authProperties);
 
-                HttpContext.Session.SetString(SD.SessionToken, model.Token);
-                HttpContext.Response.Cookies.Append("AuthToken", model.Token, new CookieOptions
-                {
-                    HttpOnly = true,
-                    Secure = true,
-                    Expires = authProperties.ExpiresUtc
-                });
-
                 return RedirectToAction("getallusers", "user");
             }
             else
@@ -90,17 +82,12 @@ namespace TaskManager_WEB.Controllers
         }
 
 
+
         public async Task<IActionResult> LogOut()
         {
-            HttpContext.Session.Clear();
-            if (Request.Cookies.ContainsKey(SD.SessionToken))
-            {
-                Response.Cookies.Delete(SD.SessionToken);
-            }
-
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
-            return RedirectToAction("getallusers", "user");
+            return RedirectToAction("login", "auth");
         }
     }
 }
