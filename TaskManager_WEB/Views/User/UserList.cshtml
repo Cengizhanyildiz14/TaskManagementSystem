@@ -3,6 +3,11 @@
 @inject LanguageService ShareLocalizer
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
+@{
+    // En çok görev tamamlayan kullanıcıyı bulmak için maksimum görev sayısını belirleyelim
+    var maxCompletedTasks = Model.Max(u => u.CompletedTasksCount);
+}
+
 <div class="container mt-5">
     <h2 class="mb-4">@ShareLocalizer.Getkey("AllUsers").Value</h2>
 
@@ -26,7 +31,13 @@
                 @foreach (var user in Model)
                 {
                     <tr>
-                        <td class="text-center align-middle">@user.User.Name</td>
+                        <td class="text-center align-middle">
+                            @user.User.Name
+                            @if (user.CompletedTasksCount == maxCompletedTasks)
+                            {
+                                <i class="fa-solid fa-crown ms-2" style="color: #BF913B;"></i>
+                            }
+                        </td>
                         <td class="text-center align-middle">@user.User.LastName</td>
                         <td class="text-center align-middle">@user.User.Email</td>
                         <td class="text-center align-middle">@user.User.Department.DepartmentName</td>
@@ -36,7 +47,7 @@
                         @ShareLocalizer.Getkey("ExpiredTasks").Value: @user.ExpiredTasksCount<br>
                         @ShareLocalizer.Getkey("PendingTasks").Value: @user.PendingTasksCount">
                             @ShareLocalizer.Getkey("TotalTasks").Value: <strong>@(@user.CompletedTasksCount + @user.RejectedTasksCount + @user.ExpiredTasksCount + @user.PendingTasksCount)</strong>
-                                                <i class="fa-solid fa-circle-info ms-2" style="color:#4169e1; font-size: 1.5rem;"></i>
+                                                    <i class="fa-solid fa-circle-info ms-2" style="color:#4169e1; font-size: 1.5rem;"></i>
                             </td>
                         <td class="text-center align-middle">
                             <div class="d-flex justify-content-center">
