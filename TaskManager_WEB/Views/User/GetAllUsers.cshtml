@@ -8,7 +8,7 @@
 <div class="container-fluid mt-5 px-5">
     <div class="row gx-3">
         <!-- Profil Kartı Container -->
-        <div class="col-2" style="padding-left: 0; margin-top: 180px;">
+        <div class="col-md-3" style="padding-left: 0; margin-top: 180px;">
             <div class="card shadow-sm w-100">
                 <div class="card-header bg-secondary text-white text-center">
                     <h5 class="mb-0">@ShareLocalizer.Getkey("ProfileTitle").Value</h5>
@@ -30,12 +30,12 @@
             </div>
         </div>
 
-        <div class="col-10" style="padding-right: 0;">
+        <div class="col-md-9" style="padding-right: 0;">
             <div class="container-fluid p-0">
                 <h2 class="mb-4">@ShareLocalizer.Getkey("TaskTrackingList").Value</h2>
 
                 <div class="d-flex justify-content-end mb-3">
-                    <a asp-controller="Task" asp-action="Create" class="btn btn-secondary rounded-pill me-2">@ShareLocalizer.Getkey("AddNewTask").Value</a>
+                    <a asp-controller="Task" asp-action="Create" class="btn btn-primary rounded-pill me-2">@ShareLocalizer.Getkey("AddNewTask").Value</a>
                     @if (HttpAcc.HttpContext.User.IK())
                     {
                         <a asp-controller="Department" asp-action="DepartmentCreate" class="btn btn-secondary rounded-pill me-2">@ShareLocalizer.Getkey("AddDepartment").Value</a>
@@ -81,7 +81,7 @@
                                 <th>
                                     <input type="text" id="searchCreatorUserName" class="form-control rounded-pill" placeholder="@ShareLocalizer.Getkey("SearchCreatorUserName").Value">
                                 </th>
-                                <th class="text-center">@ShareLocalizer.Getkey("Detail").Value</th>
+                                <th class="text-center">@ShareLocalizer.Getkey("Status").Value</th>
                                 <th>@ShareLocalizer.Getkey("Detail").Value</th>
                             </tr>
                         </thead>
@@ -101,9 +101,11 @@
                                             @firstTask.TaskName
                                             @if (remainingTasks > 0)
                                             {
-                                                <button class="btn btn-link p-0 m-0 ms-2 toggle-tasks" data-user-id="@userViewModel.User.Id" data-remaining-tasks="@remainingTasks" style="text-decoration: none;">
+                                                <button class="btn p-1 m-1 ms-2 toggle-tasks"
+                                                        data-user-id="@userViewModel.User.Id"
+                                                        data-remaining-tasks="@remainingTasks" style="box-shadow: none; outline: none;">
                                                     <i class="fas fa-chevron-down"></i>
-                                                    <span class="remaining-tasks-badge">+@remainingTasks</span>
+                                                    <span class="remaining-tasks-badge fs-5"></span>
                                                 </button>
                                             }
                                         </td>
@@ -130,10 +132,13 @@
                                             <a asp-action="TaskDetails" asp-controller="Task" asp-route-id="@firstTask.Id" class="btn btn-secondary btn-sm">@ShareLocalizer.Getkey("Detail").Value</a>
                                         </td>
                                     </tr>
+
                                     @foreach (var task in tasks.Skip(1))
                                     {
-                                        <tr class="additional-task" data-user-id="@userViewModel.User.Id" style="display: none;">
-                                            <td class="assigned-user text-center align-middle">@task.AsaignedUserName @task.AsaignedUserLastName</td>
+                                        <tr class="additional-task" data-user-id="@userViewModel.User.Id" style="display: none; background-color: #f9f9f9;">
+                                            <td class="assigned-user text-center align-middle">
+                                                <i class="fas fa-angle-double-right text-primary me-2"></i>@task.AsaignedUserName @task.AsaignedUserLastName
+                                            </td>
                                             <td class="email text-center align-middle">@task.AsaignedUserEmail</td>
                                             <td class="department text-center align-middle">@task.Department.DepartmentName</td>
                                             <td class="task-name text-center align-middle">@task.TaskName</td>
@@ -184,6 +189,7 @@
                                 }
                             }
                         </tbody>
+
                     </table>
                 </div>
             </div>
@@ -277,5 +283,14 @@
 <style>
     i.fas {
         font-size: 1.5rem;
+    }
+
+    .table thead th input {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .card {
+        min-width: 280px;
     }
 </style>

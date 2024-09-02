@@ -4,71 +4,73 @@
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpAcc
 @inject LanguageService ShareLocalizer
 
-<div class="container d-flex justify-content-center align-items-center min-vh-100">
+<div class="container mt-5">
     <div class="row">
-        <div class="col-md-12">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                        @{
-                            var profileImage = HttpAcc.HttpContext.User.IsFemale()
-                            ? Url.Content("~/images/female.png")
-                            : Url.Content("~/images/male.png");
-                        }
-                        <img class="rounded-circle mt-5" width="300px" src="@profileImage">
-                        <span class="font-weight-bold fw-bold">@Model.Name @Model.LastName</span>
-                        <span class="text-black-50 fw-bold">@Model.Email</span>
-                        <a asp-action="UpdateProfile" asp-controller="user" asp-route-id="@Model.Id" class="btn btn-secondary btn-sm">@ShareLocalizer.Getkey("UpdateProfile").Value</a>
-                    </div>
+        <!-- Profile Picture Section -->
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    @{
+                        var profileImage = HttpAcc.HttpContext.User.IsFemale()
+                        ? Url.Content("~/images/female.png")
+                        : Url.Content("~/images/male.png");
+                    }
+                    <img class="rounded-circle mt-3 mb-3" width="150px" src="@profileImage" alt="Profile Picture">
+                    <h5 class="card-title">@Model.Name @Model.LastName</h5>
+                    <p class="text-muted">@Model.Email</p>
+                    <a asp-action="UpdateProfile" asp-controller="user" asp-route-id="@Model.Id" class="btn btn-primary">@ShareLocalizer.Getkey("UpdateProfile").Value</a>
                 </div>
-                <div class="col-md-9 border-right">
-                    <div class="p-3 py-5">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h4 class="text-right">@ShareLocalizer.Getkey("UserProfile").Value</h4>
+            </div>
+        </div>
+        <!-- Account Details Section -->
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@ShareLocalizer.Getkey("UserProfile").Value</h5>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label class="form-label">@ShareLocalizer.Getkey("FirstName").Value</label>
+                            <input type="text" class="form-control" value="@Model.Name" readonly>
                         </div>
-                        <div class="row mt-2">
-                            <div class="col-md-6 mt-3">
-                                <label class="labels">@ShareLocalizer.Getkey("FirstName").Value</label>
-                                <input type="text" class="form-control fw-bold text-capitalize" value="@Model.Name" readonly>
-                            </div>
-                            <div class="col-md-6 mt-3">
-                                <label class="labels">@ShareLocalizer.Getkey("LastName").Value</label>
-                                <input type="text" class="form-control fw-bold text-capitalize" value="@Model.LastName" readonly>
-                            </div>
+                        <div class="col-md-6">
+                            <label class="form-label">@ShareLocalizer.Getkey("LastName").Value</label>
+                            <input type="text" class="form-control" value="@Model.LastName" readonly>
                         </div>
-                        <div class="row mt-3">
-                            <div class="col-md-12 mt-3">
-                                <label class="labels">@ShareLocalizer.Getkey("PhoneNumber").Value</label>
-                                <input type="text" class="form-control fw-bold" value="@Model.PhoneNumber" readonly>
-                            </div>
-                            <div class="col-md-12 mt-3">
-                                <label class="labels">@ShareLocalizer.Getkey("Address").Value</label>
-                                <input type="text" class="form-control fw-bold" value="@Model.Adress" readonly>
-                            </div>
-                            <div class="col-md-12 mt-3">
-                                <label class="labels">@ShareLocalizer.Getkey("Department").Value</label>
-                                <input type="text" class="form-control fw-bold text-capitalize" value="@Model.Department.DepartmentName" readonly>
-                            </div>
-                            <div class="col-md-12 mt-3">
-                                <label class="labels">@ShareLocalizer.Getkey("Education").Value</label>
-                                <input type="text" class="form-control fw-bold" value="@Model.Education" readonly>
-                            </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <label class="form-label">@ShareLocalizer.Getkey("PhoneNumber").Value</label>
+                            <input type="text" class="form-control" value="@Model.PhoneNumber" readonly>
                         </div>
-                        <div class="row mt-3">
-                            <div class="col-md-6 mt-3">
-                                <label class="labels">@ShareLocalizer.Getkey("Country").Value</label>
-                                <input type="text" class="form-control fw-bold" value="@Model.Country" readonly>
-                            </div>
-                            <div class="col-md-6 mt-3">
-                                <label class="labels">@ShareLocalizer.Getkey("State").Value</label>
-                                <input type="text" class="form-control fw-bold" value="@Model.State" readonly>
-                            </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <label class="form-label">@ShareLocalizer.Getkey("Address").Value</label>
+                            <input type="text" class="form-control" value="@Model.Adress" readonly>
                         </div>
-                        <div class="row mt-3">
-                            <div class="col-md-12 mt-3">
-                                <label class="labels">@ShareLocalizer.Getkey("Email").Value</label>
-                                <input type="text" class="form-control fw-bold" value="@Model.Email" readonly>
-                            </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label class="form-label">@ShareLocalizer.Getkey("Country").Value</label>
+                            <input type="text" class="form-control" value="@Model.Country" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">@ShareLocalizer.Getkey("State").Value</label>
+                            <input type="text" class="form-control" value="@Model.State" readonly>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <label class="form-label">@ShareLocalizer.Getkey("Department").Value</label>
+                            <input type="text" class="form-control" value="@Model.Department.DepartmentName" readonly>
+                        </div>
+                        <div class="col-md-12 mt-3">
+                            <label class="form-label">@ShareLocalizer.Getkey("Education").Value</label>
+                            <input type="text" class="form-control" value="@Model.Education" readonly>
+                        </div>
+                        <div class="col-md-12 mt-3">
+                            <label class="form-label">@ShareLocalizer.Getkey("Email").Value</label>
+                            <input type="text" class="form-control" value="@Model.Email" readonly>
                         </div>
                     </div>
                 </div>

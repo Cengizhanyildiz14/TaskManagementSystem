@@ -7,18 +7,27 @@
 }
 
 <div class="container mt-5">
-    <h2 class="mb-4">@ShareLocalizer.Getkey("AddNewDepartment").Value</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title mb-4">@ShareLocalizer.Getkey("AddNewDepartment").Value</h4>
+                    <form asp-action="DepartmentCreate" method="post">
+                        <!-- Department Name -->
+                        <div class="mb-3">
+                            <label asp-for="DepartmentName" class="form-label">@ShareLocalizer.Getkey("DepartmentName").Value</label>
+                            <input asp-for="DepartmentName" class="form-control" placeholder="@ShareLocalizer.Getkey("EnterDepartmentName").Value" required />
+                            <span asp-validation-for="DepartmentName" class="text-danger"></span>
+                        </div>
 
-    <form asp-action="DepartmentCreate" method="post">
-        <div class="form-group">
-            <label asp-for="DepartmentName" class="form-label">@ShareLocalizer.Getkey("DepartmentName").Value</label>
-            <input asp-for="DepartmentName" class="form-control" placeholder="@ShareLocalizer.Getkey("EnterDepartmentName").Value" required />
-            <span asp-validation-for="DepartmentName" class="text-danger"></span>
+                        <!-- Buttons -->
+                        <div class="d-flex justify-content-between mt-4">
+                            <button type="submit" class="btn btn-primary">@ShareLocalizer.Getkey("Add").Value</button>
+                            <a asp-action="GetAllusers" asp-controller="user" class="btn btn-secondary">@ShareLocalizer.Getkey("Back").Value</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-
-        <div class="mt-3">
-            <button type="submit" class="btn btn-primary">@ShareLocalizer.Getkey("Add").Value</button>
-            <a asp-action="GetAllusers" asp-controller="user" class="btn btn-secondary">@ShareLocalizer.Getkey("Back").Value</a>
-        </div>
-    </form>
+    </div>
 </div>

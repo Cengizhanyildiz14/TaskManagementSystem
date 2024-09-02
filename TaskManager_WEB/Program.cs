@@ -62,7 +62,6 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -131,7 +130,7 @@ app.MapControllerRoute(
 
 app.MapControllerRoute(
     name: "UserList",
-    pattern: "Staff List",
+    pattern: "StaffList",
     defaults: new { controller = "User", action = "UserList" }
 );
 

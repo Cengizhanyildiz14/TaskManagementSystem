@@ -3,31 +3,44 @@
 @inject LanguageService ShareLocalizer
 
 <div class="container mt-5">
-    <h2 class="mb-4">@ShareLocalizer.Getkey("AddNewTask1").Value</h2>
-    <form asp-action="Create" method="post">
-        <div class="form-group">
-            <label asp-for="TaskCreateDto.TaskName" class="control-label">@ShareLocalizer.Getkey("TaskName").Value</label>
-            <input asp-for="TaskCreateDto.TaskName" class="form-control" />
-            <span asp-validation-for="TaskCreateDto.TaskName" class="text-danger"></span>
-        </div>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title mb-4">@ShareLocalizer.Getkey("AddNewTask1").Value</h4>
+                    <form asp-action="Create" method="post">
+                        <!-- Task Name -->
+                        <div class="mb-3">
+                            <label asp-for="TaskCreateDto.TaskName" class="form-label">@ShareLocalizer.Getkey("TaskName").Value</label>
+                            <input asp-for="TaskCreateDto.TaskName" class="form-control" />
+                            <span asp-validation-for="TaskCreateDto.TaskName" class="text-danger"></span>
+                        </div>
 
-        <div class="form-group">
-            <label asp-for="TaskCreateDto.DepartmentId" class="control-label">@ShareLocalizer.Getkey("DepartmentName").Value</label>
-            <select asp-for="TaskCreateDto.DepartmentId" class="form-control" asp-items="Model.DepartmentList" onchange="this.form.submit();"></select>
-            <span asp-validation-for="TaskCreateDto.DepartmentId" class="text-danger"></span>
-        </div>
+                        <!-- Department Selection -->
+                        <div class="mb-3">
+                            <label asp-for="TaskCreateDto.DepartmentId" class="form-label">@ShareLocalizer.Getkey("DepartmentName").Value</label>
+                            <select asp-for="TaskCreateDto.DepartmentId" class="form-select" asp-items="Model.DepartmentList" onchange="this.form.submit();"></select>
+                            <span asp-validation-for="TaskCreateDto.DepartmentId" class="text-danger"></span>
+                        </div>
 
-        <div class="form-group">
-            <label asp-for="TaskCreateDto.AsaignedUserId" class="control-label">@ShareLocalizer.Getkey("AssignedUser").Value</label>
-            <select asp-for="TaskCreateDto.AsaignedUserId" class="form-control" asp-items="Model.UserList"></select>
-            <span asp-validation-for="TaskCreateDto.AsaignedUserId" class="text-danger"></span>
-        </div>
+                        <!-- Assigned User Selection -->
+                        <div class="mb-3">
+                            <label asp-for="TaskCreateDto.AsaignedUserId" class="form-label">@ShareLocalizer.Getkey("AssignedUser").Value</label>
+                            <select asp-for="TaskCreateDto.AsaignedUserId" class="form-select" asp-items="Model.UserList"></select>
+                            <span asp-validation-for="TaskCreateDto.AsaignedUserId" class="text-danger"></span>
+                        </div>
 
-        <input type="hidden" asp-for="TaskCreateDto.CreaterUserId" />
+                        <!-- Hidden Input for CreaterUserId -->
+                        <input type="hidden" asp-for="TaskCreateDto.CreaterUserId" />
 
-        <div class="form-group mt-3">
-            <input type="submit" value="@ShareLocalizer.Getkey("CreateTask").Value" class="btn btn-primary" />
-            <a asp-action="GetAllUsers" asp-controller="user" class="btn btn-secondary">@ShareLocalizer.Getkey("Back").Value</a>
+                        <!-- Buttons -->
+                        <div class="d-flex justify-content-between mt-4">
+                            <input type="submit" value="@ShareLocalizer.Getkey("CreateTask").Value" class="btn btn-primary" />
+                            <a asp-action="GetAllUsers" asp-controller="user" class="btn btn-secondary">@ShareLocalizer.Getkey("Back").Value</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-    </form>
+    </div>
 </div>

@@ -3,33 +3,46 @@
 @inject LanguageService ShareLocalizer
 
 <div class="container mt-5">
-    <h2 class="mb-4">@ShareLocalizer.Getkey("UpdateTask").Value</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title mb-4">@ShareLocalizer.Getkey("UpdateTask").Value</h4>
+                    <form asp-action="Update" method="post" onsubmit="return confirm('@ShareLocalizer.Getkey("ConfirmSave").Value');">
+                        <div class="row">
+                            <!-- Task Name -->
+                            <div class="col-md-12 mb-3">
+                                <label asp-for="TaskUpdateDto.TaskName" class="form-label">@ShareLocalizer.Getkey("TaskName").Value</label>
+                                <textarea asp-for="TaskUpdateDto.TaskName" class="form-control" rows="4"></textarea>
+                                <span asp-validation-for="TaskUpdateDto.TaskName" class="text-danger"></span>
+                            </div>
 
-    <form asp-action="Update" method="post" onsubmit="return confirm('@ShareLocalizer.Getkey("ConfirmSave").Value');">
-        <div class="form-group">
-            <label asp-for="TaskUpdateDto.TaskName" class="control-label">@ShareLocalizer.Getkey("TaskName").Value</label>
-            <input asp-for="TaskUpdateDto.TaskName" class="form-control" />
-            <span asp-validation-for="TaskUpdateDto.TaskName" class="text-danger"></span>
+                            <!-- Department Selection -->
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="TaskUpdateDto.DepartmentId" class="form-label">@ShareLocalizer.Getkey("DepartmentName").Value</label>
+                                <select asp-for="TaskUpdateDto.DepartmentId" class="form-select" asp-items="Model.DepartmentList"></select>
+                                <span asp-validation-for="TaskUpdateDto.DepartmentId" class="text-danger"></span>
+                            </div>
+
+                            <!-- Assigned User Selection -->
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="TaskUpdateDto.AsaignedUserId" class="form-label">@ShareLocalizer.Getkey("AssignedUser").Value</label>
+                                <select asp-for="TaskUpdateDto.AsaignedUserId" class="form-select" asp-items="Model.UserList"></select>
+                                <span asp-validation-for="TaskUpdateDto.AsaignedUserId" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <input type="hidden" asp-for="TaskUpdateDto.Id" />
+                        <input type="hidden" asp-for="TaskUpdateDto.CreaterUserId" />
+
+                        <!-- Buttons -->
+                        <div class="d-flex justify-content-between mt-4">
+                            <input type="submit" value="@ShareLocalizer.Getkey("Update").Value" class="btn btn-primary" />
+                            <a asp-action="GetAllUsers" asp-controller="user" class="btn btn-secondary">@ShareLocalizer.Getkey("Back").Value</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-
-        <div class="form-group">
-            <label asp-for="TaskUpdateDto.DepartmentId" class="control-label">@ShareLocalizer.Getkey("DepartmentName").Value</label>
-            <select asp-for="TaskUpdateDto.DepartmentId" class="form-control" asp-items="Model.DepartmentList"></select>
-            <span asp-validation-for="TaskUpdateDto.DepartmentId" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="TaskUpdateDto.AsaignedUserId" class="control-label">@ShareLocalizer.Getkey("AssignedUser").Value</label>
-            <select asp-for="TaskUpdateDto.AsaignedUserId" class="form-control" asp-items="Model.UserList"></select>
-            <span asp-validation-for="TaskUpdateDto.AsaignedUserId" class="text-danger"></span>
-        </div>
-
-        <input type="hidden" asp-for="TaskUpdateDto.Id" />
-        <input type="hidden" asp-for="TaskUpdateDto.CreaterUserId" />
-
-        <div class="form-group mt-3">
-            <input type="submit" value="@ShareLocalizer.Getkey("Update").Value" class="btn btn-primary" />
-            <a asp-action="GetAllUsers" asp-controller="user" class="btn btn-secondary">@ShareLocalizer.Getkey("Back").Value</a>
-        </div>
-    </form>
+    </div>
 </div>
