@@ -599,7 +599,7 @@ Bu yapılandırma, `TaskManagementAPI` servisini `https://localhost:7178 adresin
 ---
 - **Anasayfa:** Görev yönetim işlemlerinin yapıldığı ana ekran.
 
-  <img src="https://github.com/user-attachments/assets/cd446085-46ba-4f31-a389-9c7fcae82286" alt="Anasayfa" width="600"/>
+  <img src="https://github.com/user-attachments/assets/a198bd3c-51fb-4741-96e3-187b5d3f1839" alt="Anasayfa" width="600"/>
 ---
 - **Görevlerim Sayfası:** Kullanıcıya ait görevlerin listelendiği ekran.
 
@@ -612,7 +612,7 @@ Bu yapılandırma, `TaskManagementAPI` servisini `https://localhost:7178 adresin
 
 - **Profil Güncelleme Sayfası:** Kullanıcının profil bilgilerini güncelleyebildiği ekran.
 
-<img src="https://github.com/user-attachments/assets/b9e71ccd-a65f-4853-9715-04eb92a7dd1f" alt="Profil Bilgilerim Sayfası" width="600"/>
+  <img src="https://github.com/user-attachments/assets/b9e71ccd-a65f-4853-9715-04eb92a7dd1f" alt="Profil Bilgilerim Sayfası" width="600"/>
 ---
 
 - **Görev Detayları Sayfası:** Bir görevin detaylarının görüntülendiği ekran.
@@ -633,11 +633,11 @@ Bu yapılandırma, `TaskManagementAPI` servisini `https://localhost:7178 adresin
 ---
 - **Personel Ekleme Sayfası:** (İK Uzmanı için) Yeni personel ekleme ekranı.
 
-  <img src="https://github.com/user-attachments/assets/dee63a88-5a37-47de-8d26-6fdea0c176f8" alt="Personel Ekleme Sayfası" width="600"/>
+  <img src="https://github.com/user-attachments/assets/7b098335-8cd1-4358-85ad-2996ec99e14c" alt="Personel Ekleme Sayfası" width="600"/>
 ---
 - **Personel Listesi Ekranı:** (İK Uzmanı için) Sistemdeki personelin listelendiği ekran.
 
-  <img src="https://github.com/user-attachments/assets/0b0ec24a-20a4-46ef-aec9-d0525ce3362a" alt="Personel Listesi Ekranı" width="600"/>
+  <img src="https://github.com/user-attachments/assets/ffdd3577-2e7b-4be0-929d-2a08fb804436" alt="Personel Listesi Ekranı" width="600"/>
 ---
 - **Access Denied Sayfası:** Erişim izni olmayan kullanıcılar için özel erişim engellendi sayfası.
 
