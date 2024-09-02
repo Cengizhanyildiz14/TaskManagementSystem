@@ -88,11 +88,51 @@
                         <tbody>
                             @foreach (var userViewModel in Model)
                             {
-                                if (userViewModel.AssignedTasks.Any())
+                                var tasks = userViewModel.AssignedTasks;
+                                if (tasks.Any())
                                 {
-                                    foreach (var task in userViewModel.AssignedTasks)
+                                    var firstTask = tasks.First();
+                                    var remainingTasks = tasks.Count() - 1;
+                                    <tr>
+                                        <td class="assigned-user text-center align-middle">@firstTask.AsaignedUserName @firstTask.AsaignedUserLastName</td>
+                                        <td class="email text-center align-middle">@firstTask.AsaignedUserEmail</td>
+                                        <td class="department text-center align-middle">@firstTask.Department.DepartmentName</td>
+                                        <td class="task-name text-center align-middle">
+                                            @firstTask.TaskName
+                                            @if (remainingTasks > 0)
+                                            {
+                                                <button class="btn btn-link p-0 m-0 ms-2 toggle-tasks" data-user-id="@userViewModel.User.Id" data-remaining-tasks="@remainingTasks" style="text-decoration: none;">
+                                                    <i class="fas fa-chevron-down"></i>
+                                                    <span class="remaining-tasks-badge">+@remainingTasks</span>
+                                                </button>
+                                            }
+                                        </td>
+                                        <td class="creator-user text-center align-middle">@firstTask.CreaterUserName @firstTask.CreaterUserLastName</td>
+                                        <td class="status text-center align-middle">
+                                            @if (firstTask.StatusDescription == "Tamamlandı")
+                                            {
+                                                <i class="fas fa-check-circle text-success"></i>
+                                            }
+                                            else if (firstTask.StatusDescription == "Reddedildi")
+                                            {
+                                                <i class="fas fa-times-circle text-danger"></i>
+                                            }
+                                            else if (firstTask.StatusDescription == "SüreDoldu")
+                                            {
+                                                <i class="fas fa-exclamation-circle" style="color:#FF5F15"></i>
+                                            }
+                                            else if (firstTask.StatusDescription == "Beklemede")
+                                            {
+                                                <i class="fas fa-clock text-warning"></i>
+                                            }
+                                        </td>
+                                        <td class="text-center align-middle">
+                                            <a asp-action="TaskDetails" asp-controller="Task" asp-route-id="@firstTask.Id" class="btn btn-secondary btn-sm">@ShareLocalizer.Getkey("Detail").Value</a>
+                                        </td>
+                                    </tr>
+                                    @foreach (var task in tasks.Skip(1))
                                     {
-                                        <tr>
+                                        <tr class="additional-task" data-user-id="@userViewModel.User.Id" style="display: none;">
                                             <td class="assigned-user text-center align-middle">@task.AsaignedUserName @task.AsaignedUserLastName</td>
                                             <td class="email text-center align-middle">@task.AsaignedUserEmail</td>
                                             <td class="department text-center align-middle">@task.Department.DepartmentName</td>
@@ -146,7 +186,6 @@
                         </tbody>
                     </table>
                 </div>
-
             </div>
         </div>
     </div>
@@ -156,7 +195,43 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
-            // Türkçe diline özel toLowerCase fonksiyonu
+            function saveExpandedState(userId, isExpanded) {
+                var expandedUsers = JSON.parse(localStorage.getItem('expandedUsers')) || [];
+                if (isExpanded) {
+                    if (!expandedUsers.includes(userId)) {
+                        expandedUsers.push(userId);
+                    }
+                } else {
+                    expandedUsers = expandedUsers.filter(id => id !== userId);
+                }
+                localStorage.setItem('expandedUsers', JSON.stringify(expandedUsers));
+            }
+
+            function loadExpandedState() {
+                var expandedUsers = JSON.parse(localStorage.getItem('expandedUsers')) || [];
+                expandedUsers.forEach(function (userId) {
+                    $('.additional-task[data-user-id="' + userId + '"]').show();
+                    var toggleButton = $('.toggle-tasks[data-user-id="' + userId + '"]');
+                    toggleButton.find('i').removeClass('fa-chevron-down').addClass('fa-chevron-up');
+                });
+            }
+            loadExpandedState();
+
+            $(document).on('click', '.toggle-tasks', function () {
+                var userId = $(this).data('user-id');
+                var additionalTasks = $('.additional-task[data-user-id="' + userId + '"]');
+                var isExpanded = additionalTasks.is(':visible');
+                additionalTasks.toggle();
+                var icon = $(this).find('i');
+
+                if (icon.hasClass('fa-chevron-down')) {
+                    icon.removeClass('fa-chevron-down').addClass('fa-chevron-up');
+                } else {
+                    icon.removeClass('fa-chevron-up').addClass('fa-chevron-down');
+                }
+                saveExpandedState(userId, !isExpanded);
+            });
+
             function turkishToLower(str) {
                 var letters = { "İ": "i", "I": "ı", "Ş": "ş", "Ğ": "ğ", "Ü": "ü", "Ö": "ö", "Ç": "ç" };
                 str = str.replace(/(([İIŞĞÜÇÖ]))/g, function (letter) { return letters[letter]; });
