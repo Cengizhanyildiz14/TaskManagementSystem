@@ -152,6 +152,12 @@ Bu enum, görev durumlarını standartlaştırmak ve bu durumların yönetimini 
 
 - **UpdatDepartment**: Departman bilgilerini günceller.
 
+### Duyuru Yönetimi Arayüzü (`IAnnouncementRepository`)
+
+`IAnnouncementRepository`, `Announcement` entity'si ile ilgili iş mantığını uygulayan arayüzdür. Bu arayüz, `IRepository<Announcement>` arayüzünden türetilmiş olup, duyurularla ilgili ek işlevler içerir.
+
+- **UpdateAnnouncement**: Duyuru bilgilerini günceller.
+
 ### API Yanıt Sınıfı (`APIResponse`)
 
 `APIResponse`, API'lerden dönen yanıtları yapılandırmak için kullanılan bir sınıftır. Bu sınıf, bir API çağrısının sonucunu ve durumunu standart bir formatta sunar.
@@ -184,6 +190,7 @@ public class TaskManagerContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<Department> Departments { get; set; }
     public DbSet<ToDoTask> Task { get; set; }
+    public DbSet<Announcement> Announcements { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -272,6 +279,18 @@ Bu yapıda, kullanıcılar ve görevler arasındaki ilişkiler ile departmanlar 
   - `Status`: Görevin durumu. Bu, `TaskStatusEnum` ile tanımlanmış bir durum bilgisidir.
   - `AssignmentDate`: Görevin kullanıcıya atandığı tarih bilgisidir.
 
+#### 4. **Announcement (Duyuru) Sınıfı**
+
+- **Properties:**
+  - `Id`: Duyurunun benzersiz kimlik numarası.
+  - `Title`: Duyurunun başlığı.
+  - `Content`: Duyurunun içeriği.
+  - `CreatedDate`: Duyurunun oluşturulduğu tarih.
+  - `UpdatedDate`: Duyurunun güncelleştirildiği tarih.
+  - `IsActive`: Duyurunun aktiflik durumu.
+  - `AuthorId`: Duyuruyu oluşturan kullanıcının kimlik numarası.
+  - `AuthorName`: Duyuruyu oluşturan kullanıcı.
+
 **İlişkiler:**
 - `ToDoTask` sınıfı ile `Department` sınıfı arasında bire çok (one-to-many) bir ilişki vardır. Her görev, belirli bir departmana aittir.
 - `ToDoTask` sınıfı ile `User` sınıfı arasında iki bire çok (one-to-many) ilişki vardır:
@@ -316,6 +335,11 @@ Bu projede de **Görev Yönetim Sistemi** kapsamında çeşitli DTO'lar kullanı
   - `UserDto.cs`: Kullanıcı bilgilerini taşıyan temel DTO sınıfıdır.
   - `UserUpdateDto.cs`: Mevcut bir kullanıcının güncellenmesi için kullanılan DTO sınıfıdır.
 
+ - **AnnouncementDtos**
+  - `AnnouncementCreateDto.cs`: Yeni bir duyuru oluşturmak için kullanılan DTO sınıfıdır.
+  - `AnnouncementDto.cs`: Duyuru bilgilerini taşıyan temel DTO sınıfıdır.
+  - `AnnouncementUpdateDto.cs`: Mevcut bir duyurunun güncellenmesi için kullanılan DTO sınıfıdır.
+
 Bu DTO'lar sayesinde, proje içerisindeki veriler modüler bir şekilde işlenir ve katmanlar arasında güvenli bir veri iletişimi sağlanır. Her bir DTO sınıfı, ilgili veri modelini taşımakla sorumludur ve proje içerisindeki API çağrılarında kullanılmaktadır. Bu yapı, veri transfer süreçlerini optimize eder ve projenin sürdürülebilirliğini artırır.
 
 ---
@@ -326,7 +350,7 @@ Bu DTO'lar sayesinde, proje içerisindeki veriler modüler bir şekilde işlenir
 
 ### Controllerlar ve İstek Yönetimi
 
-Bu katmanda yer alan her **Controller** sınıfı, belirli bir veri modeliyle (örneğin, `User`, `Task`, `Department`) ilgili API isteklerini yönetir. Controller sınıfları, istemciden gelen isteği alır, gerekli doğrulamaları yapar, ilgili repository üzerinden veri işlemlerini gerçekleştirir ve sonuçları bir **APIResponse** nesnesi olarak döndürür.
+Bu katmanda yer alan her **Controller** sınıfı, belirli bir veri modeliyle (örneğin, `User`, `Task`, `Department`, `Announcement`) ilgili API isteklerini yönetir. Controller sınıfları, istemciden gelen isteği alır, gerekli doğrulamaları yapar, ilgili repository üzerinden veri işlemlerini gerçekleştirir ve sonuçları bir **APIResponse** nesnesi olarak döndürür.
 
 #### Örnek: TaskController
 
@@ -372,6 +396,7 @@ API katmanında Dependency Injection (DI) kullanılarak, `Repository` sınıflar
 builder.Services.AddScoped<IToDoTaskRepository, ToDoTaskRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+builder.Services.AddScoped<IAnnouncementRepository, AnnouncementRepository>();
 ```
 
 
