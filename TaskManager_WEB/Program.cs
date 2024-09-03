@@ -49,6 +49,9 @@ builder.Services.AddScoped<ITaskService, TaskService>();
 builder.Services.AddHttpClient<IDepartmentService, DepartmentService>();
 builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 
+builder.Services.AddHttpClient<IAnnouncementService, AnnouncementService>();
+builder.Services.AddScoped<IAnnouncementService, AnnouncementService>();
+
 builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(opt =>

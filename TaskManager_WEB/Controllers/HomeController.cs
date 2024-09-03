@@ -1,17 +1,40 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using TaskManager_WEB.Models;
+using TaskManager_WEB.Services.IServices;
 
 namespace TaskManager_WEB.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IAnnouncementService _announcementService;
+        private readonly IMapper _mapper;
+
+        public HomeController(IAnnouncementService announcementService, IMapper mapper)
+        {
+            _announcementService = announcementService;
+            _mapper = mapper;
+        }
+
         [HttpGet]
         [Authorize]
-        public IActionResult Home()
+        public async Task<IActionResult> Home()
         {
-            return View();
+            var announcementResponse = await _announcementService.GetAll<APIResponse>();
+
+            if (announcementResponse == null || !announcementResponse.IsSuccess)
+            {
+                return NotFound();
+            }
+
+            var announcementList = JsonConvert.DeserializeObject<List<AnnouncementDto>>(Convert.ToString(announcementResponse.result));
+
+            return View(announcementList); 
         }
+
 
         [HttpGet]
         public IActionResult NotFoundPage()
