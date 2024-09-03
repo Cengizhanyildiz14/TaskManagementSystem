@@ -8,5 +8,6 @@ namespace TaskManager_WEB.Services.IServices
         Task<T> GetAll<T>();
         Task<T> Delete<T>(int id);
         Task<T> UpdateAnnouncement<T>(int id, AnnouncementUpdateDto announcementUpdateDto);
+        Task<T> CreateAnnouncement<T>(AnnouncementCreateDto announcementCreateDto);
     }
 }

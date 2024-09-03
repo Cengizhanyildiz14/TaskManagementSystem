@@ -549,4 +549,16 @@
   <data name="TaskTrackingList" xml:space="preserve">
     <value>Görev Takip Listesi</value>
   </data>
+<data name="Announcements" xml:space="preserve">
+    <value>Duyurular</value>
+  </data>
+ <data name="AddAnnouncement" xml:space="preserve">
+    <value>+ Yeni Duyuru Ekle</value>
+  </data>
+<data name="Updated" xml:space="preserve">
+    <value>Güncellendi</value>
+  </data>
+<data name="NoAnnouncementsMessage" xml:space="preserve">
+  <value>Henüz bir duyuru yok.</value>
+</data>
 </root>

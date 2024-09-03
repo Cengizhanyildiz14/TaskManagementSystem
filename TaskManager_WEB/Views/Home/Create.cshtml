@@ -1,16 +1,15 @@
 ﻿@using TaskManager_WEB.Resources
-@model AnnouncementUpdateDto
+@model AnnouncementCreateDto
 @inject LanguageService ShareLocalizer
+
 
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title mb-4">@ShareLocalizer.Getkey("UpdateAnnouncement").Value</h4>
-                    <form asp-action="Update" method="post" novalidate>
-                        <input type="hidden" name="Id" value="@Model.Id" />
-
+                    <h4 class="card-title mb-4">@ShareLocalizer.Getkey("CreateAnnouncement").Value</h4>
+                    <form asp-action="Create" method="post" novalidate>
                         <div class="mb-3">
                             <label for="Title" class="form-label">@ShareLocalizer.Getkey("Title").Value</label>
                             <input type="text" class="form-control" id="Title" name="Title" value="@Model.Title" required />
@@ -21,7 +20,7 @@
                             <textarea class="form-control" id="Content" name="Content" rows="5" required>@Model.Content</textarea>
                         </div>
 
-                        <button type="submit" class="btn btn-primary">@ShareLocalizer.Getkey("Update").Value</button>
+                        <button type="submit" class="btn btn-primary">@ShareLocalizer.Getkey("Create").Value</button>
                         <a asp-action="Home" class="btn btn-secondary">@ShareLocalizer.Getkey("Cancel").Value</a>
                     </form>
                 </div>

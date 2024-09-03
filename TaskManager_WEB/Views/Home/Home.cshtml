@@ -5,66 +5,77 @@
 @inject LanguageService ShareLocalizer
 
 <div class="container mt-4">
-    <h2 class="text-center mb-4">Duyurular</h2>
+    <h2 class="text-center mb-4">@ShareLocalizer.Getkey("Announcements").Value</h2>
 
     @if (HttpAcc.HttpContext.User.IK())
     {
         <div class="mb-4 text-right">
-            <a asp-controller="home" asp-action="Create" class="btn btn-primary">Yeni Duyuru Ekle</a>
+            <a asp-controller="home" asp-action="Create" class="btn btn-primary">@ShareLocalizer.Getkey("AddAnnouncement").Value</a>
         </div>
     }
 
-    <div class="row">
-        @foreach (var announcement in Model)
-        {
-            <div class="col-md-6 mb-4 d-flex align-items-stretch">
-                <div class="card w-100 shadow-sm">
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title text-center">@announcement.Title</h5>
-                        <p class="card-text" id="content-@announcement.Id">
-                            @{
-                                var contentToShow = announcement.Content.Length > 200
-                                ? announcement.Content.Substring(0, 100) + "..."
-                                : announcement.Content;
+    @if (Model == null || !Model.Any())
+    {
+        <div class="alert alert-info text-center">
+            @ShareLocalizer.Getkey("NoAnnouncementsMessage").Value
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var announcement in Model)
+            {
+                <div class="col-md-6 mb-4 d-flex align-items-stretch">
+                    <div class="card w-100 shadow-sm">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title text-center">@announcement.Title</h5>
+                            <p class="card-text" id="content-@announcement.Id">
+                                @{
+                                    var contentToShow = announcement.Content.Length > 200
+                                    ? announcement.Content.Substring(0, 100) + "..."
+                                    : announcement.Content;
+                                }
+                                @contentToShow
+                            </p>
+                            @if (announcement.Content.Length > 200)
+                            {
+                                <a href="javascript:void(0)" class="mt-auto toggle-link" data-bs-toggle="modal" data-bs-target="#announcementModal" onclick="showModal('@announcement.Title', `@announcement.Content`)">Daha fazla oku</a>
                             }
-                            @contentToShow
-                        </p>
-                        @if (announcement.Content.Length > 200)
-                        {
-                            <a href="javascript:void(0)" class="mt-auto toggle-link" data-bs-toggle="modal" data-bs-target="#announcementModal" onclick="showModal('@announcement.Title', `@announcement.Content`)">Daha fazla oku</a>
-                        }
-                    </div>
-                    <div class="card-footer d-flex justify-content-between align-items-center">
-                        <small class="text-muted">Yazar: @announcement.AuthorName</small>
-                        <small class="text-muted">
-                            @{
-                                var dateToShow = announcement.UpdatedDate.HasValue ? announcement.UpdatedDate.Value : announcement.CreatedDate;
+                        </div>
+                        <div class="card-footer d-flex justify-content-between align-items-center">
+                            <small class="text-muted">Yazar: @announcement.AuthorName</small>
+                            <small class="text-muted">
+                                @{
+                                    var dateToShow = announcement.UpdatedDate.HasValue ? announcement.UpdatedDate.Value : announcement.CreatedDate;
+                                }
+                                @dateToShow.ToString("dd.MM.yyyy")
+                                @if (announcement.UpdatedDate.HasValue)
+                                {
+                                    <span class="badge bg-warning text-dark ms-2">@ShareLocalizer.Getkey("Updated").Value</span>
+                                }
+                            </small>
+
+                            @if (HttpAcc.HttpContext.User.IK())
+                            {
+                                <div class="ml-auto d-flex">
+                                    <form asp-action="Update" asp-controller="home" method="get" class="me-2">
+                                        <input type="hidden" name="id" value="@announcement.Id" />
+                                        <button type="submit" class="btn btn-warning btn-sm">@ShareLocalizer.Getkey("Update").Value</button>
+                                    </form>
+                                    <form asp-action="Delete" asp-controller="Home" method="post">
+                                        <input type="hidden" name="id" value="@announcement.Id" />
+                                        <button type="submit" class="btn btn-danger btn-sm">@ShareLocalizer.Getkey("Delete").Value</button>
+                                    </form>
+                                </div>
                             }
-                            @dateToShow.ToString("dd.MM.yyyy")
-                        </small>
-
-                        @if (HttpAcc.HttpContext.User.IK())
-                        {
-                            <div class="ml-auto d-flex">
-                                <form asp-action="Update" asp-controller="home" method="get" class="me-2">
-                                    <input type="hidden" name="id" value="@announcement.Id" />
-                                    <button type="submit" class="btn btn-warning btn-sm">@ShareLocalizer.Getkey("Update").Value</button>
-                                </form>
-                                <form asp-action="Delete" asp-controller="Home" method="post">
-                                    <input type="hidden" name="id" value="@announcement.Id" />
-                                    <button type="submit" class="btn btn-danger btn-sm">@ShareLocalizer.Getkey("Delete").Value</button>
-                                </form>
-                            </div>
-                        }
+                        </div>
                     </div>
-
                 </div>
-            </div>
-        }
-    </div>
+            }
+        </div>
+    }
 </div>
 
-<!-- Modal -->
 <div class="modal fade" id="announcementModal" tabindex="-1" aria-labelledby="announcementModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

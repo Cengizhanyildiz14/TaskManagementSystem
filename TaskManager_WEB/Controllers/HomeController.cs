@@ -80,12 +80,11 @@ namespace TaskManager_WEB.Controllers
                 return Unauthorized("Kullanıcı bilgileri doğrulanamadı.");
             }
 
-            // Update the necessary fields
-            announcementUpdateDto.AuthorId = int.Parse(userId); 
+            announcementUpdateDto.AuthorId = int.Parse(userId);
             announcementUpdateDto.AuthorName = userName;
             announcementUpdateDto.UpdatedDate = DateTime.UtcNow;
 
-            var updateResponse = await _announcementService.UpdateAnnouncement<APIResponse>(announcementUpdateDto.Id,announcementUpdateDto);
+            var updateResponse = await _announcementService.UpdateAnnouncement<APIResponse>(announcementUpdateDto.Id, announcementUpdateDto);
 
             if (updateResponse == null || !updateResponse.IsSuccess)
             {
@@ -95,6 +94,40 @@ namespace TaskManager_WEB.Controllers
             return RedirectToAction("Home");
         }
 
+        [HttpGet]
+        [Authorize(Policy = ("IK"))]
+        public async Task<IActionResult> Create()
+        {
+            var announcementCreateDto = new AnnouncementCreateDto();
+            return View(announcementCreateDto);
+        }
+
+        [HttpPost]
+        [Authorize(Policy = ("IK"))]
+        public async Task<IActionResult> Create(AnnouncementCreateDto announcementCreateDto)
+        {
+            var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var userName = HttpContext.User.FindFirst(c => c.Type == "FullName")?.Value;
+
+            if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(userName))
+            {
+                return Unauthorized("Kullanıcı bilgileri doğrulanamadı.");
+            }
+
+            announcementCreateDto.CreatedDate = DateTime.UtcNow;
+            announcementCreateDto.AuthorId = int.Parse(userId);
+            announcementCreateDto.UpdatedDate = null;
+            announcementCreateDto.AuthorName = userName;
+            announcementCreateDto.IsActive = true;
+
+            var createRespone = await _announcementService.CreateAnnouncement<APIResponse>(announcementCreateDto);
+            if (createRespone == null || !createRespone.IsSuccess)
+            {
+                return View(announcementCreateDto);
+            }
+
+            return RedirectToAction("Home");
+        }
 
         [HttpGet]
         public IActionResult NotFoundPage()

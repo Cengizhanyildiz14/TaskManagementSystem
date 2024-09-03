@@ -549,5 +549,17 @@
   <data name="TaskTrackingList" xml:space="preserve">
     <value>Task Tracking List</value>
   </data>
+<data name="Announcements" xml:space="preserve">
+    <value>Announcements</value>
+  </data>
+ <data name="AddAnnouncement" xml:space="preserve">
+    <value>+ Add Announcement</value>
+  </data>
+<data name="Updated" xml:space="preserve">
+    <value>Updated</value>
+  </data>
+<data name="NoAnnouncementsMessage" xml:space="preserve">
+  <value>No announcements available.</value>
+</data>
 
 </root>

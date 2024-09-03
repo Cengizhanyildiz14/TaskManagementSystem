@@ -15,6 +15,16 @@ namespace TaskManager_WEB.Services
             taskUrl = configuration.GetValue<string>("ServiceUrls:TaskManagementAPI");
         }
 
+        public Task<T> CreateAnnouncement<T>(AnnouncementCreateDto announcementCreateDto)
+        {
+            return Send<T>(new APIRequest()
+            {
+                ApiType=SD.ApiType.POST,
+                Data = announcementCreateDto,
+                Url = taskUrl + "/api/Announcement/PostAnnouncement"
+            });
+        }
+
         public Task<T> Delete<T>(int id)
         {
             return Send<T>(new APIRequest()
