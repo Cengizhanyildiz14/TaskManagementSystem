@@ -3,5 +3,6 @@
     public interface IAnnouncementService
     {
         Task<T> GetAll<T>();
+        Task<T> Delete<T>(int id);
     }
 }

@@ -32,9 +32,20 @@ namespace TaskManager_WEB.Controllers
 
             var announcementList = JsonConvert.DeserializeObject<List<AnnouncementDto>>(Convert.ToString(announcementResponse.result));
 
-            return View(announcementList); 
+            return View(announcementList);
         }
 
+        [HttpPost]
+        [Authorize(Policy = ("IK"))]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var response = await _announcementService.Delete<APIResponse>(id);
+            if (response == null || !response.IsSuccess)
+            {
+                return NotFound();
+            }
+            return RedirectToAction("home", "home");
+        }
 
         [HttpGet]
         public IActionResult NotFoundPage()

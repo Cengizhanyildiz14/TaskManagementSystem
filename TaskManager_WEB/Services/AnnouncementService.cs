@@ -15,6 +15,15 @@ namespace TaskManager_WEB.Services
             taskUrl = configuration.GetValue<string>("ServiceUrls:TaskManagementAPI");
         }
 
+        public Task<T> Delete<T>(int id)
+        {
+            return Send<T>(new APIRequest()
+            {
+                ApiType = SD.ApiType.DELETE,
+                Url = taskUrl + "/api/Announcement/DeleteAnnouncement/" + id
+            });
+        }
+
         public Task<T> GetAll<T>()
         {
             return Send<T>(new APIRequest()
