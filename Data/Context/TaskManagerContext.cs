@@ -13,6 +13,7 @@ namespace Data.Context
         public DbSet<User> Users { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<ToDoTask> Task { get; set; }
+        public DbSet<Announcement> Announcements { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

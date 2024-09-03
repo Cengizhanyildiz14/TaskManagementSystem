@@ -21,6 +21,7 @@ builder.Services.AddDbContext<TaskManagerContext>(opt =>
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 builder.Services.AddScoped<IToDoTaskRepository, ToDoTaskRepository>();
+builder.Services.AddScoped<IAnnouncementRepository, AnnouncementRepository>();
 builder.Services.AddAutoMapper(typeof(MapperConfig));
 
 var key = builder.Configuration.GetValue<string>("ApiSettings:Secret");
