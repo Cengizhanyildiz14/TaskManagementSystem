@@ -72,7 +72,7 @@ namespace TaskManager_WEB.Controllers
 
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity), authProperties);
 
-                return RedirectToAction("getallusers", "user");
+                return RedirectToAction("home", "home");
             }
             else
             {

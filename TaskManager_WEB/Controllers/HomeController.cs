@@ -1,10 +1,17 @@
-﻿using Microsoft.AspNetCore.Localization;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TaskManager_WEB.Controllers
 {
     public class HomeController : Controller
     {
+        [HttpGet]
+        [Authorize]
+        public IActionResult Home()
+        {
+            return View();
+        }
 
         [HttpGet]
         public IActionResult NotFoundPage()

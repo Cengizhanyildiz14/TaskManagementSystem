@@ -136,7 +136,7 @@ app.MapControllerRoute(
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=user}/{action=getallusers}/{id?}"
+    pattern: "{controller=home}/{action=home}/"
 );
 
 app.Run();

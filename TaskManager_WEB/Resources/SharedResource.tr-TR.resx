@@ -546,4 +546,7 @@
   <data name="WebsiteType" xml:space="preserve">
     <value>Web sitesi türü</value>
   </data>
+  <data name="TaskTrackingList" xml:space="preserve">
+    <value>Görev Takip Listesi</value>
+  </data>
 </root>
