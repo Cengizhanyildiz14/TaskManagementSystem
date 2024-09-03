@@ -32,5 +32,24 @@ namespace TaskManager_WEB.Services
                 Url = taskUrl + "/api/Announcement/GetAllAnnouncements"
             });
         }
+
+        public Task<T> GetAnnouncementById<T>(int id)
+        {
+            return Send<T>(new APIRequest()
+            {
+                ApiType = SD.ApiType.GET,
+                Url = taskUrl + "/api/Announcement/GetAnnouncement/" + id
+            });
+        }
+
+        public Task<T> UpdateAnnouncement<T>(int id, AnnouncementUpdateDto announcementUpdateDto)
+        {
+            return Send<T>(new APIRequest()
+            {
+                ApiType = SD.ApiType.PUT,
+                Data = announcementUpdateDto,
+                Url = taskUrl + "/api/Announcement/PutAnnouncement/" + id
+            });
+        }
     }
 }

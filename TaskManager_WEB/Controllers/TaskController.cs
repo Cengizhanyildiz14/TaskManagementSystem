@@ -171,8 +171,6 @@ namespace TaskManager_WEB.Controllers
             return RedirectToAction("create", "task");
         }
 
-
-
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> Update(int id)

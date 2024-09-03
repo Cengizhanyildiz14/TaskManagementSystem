@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using TaskManager_WEB.Models;
 using TaskManager_WEB.Services.IServices;
 
@@ -46,6 +48,53 @@ namespace TaskManager_WEB.Controllers
             }
             return RedirectToAction("home", "home");
         }
+
+        [HttpGet]
+        [Authorize(Policy = ("IK"))]
+        public async Task<IActionResult> Update(int id)
+        {
+            var response = await _announcementService.GetAnnouncementById<APIResponse>(id);
+            if (response == null || !response.IsSuccess)
+            {
+                return NotFound();
+            }
+
+            var announcement = JsonConvert.DeserializeObject<AnnouncementUpdateDto>(Convert.ToString(response.result));
+            if (announcement == null)
+            {
+                return NotFound("Duyuru yüklenemedi.");
+            }
+
+            return View(announcement);
+        }
+
+        [HttpPost]
+        [Authorize(Policy = ("IK"))]
+        public async Task<IActionResult> Update(AnnouncementUpdateDto announcementUpdateDto)
+        {
+            var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var userName = HttpContext.User.FindFirst(c => c.Type == "FullName")?.Value;
+
+            if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(userName))
+            {
+                return Unauthorized("Kullanıcı bilgileri doğrulanamadı.");
+            }
+
+            // Update the necessary fields
+            announcementUpdateDto.AuthorId = int.Parse(userId); 
+            announcementUpdateDto.AuthorName = userName;
+            announcementUpdateDto.UpdatedDate = DateTime.UtcNow;
+
+            var updateResponse = await _announcementService.UpdateAnnouncement<APIResponse>(announcementUpdateDto.Id,announcementUpdateDto);
+
+            if (updateResponse == null || !updateResponse.IsSuccess)
+            {
+                return View(announcementUpdateDto);
+            }
+
+            return RedirectToAction("Home");
+        }
+
 
         [HttpGet]
         public IActionResult NotFoundPage()

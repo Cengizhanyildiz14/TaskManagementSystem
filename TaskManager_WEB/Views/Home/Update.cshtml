@@ -1,0 +1,24 @@
+﻿@using TaskManager_WEB.Resources
+@model TaskManager_WEB.Models.AnnouncementUpdateDto
+@inject LanguageService ShareLocalizer
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">@ShareLocalizer.Getkey("UpdateAnnouncement").Value</h2>
+
+    <form asp-action="Update" method="post" novalidate>
+        <input type="hidden" name="Id" value="@Model.Id" />
+
+        <div class="mb-3">
+            <label for="Title" class="form-label">@ShareLocalizer.Getkey("Title").Value</label>
+            <input type="text" class="form-control" id="Title" name="Title" value="@Model.Title" required />
+        </div>
+
+        <div class="mb-3">
+            <label for="Content" class="form-label">@ShareLocalizer.Getkey("Content").Value</label>
+            <textarea class="form-control" id="Content" name="Content" rows="5" required>@Model.Content</textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">@ShareLocalizer.Getkey("Update").Value</button>
+        <a asp-action="Home" class="btn btn-secondary">@ShareLocalizer.Getkey("Cancel").Value</a>
+    </form>
+</div>

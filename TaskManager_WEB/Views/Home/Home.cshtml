@@ -36,12 +36,17 @@
                     </div>
                     <div class="card-footer d-flex justify-content-between align-items-center">
                         <small class="text-muted">Yazar: @announcement.AuthorName</small>
-                        <small class="text-muted">@announcement.CreatedDate.ToString("dd.MM.yyyy")</small>
+                        <small class="text-muted">
+                            @{
+                                var dateToShow = announcement.UpdatedDate.HasValue ? announcement.UpdatedDate.Value : announcement.CreatedDate;
+                            }
+                            @dateToShow.ToString("dd.MM.yyyy")
+                        </small>
 
                         @if (HttpAcc.HttpContext.User.IK())
                         {
                             <div class="ml-auto d-flex">
-                                <form asp-action="Update" asp-controller="home" class="me-2">
+                                <form asp-action="Update" asp-controller="home" method="get" class="me-2">
                                     <input type="hidden" name="id" value="@announcement.Id" />
                                     <button type="submit" class="btn btn-warning btn-sm">@ShareLocalizer.Getkey("Update").Value</button>
                                 </form>
@@ -52,6 +57,7 @@
                             </div>
                         }
                     </div>
+
                 </div>
             </div>
         }
