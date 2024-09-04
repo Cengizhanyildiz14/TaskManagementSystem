@@ -138,6 +138,18 @@ app.MapControllerRoute(
 );
 
 app.MapControllerRoute(
+    name: "AnnouncementCreate",
+    pattern: "AnnouncementCreate",
+    defaults: new { controller = "home", action = "create" }
+);
+
+app.MapControllerRoute(
+    name: "AnnouncementUpdate",
+    pattern: "AnnouncementUpdate/{id?}",
+    defaults: new { controller = "home", action = "Update" }
+);
+
+app.MapControllerRoute(
     name: "default",
     pattern: "{controller=home}/{action=home}/"
 );

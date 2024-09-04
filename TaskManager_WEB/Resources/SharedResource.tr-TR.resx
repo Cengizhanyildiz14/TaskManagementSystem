@@ -561,4 +561,19 @@
 <data name="NoAnnouncementsMessage" xml:space="preserve">
   <value>Henüz bir duyuru yok.</value>
 </data>
+<data name="CreateAnnouncement" xml:space="preserve">
+  <value>Duyuru Oluştur</value>
+</data>
+<data name="Title" xml:space="preserve">
+  <value>Başlık</value>
+</data>
+<data name="Content" xml:space="preserve">
+  <value>İçerik</value>
+</data>
+<data name="UpdateAnnouncement" xml:space="preserve">
+  <value>Duyuruyu Güncelle</value>
+</data>
+<data name="Settings" xml:space="preserve">
+  <value>Ayarlar</value>
+</data>
 </root>

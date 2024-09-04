@@ -22,17 +22,19 @@
     }
     else
     {
-        <div class="row">
+        <div class="row g-5">
             @foreach (var announcement in Model)
             {
-                <div class="col-md-6 mb-4 d-flex align-items-stretch">
-                    <div class="card w-100 shadow-sm">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title text-center">@announcement.Title</h5>
+                <div class="col-md-6 mb-5 d-flex align-items-stretch">
+                    <div class="card w-100 shadow-sm" style="min-height: 250px;">
+                        <div class="card-header text-black text-center text-uppercase">
+                            <h5 class="mb-0">@announcement.Title</h5>
+                        </div>
+                        <div class="card-body d-flex flex-column" style="padding: 20px;">
                             <p class="card-text" id="content-@announcement.Id">
                                 @{
                                     var contentToShow = announcement.Content.Length > 200
-                                    ? announcement.Content.Substring(0, 100) + "..."
+                                    ? announcement.Content.Substring(0, 244) + "..."
                                     : announcement.Content;
                                 }
                                 @contentToShow
@@ -48,7 +50,7 @@
                                 @{
                                     var dateToShow = announcement.UpdatedDate.HasValue ? announcement.UpdatedDate.Value : announcement.CreatedDate;
                                 }
-                                @dateToShow.ToString("dd.MM.yyyy")
+                                @dateToShow.ToString("dd.MM.yyyy HH:mm")
                                 @if (announcement.UpdatedDate.HasValue)
                                 {
                                     <span class="badge bg-warning text-dark ms-2">@ShareLocalizer.Getkey("Updated").Value</span>
@@ -79,15 +81,15 @@
 <div class="modal fade" id="announcementModal" tabindex="-1" aria-labelledby="announcementModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="announcementModalLabel">Duyuru Başlığı</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-header d-flex justify-content-center">
+                <h5 class="modal-title text-center text-uppercase" id="announcementModalLabel">Duyuru Başlığı</h5>
+                <button type="button" class="btn-close position-absolute top-0 end-0 me-2 mt-2" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <p id="modalContent">Duyuru İçeriği</p>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@ShareLocalizer.Getkey("Close").Value</button>
             </div>
         </div>
     </div>
@@ -101,3 +103,5 @@
         }
     </script>
 }
+
+

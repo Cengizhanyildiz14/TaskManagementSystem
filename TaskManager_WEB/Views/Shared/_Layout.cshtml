@@ -39,11 +39,19 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="user" asp-action="getallusers" asp-route-id="@userId">@ShareLocalizer.Getkey("TaskTrackingList")</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="user" asp-action="Profile" asp-route-id="@userId">@ShareLocalizer.Getkey("Profile")</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="LogOut">@ShareLocalizer.Getkey("Logout")</a>
+                        }
+                    </ul>
+
+                    <ul class="navbar-nav ms-auto align-items-center">
+                        @if (HttpAcc.HttpContext.User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="userProfileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">@ShareLocalizer.Getkey("Settings")
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userProfileDropdown">
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="user" asp-action="Profile" asp-route-id="@userId">@ShareLocalizer.Getkey("Profile")</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Auth" asp-action="LogOut">@ShareLocalizer.Getkey("Logout")</a></li>
+                                </ul>
                             </li>
                         }
                         else
@@ -52,16 +60,15 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Login">@ShareLocalizer.Getkey("Login")</a>
                             </li>
                         }
-                    </ul>
-                    <ul class="navbar-nav ms-auto align-items-center">
+
                         <li class="nav-item">
                             <a asp-controller="Home" asp-action="ChangeLang" asp-route-culture="en-US" class="nav-link">
-                                <span class="flag-icon flag-icon-gb"></span> Eng
+                                <span class="flag-icon flag-icon-gb"></span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a asp-controller="Home" asp-action="ChangeLang" asp-route-culture="tr-TR" class="nav-link">
-                                <span class="flag-icon flag-icon-tr"></span> TR
+                                <span class="flag-icon flag-icon-tr"></span>
                             </a>
                         </li>
                     </ul>
@@ -69,6 +76,7 @@
             </div>
         </nav>
     </header>
+
     <div class="container-fluid">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -76,10 +84,11 @@
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
+        <div class="container text-center">
             &copy; 2024 - TaskManager_WEB - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
