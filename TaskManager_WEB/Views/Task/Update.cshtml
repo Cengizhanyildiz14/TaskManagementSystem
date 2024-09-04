@@ -8,23 +8,20 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title mb-4">@ShareLocalizer.Getkey("UpdateTask").Value</h4>
-                    <form asp-action="Update" method="post" onsubmit="return confirm('@ShareLocalizer.Getkey("ConfirmSave").Value');">
+                    <form id="updateTaskForm" asp-action="Update" method="post">
                         <div class="row">
-                            <!-- Task Name -->
                             <div class="col-md-12 mb-3">
                                 <label asp-for="TaskUpdateDto.TaskName" class="form-label">@ShareLocalizer.Getkey("TaskName").Value</label>
                                 <textarea asp-for="TaskUpdateDto.TaskName" class="form-control" rows="4"></textarea>
                                 <span asp-validation-for="TaskUpdateDto.TaskName" class="text-danger"></span>
                             </div>
 
-                            <!-- Department Selection -->
                             <div class="col-md-6 mb-3">
                                 <label asp-for="TaskUpdateDto.DepartmentId" class="form-label">@ShareLocalizer.Getkey("DepartmentName").Value</label>
                                 <select asp-for="TaskUpdateDto.DepartmentId" class="form-select" asp-items="Model.DepartmentList"></select>
                                 <span asp-validation-for="TaskUpdateDto.DepartmentId" class="text-danger"></span>
                             </div>
 
-                            <!-- Assigned User Selection -->
                             <div class="col-md-6 mb-3">
                                 <label asp-for="TaskUpdateDto.AsaignedUserId" class="form-label">@ShareLocalizer.Getkey("AssignedUser").Value</label>
                                 <select asp-for="TaskUpdateDto.AsaignedUserId" class="form-select" asp-items="Model.UserList"></select>
@@ -35,9 +32,8 @@
                         <input type="hidden" asp-for="TaskUpdateDto.Id" />
                         <input type="hidden" asp-for="TaskUpdateDto.CreaterUserId" />
 
-                        <!-- Buttons -->
                         <div class="d-flex justify-content-between mt-4">
-                            <input type="submit" value="@ShareLocalizer.Getkey("Update").Value" class="btn btn-primary" />
+                            <input type="button" value="@ShareLocalizer.Getkey("Update").Value" class="btn btn-primary" onclick="confirmUpdate()" />
                             <a asp-action="GetAllUsers" asp-controller="user" class="btn btn-secondary">@ShareLocalizer.Getkey("Back").Value</a>
                         </div>
                     </form>
@@ -46,3 +42,25 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        function confirmUpdate() {
+            Swal.fire({
+                title: 'Kaydetmek istediğinize emin misiniz?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Evet, kaydet!',
+                cancelButtonText: 'İptal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById("updateTaskForm").submit();
+                }
+            });
+        }
+    </script>
+}

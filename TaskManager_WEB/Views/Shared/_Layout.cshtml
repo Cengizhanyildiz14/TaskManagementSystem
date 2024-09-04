@@ -33,12 +33,12 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-center">
                         <li class="nav-item">
-                            <a class="nav-link text-dark fs-5" asp-area="" asp-controller="home" asp-action="home">@ShareLocalizer.Getkey("Home")</a>
+                            <a class="nav-link fs-4 fw-bold" asp-area="" asp-controller="home" asp-action="home">@ShareLocalizer.Getkey("Home")</a>
                         </li>
                         @if (HttpAcc.HttpContext.User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark fs-5" asp-area="" asp-controller="user" asp-action="getallusers" asp-route-id="@userId">@ShareLocalizer.Getkey("TaskTrackingList")</a>
+                                <a class="nav-link fs-4 fw-bold" asp-area="" asp-controller="user" asp-action="getallusers" asp-route-id="@userId">@ShareLocalizer.Getkey("TaskTrackingList")</a>
                             </li>
                         }
                     </ul>
@@ -46,45 +46,45 @@
                     <ul class="navbar-nav ms-auto align-items-center">
                         @if (HttpAcc.HttpContext.User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle fs-5" href="#" id="userProfileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    @ShareLocalizer.Getkey("Settings")
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userProfileDropdown">
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="user" asp-action="Profile" asp-route-id="@userId">@ShareLocalizer.Getkey("Profile")</a></li>
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="Auth" asp-action="LogOut">@ShareLocalizer.Getkey("Logout")</a></li>
-                                </ul>
-                            </li>
-
                             @if (HttpAcc.HttpContext.User.IK())
                             {
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle fs-5" href="#" id="ikDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <a class="nav-link dropdown-toggle fs-4 fw-bold" href="#" id="ikDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         @ShareLocalizer.Getkey("HR")
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="ikDropdown">
-                                        <li><a class="dropdown-item" asp-controller="Department" asp-action="DepartmentCreate">@ShareLocalizer.Getkey("AddDepartment").Value</a></li>
-                                        <li><a class="dropdown-item" asp-controller="user" asp-action="UserCreate">@ShareLocalizer.Getkey("AddPersonnel").Value</a></li>
-                                        <li><a class="dropdown-item" asp-controller="user" asp-action="UserList">@ShareLocalizer.Getkey("PersonnelList").Value</a></li>
+                                        <li><a class="dropdown-item fs-5" asp-controller="Department" asp-action="DepartmentCreate">@ShareLocalizer.Getkey("AddDepartment").Value</a></li>
+                                        <li><a class="dropdown-item fs-5" asp-controller="user" asp-action="UserCreate">@ShareLocalizer.Getkey("AddPersonnel").Value</a></li>
+                                        <li><a class="dropdown-item fs-5" asp-controller="user" asp-action="UserList">@ShareLocalizer.Getkey("PersonnelList").Value</a></li>
                                     </ul>
                                 </li>
                             }
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle fs-4 fw-bold" href="#" id="userProfileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    @ShareLocalizer.Getkey("Settings")
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userProfileDropdown">
+                                    <li><a class="dropdown-item fs-5" asp-area="" asp-controller="user" asp-action="Profile" asp-route-id="@userId">@ShareLocalizer.Getkey("Profile")</a></li>
+                                    <li><a class="dropdown-item fs-5" asp-area="" asp-controller="Auth" asp-action="LogOut">@ShareLocalizer.Getkey("Logout")</a></li>
+                                </ul>
+                            </li>                 
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Login">@ShareLocalizer.Getkey("Login")</a>
+                                <a class="nav-link fs-4 fw-bold" asp-area="" asp-controller="Auth" asp-action="Login">@ShareLocalizer.Getkey("Login")</a>
                             </li>
                         }
 
                         <li class="nav-item">
                             <a asp-controller="Home" asp-action="ChangeLang" asp-route-culture="en-US" class="nav-link">
-                                <span class="flag-icon flag-icon-gb"></span>
+                                <span class="flag-icon flag-icon-gb fs-4"></span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a asp-controller="Home" asp-action="ChangeLang" asp-route-culture="tr-TR" class="nav-link">
-                                <span class="flag-icon flag-icon-tr"></span>
+                                <span class="flag-icon flag-icon-tr fs-4"></span>
                             </a>
                         </li>
                     </ul>
@@ -105,7 +105,7 @@
                     width="100%" height="150" style="border:0;" allowfullscreen="" loading="lazy"
                     referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
-        <div class="container-fluid text-center">
+        <div class="container-fluid text-center fs-5">
             <p>&copy; 2024 - TaskManager_WEB - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></p>
         </div>
     </footer>
