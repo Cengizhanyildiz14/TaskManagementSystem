@@ -1,5 +1,6 @@
 ﻿@using System.Security.Claims
 @using TaskManager_WEB.Resources
+@using Utility
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpAcc
 @inject LanguageService ShareLocalizer
 
@@ -22,8 +23,8 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="home" asp-action="home">
-                    <img src="~/images/son.png" alt="Logo" style="height: 80px;" />
+                <a class="navbar-brand" asp-area="" asp-controller="home" asp-action="home" style="margin-left: 20px;">
+                    <img src="~/images/son.png" alt="Logo" style="height: 100px;" />
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -32,12 +33,12 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-center">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="home" asp-action="home">@ShareLocalizer.Getkey("Home")</a>
+                            <a class="nav-link text-dark fs-5" asp-area="" asp-controller="home" asp-action="home">@ShareLocalizer.Getkey("Home")</a>
                         </li>
                         @if (HttpAcc.HttpContext.User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="user" asp-action="getallusers" asp-route-id="@userId">@ShareLocalizer.Getkey("TaskTrackingList")</a>
+                                <a class="nav-link text-dark fs-5" asp-area="" asp-controller="user" asp-action="getallusers" asp-route-id="@userId">@ShareLocalizer.Getkey("TaskTrackingList")</a>
                             </li>
                         }
                     </ul>
@@ -46,13 +47,28 @@
                         @if (HttpAcc.HttpContext.User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="userProfileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">@ShareLocalizer.Getkey("Settings")
+                                <a class="nav-link dropdown-toggle fs-5" href="#" id="userProfileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    @ShareLocalizer.Getkey("Settings")
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userProfileDropdown">
                                     <li><a class="dropdown-item" asp-area="" asp-controller="user" asp-action="Profile" asp-route-id="@userId">@ShareLocalizer.Getkey("Profile")</a></li>
                                     <li><a class="dropdown-item" asp-area="" asp-controller="Auth" asp-action="LogOut">@ShareLocalizer.Getkey("Logout")</a></li>
                                 </ul>
                             </li>
+
+                            @if (HttpAcc.HttpContext.User.IK())
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle fs-5" href="#" id="ikDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        @ShareLocalizer.Getkey("HR")
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="ikDropdown">
+                                        <li><a class="dropdown-item" asp-controller="Department" asp-action="DepartmentCreate">@ShareLocalizer.Getkey("AddDepartment").Value</a></li>
+                                        <li><a class="dropdown-item" asp-controller="user" asp-action="UserCreate">@ShareLocalizer.Getkey("AddPersonnel").Value</a></li>
+                                        <li><a class="dropdown-item" asp-controller="user" asp-action="UserList">@ShareLocalizer.Getkey("PersonnelList").Value</a></li>
+                                    </ul>
+                                </li>
+                            }
                         }
                         else
                         {
@@ -86,18 +102,14 @@
     <footer class="border-top footer text-muted">
         <div class="container-fluid text-center">
             <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d8655.2412875667!2d32.7886912602928!3d39.91700423309819!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14d3494cbba972b9%3A0x3c095cf122b3920!2sTar%C4%B1m%20Kredi%20Teknoloji%20A.%C5%9E.!5e0!3m2!1str!2str!4v1725452850454!5m2!1str!2str"
-                    width="100%"
-                    height="150"
-                    style="border:0;"
-                    allowfullscreen=""
-                    loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
+                    width="100%" height="150" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
         <div class="container-fluid text-center">
-            &copy; 2024 - TaskManager_WEB - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <p>&copy; 2024 - TaskManager_WEB - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></p>
         </div>
     </footer>
+
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -108,12 +120,6 @@
 
 <style>
     body {
-        padding-bottom: 200px; 
-    }
-
-    footer {
-        background-color: #f8f9fa;
-        padding: 10px 0;
+        padding-bottom: 200px;
     }
 </style>
-

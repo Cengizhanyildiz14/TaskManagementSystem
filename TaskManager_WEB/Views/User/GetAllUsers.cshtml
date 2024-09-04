@@ -36,12 +36,6 @@
 
                 <div class="d-flex justify-content-end mb-3">
                     <a asp-controller="Task" asp-action="Create" class="btn btn-primary rounded-pill me-2">@ShareLocalizer.Getkey("AddNewTask").Value</a>
-                    @if (HttpAcc.HttpContext.User.IK())
-                    {
-                        <a asp-controller="Department" asp-action="DepartmentCreate" class="btn btn-secondary rounded-pill me-2">@ShareLocalizer.Getkey("AddDepartment").Value</a>
-                        <a asp-controller="user" asp-action="UserCreate" class="btn btn-secondary rounded-pill me-2">@ShareLocalizer.Getkey("AddPersonnel").Value</a>
-                        <a asp-controller="user" asp-action="UserList" class="btn btn-secondary rounded-pill">@ShareLocalizer.Getkey("PersonnelList").Value</a>
-                    }
                 </div>
 
                 <div class="alert alert-info d-flex align-items-center rounded-pill mb-2" role="alert">
