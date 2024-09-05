@@ -220,6 +220,28 @@ namespace TaskManager_WEB.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> UsersTaskJson(int id)
+        {
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            if (id != int.Parse(userIdClaim))
+            {
+                return RedirectToAction("NotFoundPage", "home");
+            }
+
+            var response = await _userService.GetUserTasks<APIResponse>(id);
+            if (response == null || !response.IsSuccess)
+            {
+                return NotFound();
+            }
+
+            var tasks = JsonConvert.DeserializeObject<List<TaskDtoWeb>>(Convert.ToString(response.result));
+            var pendingTasks = tasks.Where(t => t.Status == (int)TaskStatusEnum.Beklemede).ToList();
+
+            return Json(pendingTasks);
+        }
+
+        [HttpGet]
         public async Task<IActionResult> UpdateProfile(int id)
         {
             var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;

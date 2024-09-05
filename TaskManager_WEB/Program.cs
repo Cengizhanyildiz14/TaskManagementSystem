@@ -102,6 +102,12 @@ app.MapControllerRoute(
 );
 
 app.MapControllerRoute(
+    name: "MyTasks",
+    pattern: "UsersTaskJson/{id?}",
+    defaults: new { controller = "User", action = "UsersTaskJson" }
+);
+
+app.MapControllerRoute(
     name: "TaskDetail",
     pattern: "TaskDetail/{id?}",
     defaults: new { controller = "Task", action = "TaskDetails" }
