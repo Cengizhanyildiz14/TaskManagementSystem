@@ -75,7 +75,6 @@ Proje, **RESTful API** mimarisi kullanılarak geliştirilmiştir. **JWT (JSON We
          PUT,
          DELETE
      }
-     public static string SessionToken = "JWTToken";
  }
 ```
 
@@ -85,6 +84,7 @@ Proje, **RESTful API** mimarisi kullanılarak geliştirilmiştir. **JWT (JSON We
 - **Beklemede**: Görev beklemede.
 - **Tamamlandı**: Görev tamamlandı.
 - **Reddedildi**: Görev reddedildi.
+- **SüreDoldu**: Görevin süresi doldu.
 
 Bu enum, görev durumlarını standartlaştırmak ve bu durumların yönetimini kolaylaştırmak amacıyla kullanılır.
 
@@ -104,7 +104,7 @@ Bu enum, görev durumlarını standartlaştırmak ve bu durumların yönetimini 
      }
  }
 ```
-- **Gender Genişletme Metodu:** Bu metod, kullanıcının (`ClaimsPrincipal`) cinsiyet bilgisini kontrol eder ve kullanıcının cinsiyetinin "Female" olup olmadığını belirler. Eğer kullanıcının cinsiyet "Female" ise `true`, aksi halde `false` döner.
+- **Cinsiyet Genişletme Metodu:** Bu metod, kullanıcının (`ClaimsPrincipal`) cinsiyet bilgisini kontrol eder ve kullanıcının cinsiyetinin "Female" olup olmadığını belirler. Eğer kullanıcının cinsiyet "Female" ise `true`, aksi halde `false` döner.
 
 ```csharp
  public static bool IsFemale(this ClaimsPrincipal user)
@@ -535,6 +535,10 @@ Bu yapılandırma, `TaskManagementAPI` servisini `https://localhost:7178 adresin
   - `DepartmentCreate.cshtml`: Yeni bir departman oluşturma sayfası.
 
 - **Home:** Genel sayfaları içerir.
+  - `Home`: Tüm duyruuların ve bu duyurulara ait işlemlerin yapılabilmesi için gerekli olan sayfalara yönlendirmelerin 
+     olduğu sayfa.
+  - `Create`: Duyuru oluşturabilmek için görüntülenen sayfa.
+  - `Update`: Duyuru güncelleştirebilmek için görüntülenen sayfa.
   - `AccessDenied.cshtml`: Erişim izni olmayan kullanıcılar için görüntülenen sayfa.
   - `NotFoundPage.cshtml`: Bulunamayan sayfalar için gösterilen hata sayfası.
   - `Privacy.cshtml`: Gizlilik politikası sayfası.
@@ -606,6 +610,7 @@ Bu yapılandırma, `TaskManagementAPI` servisini `https://localhost:7178 adresin
 ## Kullanım
 
 - **Giriş Yapma:** Kullanıcılar e-posta adresleri ile sisteme giriş yapabilir.
+- **Dyurular:** Kullanıcılar tüm duyuruları görebilir ayrıca İnsan Kaynakları Uzmanı olan kişiler bu duyuruları güncelleyebilir, silebilir veya yeni duyuru oluşturabilir.
 - **Beni Hatırla:** Giriş sırasında "Beni Hatırla" butonunu seçerek, oturumunuzu 1 gün boyunca açık tutabilirsiniz.
 - **Görev Oluşturma:** Ana sayfadan yeni bir görev oluşturabilir ve ilgili kullanıcılara atayabilirsiniz.
 - **Görev Güncelleme ve Silme:** Kendi oluşturduğunuz görevleri güncelleyebilir veya silebilirsiniz.
