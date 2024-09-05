@@ -66,12 +66,17 @@ namespace TaskManager_WEB.Controllers
             return View(viewModel);
         }
 
-
-
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> Profile(int id)
         {
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            if (id != int.Parse(userIdClaim))
+            {
+                return RedirectToAction("NotFoundPage", "home");
+            }
+
             var response = await _userService.GetAll<APIResponse>();
             var users = JsonConvert.DeserializeObject<List<UserResult>>(Convert.ToString(response.result));
 
@@ -86,8 +91,6 @@ namespace TaskManager_WEB.Controllers
 
             return View(viewModel);
         }
-
-
 
         [HttpGet]
         [Authorize(Policy = ("IK"))]
@@ -199,6 +202,13 @@ namespace TaskManager_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> UsersTask(int id)
         {
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            if (id !=int.Parse(userIdClaim))
+            {
+                return RedirectToAction("NotFoundPage", "home");
+            }
+
             var response = await _userService.GetUserTasks<APIResponse>(id);
             if (response == null || !response.IsSuccess)
             {
@@ -212,6 +222,13 @@ namespace TaskManager_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> UpdateProfile(int id)
         {
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            if (id != int.Parse(userIdClaim))
+            {
+                return RedirectToAction("NotFoundPage", "home");
+            }
+
             var response = await _userService.GetUserWithDetails<APIResponse>(id);
 
             if (response != null && response.IsSuccess)
