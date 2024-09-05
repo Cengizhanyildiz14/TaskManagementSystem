@@ -579,4 +579,7 @@
 <data name="HR" xml:space="preserve">
   <value>HR</value>
 </data>
+<data name="Create" xml:space="preserve">
+  <value>Create</value>
+</data>
 </root>
