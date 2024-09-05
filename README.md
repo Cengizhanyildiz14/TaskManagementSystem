@@ -46,7 +46,7 @@ Proje, **RESTful API** mimarisi kullanılarak geliştirilmiştir. **JWT (JSON We
 - JavaScript
 - FontAwesome
 - AutoMapper
-
+- Sweetalert
 ---
 
 ## Utility Katmanı
@@ -75,7 +75,6 @@ Proje, **RESTful API** mimarisi kullanılarak geliştirilmiştir. **JWT (JSON We
          PUT,
          DELETE
      }
-     public static string SessionToken = "JWTToken";
  }
 ```
 
@@ -85,6 +84,7 @@ Proje, **RESTful API** mimarisi kullanılarak geliştirilmiştir. **JWT (JSON We
 - **Beklemede**: Görev beklemede.
 - **Tamamlandı**: Görev tamamlandı.
 - **Reddedildi**: Görev reddedildi.
+- **SüreDoldu**: Görevin süresi doldu.
 
 Bu enum, görev durumlarını standartlaştırmak ve bu durumların yönetimini kolaylaştırmak amacıyla kullanılır.
 
@@ -104,7 +104,7 @@ Bu enum, görev durumlarını standartlaştırmak ve bu durumların yönetimini 
      }
  }
 ```
-- **Gender Genişletme Metodu:** Bu metod, kullanıcının (`ClaimsPrincipal`) cinsiyet bilgisini kontrol eder ve kullanıcının cinsiyetinin "Female" olup olmadığını belirler. Eğer kullanıcının cinsiyet "Female" ise `true`, aksi halde `false` döner.
+- **Cinsiyet Genişletme Metodu:** Bu metod, kullanıcının (`ClaimsPrincipal`) cinsiyet bilgisini kontrol eder ve kullanıcının cinsiyetinin "Female" olup olmadığını belirler. Eğer kullanıcının cinsiyet "Female" ise `true`, aksi halde `false` döner.
 
 ```csharp
  public static bool IsFemale(this ClaimsPrincipal user)
@@ -535,6 +535,10 @@ Bu yapılandırma, `TaskManagementAPI` servisini `https://localhost:7178 adresin
   - `DepartmentCreate.cshtml`: Yeni bir departman oluşturma sayfası.
 
 - **Home:** Genel sayfaları içerir.
+  - `Home`: Tüm duyruuların ve bu duyurulara ait işlemlerin yapılabilmesi için gerekli olan sayfalara yönlendirmelerin 
+     olduğu sayfa.
+  - `Create`: Duyuru oluşturabilmek için görüntülenen sayfa.
+  - `Update`: Duyuru güncelleştirebilmek için görüntülenen sayfa.
   - `AccessDenied.cshtml`: Erişim izni olmayan kullanıcılar için görüntülenen sayfa.
   - `NotFoundPage.cshtml`: Bulunamayan sayfalar için gösterilen hata sayfası.
   - `Privacy.cshtml`: Gizlilik politikası sayfası.
@@ -606,6 +610,7 @@ Bu yapılandırma, `TaskManagementAPI` servisini `https://localhost:7178 adresin
 ## Kullanım
 
 - **Giriş Yapma:** Kullanıcılar e-posta adresleri ile sisteme giriş yapabilir.
+- **Dyurular:** Kullanıcılar tüm duyuruları görebilir ayrıca İnsan Kaynakları Uzmanı olan kişiler bu duyuruları güncelleyebilir, silebilir veya yeni duyuru oluşturabilir.
 - **Beni Hatırla:** Giriş sırasında "Beni Hatırla" butonunu seçerek, oturumunuzu 1 gün boyunca açık tutabilirsiniz.
 - **Görev Oluşturma:** Ana sayfadan yeni bir görev oluşturabilir ve ilgili kullanıcılara atayabilirsiniz.
 - **Görev Güncelleme ve Silme:** Kendi oluşturduğunuz görevleri güncelleyebilir veya silebilirsiniz.
@@ -620,49 +625,79 @@ Bu yapılandırma, `TaskManagementAPI` servisini `https://localhost:7178 adresin
 
 - **Giriş Sayfası:** Kullanıcıların sisteme giriş yaptığı ekran.
 
-  <img src="https://github.com/user-attachments/assets/19afe322-193f-44c7-9f50-05ee77613520" alt="Giriş Sayfası" width="600"/>
+  <img src="https://github.com/user-attachments/assets/b72cd4bd-f641-4418-bca9-a0c43e456fea" alt="Giriş Sayfası" width="600"/>
 ---
-- **Anasayfa:** Görev yönetim işlemlerinin yapıldığı ana ekran.
+- **Anasayfa:** Kullanıcıların duyuruları takip edebildiği ekran..
 
-  <img src="https://github.com/user-attachments/assets/a198bd3c-51fb-4741-96e3-187b5d3f1839" alt="Anasayfa" width="600"/>
+  <img src="https://github.com/user-attachments/assets/59ceca9e-8e4d-44ba-a6da-52c0b3a9bf75" alt="Anasayfa" width="600"/>
 ---
-- **Görevlerim Sayfası:** Kullanıcıya ait görevlerin listelendiği ekran.
+- **Anasayfa(İK Uzmanı için):** `İnsan Kaynakları Uzmanı` olan kullanıcılar için duyurular ekranı. Diğer kullanıcılara ek olarak burada duyuruları oluşturabilme, düzenleyebilme ve silebilme yetkileri mevcuttur.
 
-  <img src="https://github.com/user-attachments/assets/1dca43c5-8d31-47c3-9612-d57a8f39ece1" alt="Görevlerim Sayfası" width="600"/>
+  <img src="https://github.com/user-attachments/assets/032d98cf-7586-4656-a7d9-0bcaa59c94bb" alt="Anasayfa" width="600"/>
 ---
-- **Profil Bilgilerim Sayfası:** Kullanıcının profil bilgilerini görüntüleyebildiği ekran.
+- **Duyuru Oluşturma Ekranı(İK Uzmanı için):** Yeni duyuru ekleme ekranı. (Bu kısımdan önce sayfaların boyutlarından ötürü gözükmeyen ama footer'da yer alan Google haritalardan konum bilgisini görebilmektesiniz.)
 
-  <img src="https://github.com/user-attachments/assets/841ef3fc-269f-48b6-bf00-af22ec90f688" alt="Profil Bilgilerim Sayfası"/>
+  <img src="https://github.com/user-attachments/assets/2557db93-67ed-446e-994d-e55f56f32582" alt="Görevlerim Sayfası" width="600"/>
 ---
+- **Duyuru Güncelleme Ekranı(İK Uzmanı için):** Duyuru güncelleme ekranı.
 
-- **Profil Güncelleme Sayfası:** Kullanıcının profil bilgilerini güncelleyebildiği ekran.
-
-  <img src="https://github.com/user-attachments/assets/b9e71ccd-a65f-4853-9715-04eb92a7dd1f" alt="Profil Bilgilerim Sayfası" width="600"/>
+  <img src="https://github.com/user-attachments/assets/306ed4d4-886a-40a6-883e-6caa7d44aca3" alt="Profil Bilgilerim Sayfası"/>
 ---
+- **Duyuru Silme Uyarısı(İK Uzmanı için):** Duyuruyu silmek istediğimde karşımıza çıkan uyarı pop-up penceresi.
 
-- **Görev Detayları Sayfası:** Bir görevin detaylarının görüntülendiği ekran.
-
-  <img src="https://github.com/user-attachments/assets/3029b4be-b147-4cf5-b17b-e1218e4c9503" alt="Görev Detayları Sayfası" width="600"/>
+  <img src="https://github.com/user-attachments/assets/6336b051-8211-4897-aeaf-4a169540a6f3" alt="Profil Bilgilerim Sayfası" width="600"/>
 ---
-- **Yeni Görev Ekleme Sayfası:** Yeni bir görev oluşturma ekranı.
+- **Departman Ekleme Ekranı(İK Uzmanı için):** Yeni departman ekleme ekranı.
 
-  <img src="https://github.com/user-attachments/assets/354da73a-cc6f-41c1-b2b3-1cd0f61a186e" alt="Yeni Görev Ekleme Sayfası" width="600"/>
+  <img src="https://github.com/user-attachments/assets/131c07cc-6bc8-46d4-b425-3f223caddf39" alt="Görev Detayları Sayfası" width="600"/>
 ---
-- **Görev Güncelleme Sayfası:** Mevcut bir görevin güncellenebildiği ekran.
+- **Personel Ekleme Ekranı(İK Uzmanı için):** Yeni personel ekleme ekranı.
 
-  <img src="https://github.com/user-attachments/assets/18a7d0c7-1fcd-48cb-aa6a-d9a2d10d211d" alt="Görev Güncelleme Sayfası" width="600"/>
+  <img src="https://github.com/user-attachments/assets/5130ad33-a10d-4b32-897e-b85dfed510cf" alt="Yeni Görev Ekleme Sayfası" width="600"/>
 ---
-- **Departman Ekleme Sayfası:** (İK Uzmanı için) Yeni departman ekleme ekranı.
+- **Personel Listesi Ekranı(İK Uzmanı için):** Personellerin gösterildiği ekran.
 
-  <img src="https://github.com/user-attachments/assets/9689b86e-aa20-4e5e-bb7a-7d91903a7bc4" alt="Departman Ekleme Sayfası" width="600"/>
+  <img src="https://github.com/user-attachments/assets/5406c249-eaa6-4b34-82a7-f77ff183fe75" alt="Görev Güncelleme Sayfası" width="600"/>
 ---
-- **Personel Ekleme Sayfası:** (İK Uzmanı için) Yeni personel ekleme ekranı.
+- **Personel Silme Uyarısı(İK Uzmanı için):** Personel silmek istediğimde karşımıza çıkan uyarı pop-up penceresi.
 
-  <img src="https://github.com/user-attachments/assets/7b098335-8cd1-4358-85ad-2996ec99e14c" alt="Personel Ekleme Sayfası" width="600"/>
+  <img src="https://github.com/user-attachments/assets/b848efae-1fef-4d7f-a79d-68c25af1f4c6" alt="Departman Ekleme Sayfası" width="600"/>
 ---
-- **Personel Listesi Ekranı:** (İK Uzmanı için) Sistemdeki personelin listelendiği ekran.
+- **Görev Takip Listesi:** Görevleri ve bu görevlere ait durumları görüp, görevlerle ilgili işlemlere ulaşabileceğimiz ekran.
 
-  <img src="https://github.com/user-attachments/assets/ffdd3577-2e7b-4be0-929d-2a08fb804436" alt="Personel Listesi Ekranı" width="600"/>
+  <img src="https://github.com/user-attachments/assets/c7b6f369-184a-4e0d-b0ac-9c819001a92f" alt="Personel Ekleme Sayfası" width="600"/>
+---
+- **Görev Ekleme Ekranı:** Bir departman deçip o departmana ait personelleri listeledikten sonra istediğimiz personele görevini atayabildiğimiz ekran.
+
+  <img src="https://github.com/user-attachments/assets/a53b66bf-e2d2-454a-afa0-614c7afbb81f" alt="Personel Listesi Ekranı" width="600"/>
+---
+- **Görevlerim Ekranı:** Personelin kendisine atanmış görevleri görebildiği ve bu görevi onayalama, reddetetme seçeneklerinin yer aldığı ekran. (personel görevi kendisine atandıktan sonra 3 gün içinde onaylamaz ise görev `süresi doldu` olarak ayarkanmaktadır.)
+
+  <img src="https://github.com/user-attachments/assets/82322b9f-52f2-482a-b1b3-771b4f44559a" alt="Personel Listesi Ekranı" width="600"/>
+---
+- **Görev Detayları Ekranı:** Görevin detaylarını görüntüleyip görevle ilgili silme ve güncelleme işlemlerine erişebildiğimiz ekran. (Burada ilgili görevi güncellemek veya silebilmek için bu görevi atayan kişi olmalısınız.)
+
+  <img src="https://github.com/user-attachments/assets/4677fccc-e20f-4531-a9c2-83b52420c9ec" alt="Personel Ekleme Sayfası" width="600"/>
+---
+- **Görev Güncelleme Ekranı:** İlgili görevi güncelleyebildiğimiz ekran.
+
+  <img src="https://github.com/user-attachments/assets/19c4a08a-d37c-4cdc-a203-18ea35557962" alt="Personel Ekleme Sayfası" width="600"/>
+---
+- **Görev Güncelleme Uyarısı:** Görevi güncellemek için butona bastığımızda çıkan pop-up penceresi.
+
+  <img src="https://github.com/user-attachments/assets/9dd74f6b-347e-4672-aee5-a16abcd65569" alt="Profil Bilgilerim Sayfası"/>
+---
+- **Görev Silme Uyarısı:** Görevi silmek için butona bastığımızda çıkan pop-up penceresi.
+
+  <img src="https://github.com/user-attachments/assets/7f2b4646-dece-4cb6-8d99-f0eb716f82fc" alt="Profil Bilgilerim Sayfası"/>
+---
+- **Profil Ekranı:** Kullanıcının kişisel bilgilerini görüp güncellemek isterse oraya yönlendirilecek butonun yer aldığı ekran. (Burada uygulama navbarda bulununan buton vasıtasıyla yabancı dile çevirlmiştir.)
+- 
+  <img src="https://github.com/user-attachments/assets/5851ef8c-fd4e-4f65-8a13-a5fa3c69f706" alt="Profil Bilgilerim Sayfası"/>
+---
+- **Profil Güncelleme Ekranı:** Kullanıcının kişisel bilgilerini güncelleyebildiği ekran. (Burada uygulama navbarda bulununan buton vasıtasıyla yabancı dile çevirlmiştir.)
+
+  <img src="https://github.com/user-attachments/assets/0789112c-62b7-4580-a2ba-55b6830591e2" alt="Profil Bilgilerim Sayfası"/>
 ---
 - **Access Denied Sayfası:** Erişim izni olmayan kullanıcılar için özel erişim engellendi sayfası.
 
