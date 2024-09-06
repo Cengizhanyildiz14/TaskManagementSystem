@@ -16,9 +16,9 @@
             <table class="table table-striped">
                 <thead class="thead-light">
                     <tr>
-                        <th>@ShareLocalizer.Getkey("TaskName").Value</th>
-                        <th>@ShareLocalizer.Getkey("Department").Value</th>
-                        <th>@ShareLocalizer.Getkey("AssignedBy").Value</th>
+                        <th class="text-center">@ShareLocalizer.Getkey("TaskName").Value</th>
+                        <th class="text-center">@ShareLocalizer.Getkey("Department").Value</th>
+                        <th class="text-center">@ShareLocalizer.Getkey("AssignedBy").Value</th>
                         <th class="text-center">@ShareLocalizer.Getkey("Status").Value</th>
                         <th class="text-center">@ShareLocalizer.Getkey("RemainingTime").Value</th>
                         <th class="text-center">@ShareLocalizer.Getkey("Details").Value</th>
@@ -28,13 +28,13 @@
                     @foreach (var task in Model)
                     {
                         var countdownId = $"countdown_{task.Id}";
-                        var endTime = task.AssignmentDate.AddDays(3); // 3 gün ekleyerek süreyi hesapla
+                        var endTime = task.AssignmentDate.AddDays(3);
 
                         <tr>
-                            <td class="align-middle">@task.TaskName</td>
-                            <td class="align-middle">@task.Department.DepartmentName</td>
-                            <td class="align-middle">@task.CreaterUserName @task.CreaterUserLastName</td>
-                            <td id="status_@countdownId" class="align-middle fw-bold text-uppercase">
+                            <td class="align-middle text-center">@task.TaskName</td>
+                            <td class="align-middle text-center">@task.Department.DepartmentName</td>
+                            <td class="align-middle text-center">@task.CreaterUserName @task.CreaterUserLastName</td>
+                            <td id="status_@countdownId" class="align-middle text-uppercase fw-bold text-center">
                                 @task.StatusDescription
                             </td>
                             <td class="align-middle text-center">
@@ -115,3 +115,4 @@
         </div>
     }
 </div>
+

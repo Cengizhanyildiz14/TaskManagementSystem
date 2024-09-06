@@ -131,12 +131,12 @@
 
     <script>
         $(document).ready(function () {
-            var userId = parseInt('@userId'); 
+            var userId = parseInt('@userId');
 
             var url = '/UsersTaskJson/' + userId;
             $.get(url, function (tasks) {
                 var pendingTasks = tasks.filter(function (task) {
-                    return task.status === 0; 
+                    return task.status === 0;
                 });
 
                 if (pendingTasks.length > 0) {
@@ -153,13 +153,14 @@
 
                         var listItem = $('<li>').append(
                             $('<a>').addClass('dropdown-item notification-item')
-                                .html(createrFullName + " tarafından atanmış yeni bir göreviniz var." +
-                                    "<span class='assign-date'>" + assignDate + "</span>") 
+                                .html(
+                                    "<span class='notification-text'>" + createrFullName + " tarafından atanmış yeni bir göreviniz var." + "</span>" +
+                                    "<span class='assign-date'>" + assignDate + "</span>"
+                                )
                                 .click(function () {
-                                    window.location.href = '/UsersTask/' + userId; 
+                                    window.location.href = '/UsersTask/' + userId;
                                 })
                         );
-
                         $('#notificationContent').append(listItem);
                     });
 
@@ -182,7 +183,17 @@
         position: relative;
         display: inline-block;
         font-size: 24px;
+        cursor: pointer; /* Bildirim simgesi tıklanabilir */
+        transition: color 0.3s ease; /* Animasyon eklendi */
     }
+
+        .notification-icon i {
+            color: #333; /* Daha yumuşak bir renk */
+        }
+
+        .notification-icon:hover i {
+            color: #007bff; /* Üzerine gelindiğinde simge rengini değiştir */
+        }
 
     .notification-badge {
         position: absolute;
@@ -190,33 +201,58 @@
         right: -10px;
         padding: 5px 10px;
         border-radius: 50%;
-        background: red;
+        background: #dc3545; /* Bildirim rengi daha belirgin hale getirildi */
         color: white;
         font-size: 12px;
         font-weight: bold;
         z-index: 1;
-    }
-
-    .notification-icon i {
-        z-index: 0;
-        color: black;
-    }
-
-    .notification-item {
-        overflow: hidden; /* Taşan metni gizler */
-        word-wrap: break-word; /* Metni kutunun genişliğiyle sınırlı tutar ve gerekirse alt satıra geçer */
-        cursor: pointer;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2); /* Hafif bir gölge eklendi */
     }
 
     #notificationContent {
-        min-width: 350px; /* Açılan pencerenin genişliğini artırın */
-        transform: translateX(-95%); /* Pencereyi sola kaydırın */
+        min-width: 400px; /* Bildirim paneli daha geniş yapıldı */
+        transform: translateX(-50%);
+        background-color: #fff; /* Beyaz arka plan */
+        border-radius: 10px; /* Kenarlara yuvarlama eklendi */
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Hafif gölge eklendi */
+        padding: 10px;
     }
 
+    .notification-item {
+        padding: 10px;
+        border-bottom: 1px solid #f1f1f1;
+        transition: background-color 0.3s ease;
+        text-decoration: none;
+        color: #333;
+        border-radius: 5px;
+        position: relative;
+        user-select: none;
+        min-height: 60px; /* Tarihin düzgün yerleşmesi için yeterli yükseklik */
+    }
+
+        .notification-item:hover {
+            background-color: #f8f9fa;
+            color: #007bff;
+        }
+
     .assign-date {
-        font-size: 0.8em; /* Küçük yazı boyutu */
-        float: right; /* Sağ tarafa hizalar */
-        color: #888; /* Tarihin rengini gri yapar */
-        margin-left: 10px; /* Metin ile tarih arasında boşluk */
+        font-size: 0.75em;
+        color: #6c757d;
+        position: absolute; /* Tarihi mutlak konumlandır */
+        right: 10px; /* Sağdan 10px boşluk */
+        bottom: 5px; /* Alttan 5px boşluk */
+    }
+
+    .notification-text {
+        padding-right: 80px; /* Sağdaki tarih için boşluk bırak */
+        display: block; /* Metni üst satıra taşımak için block yap */
+        font-size: 1em;
+    }
+
+    .no-notifications {
+        text-align: center;
+        padding: 10px;
+        color: #888;
+        font-style: italic;
     }
 </style>
