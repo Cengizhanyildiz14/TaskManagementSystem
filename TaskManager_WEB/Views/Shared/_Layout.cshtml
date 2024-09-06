@@ -131,46 +131,45 @@
 
     <script>
         $(document).ready(function () {
-            var userId = parseInt('@userId');  // userId'yi sayısal bir değere çeviriyoruz
+            var userId = parseInt('@userId'); 
 
-            // URL'yi kullanıcı ID'sine göre ayarlıyoruz
-            var url = userId ? '/UsersTaskJson/' + userId : '/UsersTaskJson';
-
-            // AJAX isteği yaparak görevleri alıyoruz
+            var url = '/UsersTaskJson/' + userId;
             $.get(url, function (tasks) {
-                // Yalnızca bekleyen görevleri filtreleyelim
                 var pendingTasks = tasks.filter(function (task) {
-                    return task.status === 0;  // Beklemede olan görevler (TaskStatusEnum.Beklemede = 0)
+                    return task.status === 0; 
                 });
 
                 if (pendingTasks.length > 0) {
-                    $('#notificationCount').text(pendingTasks.length);  // Bildirim sayısını güncelle
-
-                    // Önceki bildirimleri temizle
+                    $('#notificationCount').text(pendingTasks.length);
                     $('#notificationContent').empty();
 
-                    // Her görev için bir liste öğesi ekle
                     pendingTasks.forEach(function (task) {
                         var taskName = task.taskName ? task.taskName : "No Task Name";
+                        var createrFullName = task.createrUserName + " " + task.createrUserLastName;
 
-                        // Liste öğesi oluştur ve tıklandığında yönlendirme yap
+                        var assignDate = new Date(task.assignmentDate).toLocaleString('tr-TR', {
+                            day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit'
+                        });
+
                         var listItem = $('<li>').append(
-                            $('<a>').addClass('dropdown-item').text(taskName).click(function () {
-                                window.location.href = '/UsersTask/' + userId;  // Görev ID'sine göre yönlendirme yap
-                            })
+                            $('<a>').addClass('dropdown-item notification-item')
+                                .html(createrFullName + " tarafından atanmış yeni bir göreviniz var." +
+                                    "<span class='assign-date'>" + assignDate + "</span>") 
+                                .click(function () {
+                                    window.location.href = '/UsersTask/' + userId; 
+                                })
                         );
 
                         $('#notificationContent').append(listItem);
                     });
+
                 } else {
-                    // Bildirim yoksa varsayılan mesajı göster
                     $('#notificationCount').text(0);
-                    $('#notificationContent').html('<li><a class="dropdown-item" href="#">Atanmış yeni bir görev bulunmamakta.</a></li>');
+                    $('#notificationContent').html('<li><a class="dropdown-item" href="#">Atanmış yeni bir göreviniz bulunmamakta.</a></li>');
                 }
             });
         });
     </script>
-
 </body>
 </html>
 
@@ -201,5 +200,23 @@
     .notification-icon i {
         z-index: 0;
         color: black;
+    }
+
+    .notification-item {
+        overflow: hidden; /* Taşan metni gizler */
+        word-wrap: break-word; /* Metni kutunun genişliğiyle sınırlı tutar ve gerekirse alt satıra geçer */
+        cursor: pointer;
+    }
+
+    #notificationContent {
+        min-width: 350px; /* Açılan pencerenin genişliğini artırın */
+        transform: translateX(-95%); /* Pencereyi sola kaydırın */
+    }
+
+    .assign-date {
+        font-size: 0.8em; /* Küçük yazı boyutu */
+        float: right; /* Sağ tarafa hizalar */
+        color: #888; /* Tarihin rengini gri yapar */
+        margin-left: 10px; /* Metin ile tarih arasında boşluk */
     }
 </style>
