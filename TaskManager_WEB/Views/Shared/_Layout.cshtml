@@ -48,49 +48,40 @@
                         @if (HttpAcc.HttpContext.User.Identity.IsAuthenticated)
                         {
                             <div class="dropdown">
-                                <!-- Notification icon -->
+                                <!-- Bildirim ikonu -->
                                 <a class="me-3 hidden-arrow notification-icon" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fas fa-bell text-dark"></i>
-                                    <!-- Notification count -->
+                                    <!-- Bildirim sayısı -->
                                     <span class="badge rounded-pill badge-notification bg-danger notification-badge" style="border: none;" id="notificationCount">0</span>
                                 </a>
-                                <!-- Notification dropdown content -->
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="notificationContent">
-                                    <li><a class="dropdown-item" href="#">No new notifications</a></li>
+                                <!-- Bildirim açılır menüsü -->
+                                <ul class="dropdown-menu mt-3" aria-labelledby="navbarDropdownMenuLink" id="notificationContent">
+                                    <li><a class="dropdown-item no-notifications" href="#">Yeni bir bildiriminiz bulunmamaktadır.</a></li>
                                 </ul>
                             </div>
 
-                            @if (HttpAcc.HttpContext.User.IK())
-                            {
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle fs-4 fw-bold" href="#" id="ikDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        @ShareLocalizer.Getkey("HR")
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="ikDropdown">
-                                        <li><a class="dropdown-item fs-5" asp-controller="Department" asp-action="DepartmentCreate">@ShareLocalizer.Getkey("AddDepartment").Value</a></li>
-                                        <li><a class="dropdown-item fs-5" asp-controller="user" asp-action="UserCreate">@ShareLocalizer.Getkey("AddPersonnel").Value</a></li>
-                                        <li><a class="dropdown-item fs-5" asp-controller="user" asp-action="UserList">@ShareLocalizer.Getkey("PersonnelList").Value</a></li>
-                                    </ul>
-                                </li>
-                            }
-
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle fs-4 fw-bold" href="#" id="userProfileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    @ShareLocalizer.Getkey("Settings")
+                            <!-- Profil Bilgilerim ve Çıkış Yap linkleri -->
+                            <li class="nav-item">
+                                <a class="nav-link fs-4 fw-bold" asp-area="" asp-controller="user" asp-action="Profile" asp-route-id="@userId">
+                                    @ShareLocalizer.Getkey("Profile")
                                 </a>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userProfileDropdown">
-                                    <li><a class="dropdown-item fs-5" asp-area="" asp-controller="user" asp-action="Profile" asp-route-id="@userId">@ShareLocalizer.Getkey("Profile")</a></li>
-                                    <li><a class="dropdown-item fs-5" asp-area="" asp-controller="Auth" asp-action="LogOut">@ShareLocalizer.Getkey("Logout")</a></li>
-                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link fs-4 fw-bold" asp-area="" asp-controller="Auth" asp-action="LogOut">
+                                    @ShareLocalizer.Getkey("Logout")
+                                </a>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link fs-4 fw-bold" asp-area="" asp-controller="Auth" asp-action="Login">@ShareLocalizer.Getkey("Login")</a>
+                                <a class="nav-link fs-4 fw-bold" asp-area="" asp-controller="Auth" asp-action="Login">
+                                    @ShareLocalizer.Getkey("Login")
+                                </a>
                             </li>
                         }
 
+                        <!-- Dil Değiştirme Butonları -->
                         <li class="nav-item">
                             <a asp-controller="Home" asp-action="ChangeLang" asp-route-culture="en-US" class="nav-link">
                                 <span class="flag-icon flag-icon-gb fs-4"></span>
@@ -102,6 +93,7 @@
                             </a>
                         </li>
                     </ul>
+
                 </div>
             </div>
         </nav>
@@ -166,8 +158,35 @@
 
                 } else {
                     $('#notificationCount').text(0);
-                    $('#notificationContent').html('<li><a class="dropdown-item" href="#">Atanmış yeni bir göreviniz bulunmamakta.</a></li>');
+                    $('#notificationContent').html('<li><a class="dropdown-item no-notifications" href="#">Atanmış yeni bir göreviniz bulunmamakta.</a></li>');
                 }
+            });
+
+            var isHovered = false;
+
+            // Bildirim simgesine hover ile menüyü açma
+            $('#navbarDropdownMenuLink').hover(function () {
+                $(this).dropdown('show');
+                isHovered = true;  // Fare ikonun üzerinde
+            }, function () {
+                // Fare ikonun üzerinden çıkınca hemen kapanmasını engellemek için isHovered kontrolü yapalım
+                setTimeout(function () {
+                    if (!isHovered) {
+                        $('#navbarDropdownMenuLink').dropdown('hide');
+                    }
+                }, 100);  // Kapanma işlemini geciktiriyoruz
+            });
+
+            // Açılır menü üzerinde hover olduğunda kapanmayı engelle
+            $('#notificationContent').hover(function () {
+                isHovered = true;  // Fare menünün üzerinde
+            }, function () {
+                isHovered = false; // Fare menüden ayrıldı, bayrağı güncelle
+                setTimeout(function () {
+                    if (!isHovered) {
+                        $('#navbarDropdownMenuLink').dropdown('hide');
+                    }
+                }, 100);  // Yine kapanma işlemini geciktiriyoruz
             });
         });
     </script>
@@ -183,17 +202,14 @@
         position: relative;
         display: inline-block;
         font-size: 24px;
-        cursor: pointer; /* Bildirim simgesi tıklanabilir */
-        transition: color 0.3s ease; /* Animasyon eklendi */
+        cursor: pointer;
+        transition: color 0.3s ease;
+        color: #333;
+        border: none; /* Bildirim ikonunun sınırını kaldır */
+        outline: none; /* Tıklandığında oluşan odak sınırını kaldır */
+        background-color: transparent; /* Arka plan rengini kaldır */
+        box-shadow: none; /* Gölge efektini kaldır */
     }
-
-        .notification-icon i {
-            color: #333; /* Daha yumuşak bir renk */
-        }
-
-        .notification-icon:hover i {
-            color: #007bff; /* Üzerine gelindiğinde simge rengini değiştir */
-        }
 
     .notification-badge {
         position: absolute;
@@ -206,7 +222,6 @@
         font-size: 12px;
         font-weight: bold;
         z-index: 1;
-        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2); /* Hafif bir gölge eklendi */
     }
 
     #notificationContent {
@@ -214,40 +229,45 @@
         transform: translateX(-50%);
         background-color: #fff; /* Beyaz arka plan */
         border-radius: 10px; /* Kenarlara yuvarlama eklendi */
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Hafif gölge eklendi */
         padding: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Hafif gölge efekti */
     }
 
     .notification-item {
-        padding: 10px;
-        border-bottom: 1px solid #f1f1f1;
-        transition: background-color 0.3s ease;
-        text-decoration: none;
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 8px;
+        background-color: #f8f9fa;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        position: relative; /* Tarihi mutlak konumlandırma için relative yapıyoruz */
         color: #333;
-        border-radius: 5px;
-        position: relative;
-        user-select: none;
-        min-height: 60px; /* Tarihin düzgün yerleşmesi için yeterli yükseklik */
+        font-size: 1rem;
+        min-height: 60px; /* Tarih ve metin için yeterli alan bırakıyoruz */
+        cursor: pointer; /* Tıklanabilir hale getir */
+        user-select: none; /* Metni seçilemez yap */
     }
 
         .notification-item:hover {
-            background-color: #f8f9fa;
-            color: #007bff;
+            background-color: #e2e6ea;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
 
-    .assign-date {
-        font-size: 0.75em;
-        color: #6c757d;
-        position: absolute; /* Tarihi mutlak konumlandır */
-        right: 10px; /* Sağdan 10px boşluk */
-        bottom: 5px; /* Alttan 5px boşluk */
+    .notification-text {
+        font-weight: 500;
+        margin: 0;
+        padding-right: 80px; /* Tarih için sağ tarafta boşluk bırak */
     }
 
-    .notification-text {
-        padding-right: 80px; /* Sağdaki tarih için boşluk bırak */
-        display: block; /* Metni üst satıra taşımak için block yap */
-        font-size: 1em;
+    .assign-date {
+        position: absolute; /* Tarihi mutlak konumlandırıyoruz */
+        bottom: 10px; /* Alt kısımdan 10px boşluk */
+        right: 15px; /* Sağdan 15px boşluk */
+        font-size: 0.85rem;
+        color: #6c757d;
+        white-space: nowrap;
     }
+
+
 
     .no-notifications {
         text-align: center;
