@@ -287,7 +287,6 @@ Bu yapıda, kullanıcılar ve görevler arasındaki ilişkiler ile departmanlar 
   - `Content`: Duyurunun içeriği.
   - `CreatedDate`: Duyurunun oluşturulduğu tarih.
   - `UpdatedDate`: Duyurunun güncelleştirildiği tarih.
-  - `IsActive`: Duyurunun aktiflik durumu.
   - `AuthorId`: Duyuruyu oluşturan kullanıcının kimlik numarası.
   - `AuthorName`: Duyuruyu oluşturan kullanıcı.
 
