@@ -21,7 +21,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" />
 </head>
 <body>
-    <!-- Loading animation -->
     <div id="loading-animation">
         <div class="spinner-border" role="status">
             <span class="visually-hidden">Loading...</span>
@@ -55,19 +54,14 @@
                         @if (HttpAcc.HttpContext.User.Identity.IsAuthenticated)
                         {
                             <div class="dropdown">
-                                <!-- Bildirim ikonu -->
                                 <a class="me-3 hidden-arrow notification-icon" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fas fa-bell text-dark"></i>
-                                    <!-- Bildirim sayısı -->
                                     <span class="badge rounded-pill badge-notification bg-danger notification-badge" style="border: none;" id="notificationCount">0</span>
                                 </a>
-                                <!-- Bildirim açılır menüsü -->
                                 <ul class="dropdown-menu mt-3" aria-labelledby="navbarDropdownMenuLink" id="notificationContent">
                                     <li><a class="dropdown-item no-notifications" href="#">Yeni bir bildiriminiz bulunmamaktadır.</a></li>
                                 </ul>
                             </div>
-
-                            <!-- Profil Bilgilerim ve Çıkış Yap linkleri -->
                             <li class="nav-item">
                                 <a class="nav-link fs-4 fw-bold" asp-area="" asp-controller="user" asp-action="Profile" asp-route-id="@userId">
                                     @ShareLocalizer.Getkey("Profile")
@@ -88,7 +82,6 @@
                             </li>
                         }
 
-                        <!-- Dil Değiştirme Butonları -->
                         <li class="nav-item">
                             <a asp-controller="Home" asp-action="ChangeLang" asp-route-culture="en-US" class="nav-link">
                                 <span class="flag-icon flag-icon-gb fs-4"></span>
@@ -193,16 +186,18 @@
                 }, 100);
             });
 
-            // Sayfa tam yüklendiğinde animasyonu kapatmak için `window.onload` kullan
-            window.onload = function () {
-                clearTimeout(loadingTimeout); // Eğer sayfa hızlı yüklendiyse timeout'u iptal et
-                $('#loading-animation').hide(); // Animasyonu hemen gizle
-            };
+            $('form').on('submit', function () {
+                $('#loading-animation').fadeIn('slow');
+            });
 
-            // Animasyon yalnızca sayfa 500ms içerisinde yüklenmezse gösterilecek
+            $(window).on('load', function () {
+                clearTimeout(loadingTimeout);
+                $('#loading-animation').fadeOut('slow');
+            });
+
             var loadingTimeout = setTimeout(function () {
                 $('#loading-animation').fadeIn('slow');
-            }, 500);  // Bu süreyi düşük tutmak, sayfa hızlı yüklendiğinde animasyonu göstermemek için önemli
+            }, 500);  
         });
 
     </script>
@@ -313,16 +308,17 @@
     }
 
     .fade-in {
-    opacity: 0;
-    animation: fadeInEffect 0.5s ease-in forwards; /* Yavaşça açılma süresi */
-}
-
-@@keyframes fadeInEffect {
-    from {
         opacity: 0;
+        animation: fadeInEffect 0.5s ease-in forwards;
     }
-    to {
-        opacity: 1;
+
+    @@keyframes fadeInEffect {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
     }
-}
 </style>
