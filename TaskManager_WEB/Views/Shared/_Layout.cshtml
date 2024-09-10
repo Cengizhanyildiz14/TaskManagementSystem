@@ -73,7 +73,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link fs-4 fw-bold" asp-area="" asp-controller="Auth" asp-action="LogOut">
+                                <a id="logoutButton" class="nav-link fs-4 fw-bold" asp-area="" asp-controller="Auth" asp-action="LogOut">
                                     @ShareLocalizer.Getkey("Logout")
                                 </a>
                             </li>
@@ -149,12 +149,28 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
 
     <script>
         $(document).ready(function () {
-            var userId = parseInt('@userId');
+            $('#logoutButton').on('click', function (e) {
+                e.preventDefault(); 
+                Swal.fire({
+                    title: 'Çıkış yapmak istediğinizden emin misiniz?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Evet, çıkış yap!',
+                    cancelButtonText: 'İptal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = $(this).attr('href');
+                    }
+                });
+            });
 
+            var userId = parseInt('@userId');
             var url = '/UsersTaskJson/' + userId;
             $.get(url, function (tasks) {
                 var pendingTasks = tasks.filter(function (task) {
@@ -166,7 +182,7 @@
                     $('#notificationContent').empty();
 
                     pendingTasks.forEach(function (task) {
-                        var taskName = task.taskName ? task.taskName : "No Task Name";
+                        var taskName = task.taskName || "No Task Name";
                         var createrFullName = task.createrUserName + " " + task.createrUserLastName;
 
                         var assignDate = new Date(task.assignmentDate).toLocaleString('tr-TR', {
@@ -240,6 +256,8 @@
             }, 500);
         });
     </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
 
@@ -361,21 +379,20 @@
         }
     }
 
-    /* Styles for active link */
     .nav-link.active {
         position: relative;
         font-weight: bold;
     }
 
-        .nav-link.active::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background-color: orange;
-        }
+    .nav-link.active::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background-color: orange;
+    }
 
     #ikDropdownContent {
         min-width: 400px;
@@ -388,20 +405,16 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
-        #ikDropdownContent .dropdown-item {
-            text-align: left;
-            padding: 15px; /* Tutarlı padding */
-            margin-bottom: 10px; /* Her öğe arasında boşluk */
-            border-radius: 8px; /* Köşelerin yuvarlaklığı */
-            background-color: #f8f9fa; /* Arka plan rengi */
-            transition: background-color 0.3s ease;
-            font-size: 16px; /* Yazı boyutu */
-            color: #333; /* Yazı rengi */
-        }
-
-        #ikDropdownContent .dropdown-item {
-            text-align: left;
-        }
+    #ikDropdownContent .dropdown-item {
+        text-align: left;
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 8px;
+        background-color: #f8f9fa;
+        transition: background-color 0.3s ease;
+        font-size: 16px;
+        color: #333;
+    }
 
     #ikDropdownMenu:hover #ikDropdownContent {
         display: block;
