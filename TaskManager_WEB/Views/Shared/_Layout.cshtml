@@ -21,6 +21,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" />
 </head>
 <body>
+    <!-- Loading animation -->
+    <div id="loading-animation">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
             <div class="container-fluid">
@@ -99,7 +106,7 @@
         </nav>
     </header>
 
-    <div class="container-fluid">
+    <div class="container-fluid fade-in">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -164,31 +171,40 @@
 
             var isHovered = false;
 
-            // Bildirim simgesine hover ile menüyü açma
             $('#navbarDropdownMenuLink').hover(function () {
                 $(this).dropdown('show');
-                isHovered = true;  // Fare ikonun üzerinde
+                isHovered = true;
             }, function () {
-                // Fare ikonun üzerinden çıkınca hemen kapanmasını engellemek için isHovered kontrolü yapalım
                 setTimeout(function () {
                     if (!isHovered) {
                         $('#navbarDropdownMenuLink').dropdown('hide');
                     }
-                }, 100);  // Kapanma işlemini geciktiriyoruz
+                }, 100);
             });
 
-            // Açılır menü üzerinde hover olduğunda kapanmayı engelle
             $('#notificationContent').hover(function () {
-                isHovered = true;  // Fare menünün üzerinde
+                isHovered = true;
             }, function () {
-                isHovered = false; // Fare menüden ayrıldı, bayrağı güncelle
+                isHovered = false;
                 setTimeout(function () {
                     if (!isHovered) {
                         $('#navbarDropdownMenuLink').dropdown('hide');
                     }
-                }, 100);  // Yine kapanma işlemini geciktiriyoruz
+                }, 100);
             });
+
+            // Sayfa tam yüklendiğinde animasyonu kapatmak için `window.onload` kullan
+            window.onload = function () {
+                clearTimeout(loadingTimeout); // Eğer sayfa hızlı yüklendiyse timeout'u iptal et
+                $('#loading-animation').hide(); // Animasyonu hemen gizle
+            };
+
+            // Animasyon yalnızca sayfa 500ms içerisinde yüklenmezse gösterilecek
+            var loadingTimeout = setTimeout(function () {
+                $('#loading-animation').fadeIn('slow');
+            }, 500);  // Bu süreyi düşük tutmak, sayfa hızlı yüklendiğinde animasyonu göstermemek için önemli
         });
+
     </script>
 </body>
 </html>
@@ -198,6 +214,28 @@
         padding-bottom: 200px;
     }
 
+    #loading-animation {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-color: rgba(255, 255, 255, 0.8);
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .spinner-border {
+        width: 3rem;
+        height: 3rem;
+        border: 0.25em solid currentColor;
+        border-right-color: transparent;
+        border-radius: 50%;
+        animation: spinner-border 0.75s linear infinite;
+    }
+
     .notification-icon {
         position: relative;
         display: inline-block;
@@ -205,10 +243,10 @@
         cursor: pointer;
         transition: color 0.3s ease;
         color: #333;
-        border: none; /* Bildirim ikonunun sınırını kaldır */
-        outline: none; /* Tıklandığında oluşan odak sınırını kaldır */
-        background-color: transparent; /* Arka plan rengini kaldır */
-        box-shadow: none; /* Gölge efektini kaldır */
+        border: none;
+        outline: none;
+        background-color: transparent;
+        box-shadow: none;
     }
 
     .notification-badge {
@@ -217,7 +255,7 @@
         right: -10px;
         padding: 5px 10px;
         border-radius: 50%;
-        background: #dc3545; /* Bildirim rengi daha belirgin hale getirildi */
+        background: #dc3545;
         color: white;
         font-size: 12px;
         font-weight: bold;
@@ -225,12 +263,12 @@
     }
 
     #notificationContent {
-        min-width: 400px; /* Bildirim paneli daha geniş yapıldı */
+        min-width: 400px;
         transform: translateX(-50%);
-        background-color: #fff; /* Beyaz arka plan */
-        border-radius: 10px; /* Kenarlara yuvarlama eklendi */
+        background-color: #fff;
+        border-radius: 10px;
         padding: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Hafif gölge efekti */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
     .notification-item {
@@ -239,12 +277,12 @@
         border-radius: 8px;
         background-color: #f8f9fa;
         transition: background-color 0.3s ease, box-shadow 0.3s ease;
-        position: relative; /* Tarihi mutlak konumlandırma için relative yapıyoruz */
+        position: relative;
         color: #333;
         font-size: 1rem;
-        min-height: 60px; /* Tarih ve metin için yeterli alan bırakıyoruz */
-        cursor: pointer; /* Tıklanabilir hale getir */
-        user-select: none; /* Metni seçilemez yap */
+        min-height: 60px;
+        cursor: pointer;
+        user-select: none;
     }
 
         .notification-item:hover {
@@ -255,19 +293,17 @@
     .notification-text {
         font-weight: 500;
         margin: 0;
-        padding-right: 80px; /* Tarih için sağ tarafta boşluk bırak */
+        padding-right: 80px;
     }
 
     .assign-date {
-        position: absolute; /* Tarihi mutlak konumlandırıyoruz */
-        bottom: 10px; /* Alt kısımdan 10px boşluk */
-        right: 15px; /* Sağdan 15px boşluk */
+        position: absolute;
+        bottom: 10px;
+        right: 15px;
         font-size: 0.85rem;
         color: #6c757d;
         white-space: nowrap;
     }
-
-
 
     .no-notifications {
         text-align: center;
@@ -275,4 +311,18 @@
         color: #888;
         font-style: italic;
     }
+
+    .fade-in {
+    opacity: 0;
+    animation: fadeInEffect 0.5s ease-in forwards; /* Yavaşça açılma süresi */
+}
+
+@@keyframes fadeInEffect {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
 </style>
