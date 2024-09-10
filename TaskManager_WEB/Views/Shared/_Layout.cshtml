@@ -158,7 +158,7 @@
 
                 } else {
                     $('#notificationCount').text(0);
-                    $('#notificationContent').html('<li><a class="dropdown-item no-notifications" href="#">Atanmış yeni bir göreviniz bulunmamakta.</a></li>');
+                    $('#notificationContent').html('<li><a class="dropdown-item no-notifications" href="#">Atanmış yeni bir göreviniz bulunmamaktadır.</a></li>');
                 }
             });
 
@@ -186,20 +186,31 @@
                 }, 100);
             });
 
-            $('form').on('submit', function () {
-                $('#loading-animation').fadeIn('slow');
-            });
-
             $(window).on('load', function () {
                 clearTimeout(loadingTimeout);
                 $('#loading-animation').fadeOut('slow');
             });
 
+            // Modal açıldığında fade-in animasyonunu kaldır
+            $('#announcementModal').on('show.bs.modal', function () {
+                $('.fade-in').removeClass('fade-in');
+                $('#loading-animation').hide();
+            });
+
+            // Modal kapandığında fade-in animasyonunu geri getir
+            $('#announcementModal').on('hidden.bs.modal', function () {
+                $('.fade-in').addClass('fade-in');
+                $('#loading-animation').fadeOut('slow');
+            });
+
+            $('form').on('submit', function () {
+                $('#loading-animation').fadeIn('slow');
+            });
+
             var loadingTimeout = setTimeout(function () {
                 $('#loading-animation').fadeIn('slow');
-            }, 500);  
+            }, 500);
         });
-
     </script>
 </body>
 </html>
