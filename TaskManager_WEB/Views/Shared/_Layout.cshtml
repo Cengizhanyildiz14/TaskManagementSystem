@@ -40,7 +40,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-center">
                         <li class="nav-item">
-                            <a class="nav-link fs-4 fw-bold @(ViewContext.RouteData.Values["action"].ToString() == "home" ? "active" : "")" 
+                            <a class="nav-link fs-4 fw-bold @(ViewContext.RouteData.Values["action"].ToString() == "home" ? "active" : "")"
                                asp-area="" asp-controller="home" asp-action="home">@ShareLocalizer.Getkey("Home")</a>
                         </li>
                         @if (HttpAcc.HttpContext.User.Identity.IsAuthenticated)
@@ -48,7 +48,7 @@
                             <li class="nav-item">
                                 <a class="nav-link fs-4 fw-bold @(ViewContext.RouteData.Values["action"].ToString() == "GetAllUsers" ? "active" : "")"
                                    asp-area="" asp-controller="user" asp-action="getallusers">
-                                   @ShareLocalizer.Getkey("TaskTrackingList")
+                                    @ShareLocalizer.Getkey("TaskTrackingList")
                                 </a>
                             </li>
                         }
@@ -67,7 +67,7 @@
                                 </ul>
                             </div>
                             <li class="nav-item">
-                                <a class="nav-link fs-4 fw-bold @(ViewContext.RouteData.Values["action"].ToString() == "Profile" ? "active" : "")" 
+                                <a class="nav-link fs-4 fw-bold @(ViewContext.RouteData.Values["action"].ToString() == "Profile" ? "active" : "")"
                                    asp-area="" asp-controller="user" asp-action="Profile" asp-route-id="@userId">
                                     @ShareLocalizer.Getkey("Profile")
                                 </a>
@@ -77,11 +77,37 @@
                                     @ShareLocalizer.Getkey("Logout")
                                 </a>
                             </li>
+                            @if (HttpAcc.HttpContext.User.IK())
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle fs-4 fw-bold notification-icon" href="#" id="ikDropdownMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        @ShareLocalizer.Getkey("IK")
+                                    </a>
+                                    <ul class="dropdown-menu mt-3" aria-labelledby="ikDropdownMenu" id="ikDropdownContent">
+                                        <li>
+                                            <a class="dropdown-item notification-item" asp-controller="User" asp-action="UserList">
+                                                @ShareLocalizer.Getkey("PersonnelList") <!-- Çalışan Listesi -->
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item notification-item" asp-controller="Department" asp-action="DepartmentCreate">
+                                                @ShareLocalizer.Getkey("AddNewDepartment") <!-- Departman Oluştur -->
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item notification-item" asp-controller="User" asp-action="UserCreate">
+                                                @ShareLocalizer.Getkey("AddPersonnel") <!-- Kullanıcı Ekle -->
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            }
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link fs-4 fw-bold" asp-area="" asp-controller="Auth" asp-action="Login">
+                                <a class="nav-link fs-4 fw-bold @(ViewContext.RouteData.Values["action"].ToString() == "Login" ? "active" : "")"
+                                   asp-area="" asp-controller="Auth" asp-action="Login">
                                     @ShareLocalizer.Getkey("Login")
                                 </a>
                             </li>
@@ -341,13 +367,43 @@
         font-weight: bold;
     }
 
-    .nav-link.active::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 4px;
-        background-color: orange;
+        .nav-link.active::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: orange;
+        }
+
+    #ikDropdownContent {
+        min-width: 400px;
+        transform: translateX(-50%);
+        background-color: #fff;
+        border-radius: 10px;
+        top: 38px;
+        left: -50px;
+        padding: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+        #ikDropdownContent .dropdown-item {
+            text-align: left;
+            padding: 15px; /* Tutarlı padding */
+            margin-bottom: 10px; /* Her öğe arasında boşluk */
+            border-radius: 8px; /* Köşelerin yuvarlaklığı */
+            background-color: #f8f9fa; /* Arka plan rengi */
+            transition: background-color 0.3s ease;
+            font-size: 16px; /* Yazı boyutu */
+            color: #333; /* Yazı rengi */
+        }
+
+        #ikDropdownContent .dropdown-item {
+            text-align: left;
+        }
+
+    #ikDropdownMenu:hover #ikDropdownContent {
+        display: block;
     }
 </style>

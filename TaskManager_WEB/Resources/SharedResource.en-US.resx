@@ -145,7 +145,7 @@
     <value>Add New Task</value>
   </data>
   <data name="AddPersonnel" xml:space="preserve">
-    <value>+ Add Personnel</value>
+    <value>Add New Personnel</value>
   </data>
   <data name="Address" xml:space="preserve">
     <value>Address</value>
@@ -397,7 +397,7 @@
     <value>Pending Tasks</value>
   </data>
   <data name="PersonnelList" xml:space="preserve">
-    <value>+ Personnel List</value>
+    <value>Personnel List</value>
   </data>
   <data name="PhoneNumber" xml:space="preserve">
     <value>Phone Number</value>
@@ -553,7 +553,7 @@
     <value>Announcements</value>
   </data>
  <data name="AddAnnouncement" xml:space="preserve">
-    <value>+ Add Announcement</value>
+    <value>Add New Announcement</value>
   </data>
 <data name="Updated" xml:space="preserve">
     <value>Updated</value>

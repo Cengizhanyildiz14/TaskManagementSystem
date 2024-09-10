@@ -145,7 +145,7 @@
     <value>Yeni Görev Ekle</value>
   </data>
   <data name="AddPersonnel" xml:space="preserve">
-    <value>+ Personel Ekle</value>
+    <value>Yeni Personel Ekle</value>
   </data>
   <data name="Address" xml:space="preserve">
     <value>Adres</value>
@@ -397,7 +397,7 @@
     <value>Beklemede Olan Görevler</value>
   </data>
   <data name="PersonnelList" xml:space="preserve">
-    <value>+ Personel Listesi</value>
+    <value>Personel Listesi</value>
   </data>
   <data name="PhoneNumber" xml:space="preserve">
     <value>Telefon Numarası</value>
@@ -553,7 +553,7 @@
     <value>Duyurular</value>
   </data>
  <data name="AddAnnouncement" xml:space="preserve">
-    <value>+ Yeni Duyuru Ekle</value>
+    <value>Yeni Duyuru Ekle</value>
   </data>
 <data name="Updated" xml:space="preserve">
     <value>Güncellendi</value>

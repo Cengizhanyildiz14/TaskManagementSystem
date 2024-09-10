@@ -58,7 +58,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 {
     opt.Cookie.HttpOnly = true;
     opt.ExpireTimeSpan = TimeSpan.FromMinutes(15);
-    opt.LoginPath = "/auth/login";
+    opt.LoginPath = "/Login";
     opt.AccessDeniedPath = "/home/AccessDenied";
     opt.SlidingExpiration = true;
 });
@@ -84,9 +84,15 @@ app.UseAuthorization();
 app.UseStatusCodePagesWithReExecute("/Home/NotFoundPage");
 
 app.MapControllerRoute(
-    name: "profile",
+    name: "Profile",
     pattern: "Profile/{id?}",
     defaults: new { controller = "User", action = "Profile" }
+);
+
+app.MapControllerRoute(
+    name: "Login",
+    pattern: "Login",
+    defaults: new { controller = "Auth", action = "Login" }
 );
 
 app.MapControllerRoute(
@@ -145,7 +151,7 @@ app.MapControllerRoute(
 
 app.MapControllerRoute(
     name: "UserList",
-    pattern: "StaffList",
+    pattern: "UserList",
     defaults: new { controller = "User", action = "UserList" }
 );
 
