@@ -40,12 +40,16 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-center">
                         <li class="nav-item">
-                            <a class="nav-link fs-4 fw-bold" asp-area="" asp-controller="home" asp-action="home">@ShareLocalizer.Getkey("Home")</a>
+                            <a class="nav-link fs-4 fw-bold @(ViewContext.RouteData.Values["action"].ToString() == "home" ? "active" : "")" 
+                               asp-area="" asp-controller="home" asp-action="home">@ShareLocalizer.Getkey("Home")</a>
                         </li>
                         @if (HttpAcc.HttpContext.User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link fs-4 fw-bold" asp-area="" asp-controller="user" asp-action="getallusers" asp-route-id="@userId">@ShareLocalizer.Getkey("TaskTrackingList")</a>
+                                <a class="nav-link fs-4 fw-bold @(ViewContext.RouteData.Values["action"].ToString() == "GetAllUsers" ? "active" : "")"
+                                   asp-area="" asp-controller="user" asp-action="getallusers">
+                                   @ShareLocalizer.Getkey("TaskTrackingList")
+                                </a>
                             </li>
                         }
                     </ul>
@@ -63,7 +67,8 @@
                                 </ul>
                             </div>
                             <li class="nav-item">
-                                <a class="nav-link fs-4 fw-bold" asp-area="" asp-controller="user" asp-action="Profile" asp-route-id="@userId">
+                                <a class="nav-link fs-4 fw-bold @(ViewContext.RouteData.Values["action"].ToString() == "Profile" ? "active" : "")" 
+                                   asp-area="" asp-controller="user" asp-action="Profile" asp-route-id="@userId">
                                     @ShareLocalizer.Getkey("Profile")
                                 </a>
                             </li>
@@ -93,7 +98,6 @@
                             </a>
                         </li>
                     </ul>
-
                 </div>
             </div>
         </nav>
@@ -191,13 +195,11 @@
                 $('#loading-animation').fadeOut('slow');
             });
 
-            // Modal açıldığında fade-in animasyonunu kaldır
             $('#announcementModal').on('show.bs.modal', function () {
                 $('.fade-in').removeClass('fade-in');
                 $('#loading-animation').hide();
             });
 
-            // Modal kapandığında fade-in animasyonunu geri getir
             $('#announcementModal').on('hidden.bs.modal', function () {
                 $('.fade-in').addClass('fade-in');
                 $('#loading-animation').fadeOut('slow');
@@ -331,5 +333,21 @@
         to {
             opacity: 1;
         }
+    }
+
+    /* Styles for active link */
+    .nav-link.active {
+        position: relative;
+        font-weight: bold;
+    }
+
+    .nav-link.active::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background-color: orange;
     }
 </style>

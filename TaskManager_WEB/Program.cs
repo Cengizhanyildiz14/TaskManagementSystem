@@ -138,6 +138,12 @@ app.MapControllerRoute(
 );
 
 app.MapControllerRoute(
+    name: "GetAllUsers",
+    pattern: "GetAllUsers",
+    defaults: new { controller = "User", action = "GetAllUsers" }
+);
+
+app.MapControllerRoute(
     name: "UserList",
     pattern: "StaffList",
     defaults: new { controller = "User", action = "UserList" }

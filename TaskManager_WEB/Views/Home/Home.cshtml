@@ -59,14 +59,14 @@
 
                             @if (HttpAcc.HttpContext.User.IK())
                             {
-                                <div class="ml-auto d-flex">
+                                <div class="d-flex justify-content-center align-items-center mt-3">
                                     <form asp-action="Update" asp-controller="home" method="get" class="me-2">
                                         <input type="hidden" name="id" value="@announcement.Id" />
-                                        <button type="submit" class="btn btn-warning btn-sm">@ShareLocalizer.Getkey("Update").Value</button>
+                                        <button type="submit" class="btn btn-warning btn-sm action-button">@ShareLocalizer.Getkey("Update").Value</button>
                                     </form>
                                     <form id="deleteForm-@announcement.Id" asp-action="Delete" asp-controller="Home" method="post" onsubmit="return confirmDelete('@announcement.Id')">
                                         <input type="hidden" name="id" value="@announcement.Id" />
-                                        <button type="submit" class="btn btn-danger btn-sm">@ShareLocalizer.Getkey("Delete").Value</button>
+                                        <button type="submit" class="btn btn-danger btn-sm action-button">@ShareLocalizer.Getkey("Delete").Value</button>
                                     </form>
                                 </div>
                             }
