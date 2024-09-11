@@ -181,13 +181,32 @@
                     $('#notificationCount').text(pendingTasks.length);
                     $('#notificationContent').empty();
 
+                    var monthNames = {
+                        1: "@ShareLocalizer.Getkey("January")",
+                        2: "@ShareLocalizer.Getkey("February")",
+                        3: "@ShareLocalizer.Getkey("March")",
+                        4: "@ShareLocalizer.Getkey("April")",
+                        5: "@ShareLocalizer.Getkey("May")",
+                        6: "@ShareLocalizer.Getkey("June")",
+                        7: "@ShareLocalizer.Getkey("July")",
+                        8: "@ShareLocalizer.Getkey("August")",
+                        9: "@ShareLocalizer.Getkey("September")",
+                        10: "@ShareLocalizer.Getkey("October")",
+                        11: "@ShareLocalizer.Getkey("November")",
+                        12: "@ShareLocalizer.Getkey("December")"
+                    };
+
                     pendingTasks.forEach(function (task) {
                         var taskName = task.taskName || "No Task Name";
                         var createrFullName = task.createrUserName + " " + task.createrUserLastName;
 
-                        var assignDate = new Date(task.assignmentDate).toLocaleString('tr-TR', {
-                            day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit'
-                        });
+                        var assignmentDate = new Date(task.assignmentDate);
+                        var day = assignmentDate.getDate();
+                        var month = monthNames[assignmentDate.getMonth() + 1]; 
+                        var year = assignmentDate.getFullYear();
+                        var hours = assignmentDate.getHours().toString().padStart(2, '0');
+                        var minutes = assignmentDate.getMinutes().toString().padStart(2, '0');
+                        var formattedDate = day + " " + month + " " + year + ", " + hours + ":" + minutes;
 
                         var listItem = $('<li>').append(
                             $('<a>').addClass('dropdown-item notification-item')
@@ -197,7 +216,7 @@
                                     createrFullName +
                                     "@ShareLocalizer.Getkey("AssignedTaskNotificationEnd")" +
                                     "</span>" +
-                                    "<span class='assign-date'>" + assignDate + "</span>"
+                                    "<span class='assign-date'>" + formattedDate + "</span>"
                                 )
                                 .click(function () {
                                     window.location.href = '/UsersTask/' + userId;
@@ -260,6 +279,7 @@
             }, 500);
         });
     </script>
+
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
@@ -329,6 +349,7 @@
 
     .notification-item {
         padding: 15px;
+        padding-bottom: 30px;
         margin-bottom: 10px;
         border-radius: 8px;
         background-color: #f8f9fa;
@@ -355,6 +376,7 @@
     .assign-date {
         position: absolute;
         bottom: 10px;
+        margin-top: 10px;
         right: 15px;
         font-size: 0.85rem;
         color: #6c757d;

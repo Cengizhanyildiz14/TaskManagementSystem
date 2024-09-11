@@ -610,7 +610,7 @@
   <value>Emin misiniz?</value>
 </data>
 <data name="DeleteConfirmationText" xml:space="preserve">
-  <value>Bu duyuruyu geri alamazsınız!</value>
+  <value>Bu duyuruyu geri alamazsiniz!</value>
 </data>
 <data name="DeleteConfirmationConfirmButton" xml:space="preserve">
   <value>Evet, sil!</value>
@@ -632,5 +632,44 @@
 </data>
 <data name="DeleteTaskConfirmationText" xml:space="preserve">
   <value>Bu görevi geri alamazsınız!</value>
+</data>
+<data name="January" xml:space="preserve">
+  <value>Ocak</value>
+</data>
+<data name="February" xml:space="preserve">
+  <value>Şubat</value>
+</data>
+<data name="March" xml:space="preserve">
+  <value>Mart</value>
+</data>
+<data name="April" xml:space="preserve">
+  <value>Nisan</value>
+</data>
+<data name="May" xml:space="preserve">
+  <value>Mayıs</value>
+</data>
+<data name="June" xml:space="preserve">
+  <value>Haziran</value>
+</data>
+<data name="July" xml:space="preserve">
+  <value>Temmuz</value>
+</data>
+<data name="August" xml:space="preserve">
+  <value>Ağustos</value>
+</data>
+<data name="September" xml:space="preserve">
+  <value>Eylül</value>
+</data>
+<data name="October" xml:space="preserve">
+  <value>Ekim</value>
+</data>
+<data name="November" xml:space="preserve">
+  <value>Kasım</value>
+</data>
+<data name="December" xml:space="preserve">
+  <value>Aralık</value>
+</data>
+<data name="CrownIconTooltip" xml:space="preserve">
+  <value>En çok görev tamamlayan kullanıcı!</value>
 </data>
 </root>

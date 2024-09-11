@@ -18,7 +18,7 @@
                     <img class="rounded-circle mt-3 mb-3" width="150px" src="@profileImage" alt="Profile Picture">
                     <h5 class="card-title">@Model.Name @Model.LastName</h5>
                     <p class="text-muted">@Model.Email</p>
-                    <a asp-action="UpdateProfile" asp-controller="user" asp-route-id="@Model.Id" class="btn btn-primary">@ShareLocalizer.Getkey("UpdateProfile").Value</a>
+                    <a asp-action="UpdateProfile" asp-controller="user" asp-route-id="@Model.Id" class="btn btn-secondary">@ShareLocalizer.Getkey("UpdateProfile").Value</a>
                 </div>
             </div>
         </div>

@@ -34,7 +34,7 @@
                             @if (user.CompletedTasksCount == maxCompletedTasks)
                             {
                                 <strong>@user.User.Name</strong>
-                                <i class="fa-solid fa-crown ms-2" style="color: #d1a54e; font-size: 1.5rem;" data-bs-toggle="tooltip" title="En çok görev tamamlayan kullanıcı!"></i>
+                                <i class="fa-solid fa-crown ms-2" style="color: #d1a54e; font-size: 1.5rem;" data-bs-toggle="tooltip" title="@ShareLocalizer.Getkey("CrownIconTooltip")"></i>
                             }
                             else
                             {
@@ -78,9 +78,10 @@
                         @ShareLocalizer.Getkey("PendingTasks").Value: @user.PendingTasksCount">
                             @ShareLocalizer.Getkey("TotalTasks").Value: <strong>@(@user.CompletedTasksCount + @user.RejectedTasksCount + @user.ExpiredTasksCount + @user.PendingTasksCount)</strong>
                                                                     <i class="fa-solid fa-circle-info ms-2" style="color:#4169e1; font-size: 1.5rem;"></i>
-                                            </td>
-                        <td class="text-center align-middle">
-                            <div class="d-flex justify-content-center">
+                        </td>
+
+                        <td>
+                            <div class="d-flex justify-content-center align-items-center">
                                 <form id="deleteForm-@user.User.Id" asp-action="UserDelete" asp-controller="user" method="post" onsubmit="return confirmDelete('@user.User.Id')">
                                     <input type="hidden" name="id" value="@user.User.Id" />
                                     <button type="submit" class="btn btn-danger btn-sm">@ShareLocalizer.Getkey("Delete").Value</button>
