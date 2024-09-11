@@ -614,5 +614,31 @@
 <data name="LogoutConfirmationCancelText" xml:space="preserve">
   <value>Cancel</value>
 </data>
-
+<data name="DeleteConfirmationTitle" xml:space="preserve">
+  <value>Are you sure?</value>
+</data>
+<data name="DeleteConfirmationText" xml:space="preserve">
+  <value>You will not be able to revert this!</value>
+</data>
+<data name="DeleteConfirmationConfirmButton" xml:space="preserve">
+  <value>Yes, delete it!</value>
+</data>
+<data name="DeleteConfirmationCancelButton" xml:space="preserve">
+  <value>Cancel</value>
+</data>
+<data name="DeleteUserConfirmationText" xml:space="preserve">
+  <value>You will not be able to revert this user!</value>
+</data>
+<data name="UpdateConfirmationTitle" xml:space="preserve">
+  <value>Are you sure you want to save?</value>
+</data>
+<data name="UpdateConfirmationConfirmButton" xml:space="preserve">
+  <value>Yes, save it!</value>
+</data>
+<data name="UpdateConfirmationCancelButton" xml:space="preserve">
+  <value>Cancel</value>
+</data>
+<data name="DeleteTaskConfirmationText" xml:space="preserve">
+  <value>You will not be able to revert this task!</value>
+</data>
 </root>

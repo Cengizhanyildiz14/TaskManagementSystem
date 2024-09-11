@@ -606,5 +606,31 @@
 <data name="LogoutConfirmationCancelText" xml:space="preserve">
   <value>İptal</value>
 </data>
-
+<data name="DeleteConfirmationTitle" xml:space="preserve">
+  <value>Emin misiniz?</value>
+</data>
+<data name="DeleteConfirmationText" xml:space="preserve">
+  <value>Bu duyuruyu geri alamazsınız!</value>
+</data>
+<data name="DeleteConfirmationConfirmButton" xml:space="preserve">
+  <value>Evet, sil!</value>
+</data>
+<data name="DeleteConfirmationCancelButton" xml:space="preserve">
+  <value>İptal</value>
+</data>
+<data name="DeleteUserConfirmationText" xml:space="preserve">
+  <value>Bu kullaniciyi geri alamazsiniz!</value>
+</data>
+<data name="UpdateConfirmationTitle" xml:space="preserve">
+  <value>Kaydetmek istediğinize emin misiniz?</value>
+</data>
+<data name="UpdateConfirmationConfirmButton" xml:space="preserve">
+  <value>Evet, kaydet!</value>
+</data>
+<data name="UpdateConfirmationCancelButton" xml:space="preserve">
+  <value>İptal</value>
+</data>
+<data name="DeleteTaskConfirmationText" xml:space="preserve">
+  <value>Bu görevi geri alamazsınız!</value>
+</data>
 </root>
