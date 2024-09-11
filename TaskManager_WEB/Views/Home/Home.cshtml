@@ -41,11 +41,11 @@
                             </p>
                             @if (announcement.Content.Length > 200)
                             {
-                                <a href="javascript:void(0)" class="mt-auto toggle-link" data-bs-toggle="modal" data-bs-target="#announcementModal" onclick="showModal('@announcement.Title', `@announcement.Content`)">Daha fazla oku</a>
+                                <a href="javascript:void(0)" class="mt-auto toggle-link" data-bs-toggle="modal" data-bs-target="#announcementModal" onclick="showModal('@announcement.Title', `@announcement.Content`)">@ShareLocalizer.Getkey("ReadMore").Value</a>
                             }
                         </div>
                         <div class="card-footer d-flex justify-content-between align-items-center">
-                            <small class="text-muted">Yazar: @announcement.AuthorName</small>
+                            <small class="text-muted">@ShareLocalizer.Getkey("Author").Value @announcement.AuthorName</small>
                             <small class="text-muted">
                                 @{
                                     var dateToShow = announcement.UpdatedDate.HasValue ? announcement.UpdatedDate.Value : announcement.CreatedDate;
@@ -115,14 +115,16 @@
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Evet, sil!',
-                cancelButtonText: 'İptal'
+                cancelButtonText: 'İptal',
+                didOpen: () => {
+                    $('#loading-animation').hide();
+                }
             }).then((result) => {
                 if (result.isConfirmed) {
                     document.getElementById(`deleteForm-${announcementId}`).submit();
                 }
             });
-
-            return false;
         }
     </script>
 }
+

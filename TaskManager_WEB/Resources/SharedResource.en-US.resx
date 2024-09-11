@@ -582,4 +582,37 @@
 <data name="Create" xml:space="preserve">
   <value>Create</value>
 </data>
+<data name="Author" xml:space="preserve">
+  <value>Author:</value>
+</data>
+<data name="ReadMore" xml:space="preserve">
+  <value>Read more</value>
+</data>
+
+<data name="Notification" xml:space="preserve">
+  <value>You have no new notifications.</value>
+</data>
+
+<data name="AssignedTaskNotificationStart" xml:space="preserve">
+  <value>You have been assigned a new task by</value>
+</data>
+
+<data name="AssignedTaskNotificationStart" xml:space="preserve">
+  <value>You have been assigned a new task by</value>
+</data>
+
+<data name="AssignedTaskNotificationEnd" xml:space="preserve">
+  <value>.</value>
+</data>
+
+<data name="LogoutConfirmationTitle" xml:space="preserve">
+  <value>Are you sure you want to log out?</value>
+</data>
+<data name="LogoutConfirmationConfirmText" xml:space="preserve">
+  <value>Yes, log out!</value>
+</data>
+<data name="LogoutConfirmationCancelText" xml:space="preserve">
+  <value>Cancel</value>
+</data>
+
 </root>

@@ -118,7 +118,10 @@
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Evet, sil!',
-                cancelButtonText: 'İptal'
+                cancelButtonText: 'İptal',
+                didOpen: () => {
+                    $('#loading-animation').hide();
+                }
             }).then((result) => {
                 if (result.isConfirmed) {
                     document.getElementById(`deleteForm-${userId}`).submit();
