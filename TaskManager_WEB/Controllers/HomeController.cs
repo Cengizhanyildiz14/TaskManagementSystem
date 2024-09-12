@@ -82,7 +82,7 @@ namespace TaskManager_WEB.Controllers
 
             announcementUpdateDto.AuthorId = int.Parse(userId);
             announcementUpdateDto.AuthorName = userName;
-            announcementUpdateDto.UpdatedDate = DateTime.UtcNow;
+            announcementUpdateDto.UpdatedDate = DateTime.Now;
 
             var updateResponse = await _announcementService.UpdateAnnouncement<APIResponse>(announcementUpdateDto.Id, announcementUpdateDto);
 
@@ -114,7 +114,7 @@ namespace TaskManager_WEB.Controllers
                 return Unauthorized("Kullanıcı bilgileri doğrulanamadı.");
             }
 
-            announcementCreateDto.CreatedDate = DateTime.UtcNow;
+            announcementCreateDto.CreatedDate = DateTime.Now;
             announcementCreateDto.AuthorId = int.Parse(userId);
             announcementCreateDto.UpdatedDate = null;
             announcementCreateDto.AuthorName = userName;
