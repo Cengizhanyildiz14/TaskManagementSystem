@@ -286,8 +286,29 @@
 </html>
 
 <style>
+    html, body {
+        height: 100%;
+        margin: 0;
+    }
+
     body {
-        padding-bottom: 200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 100vh;
+    }
+
+    main {
+        flex-grow: 1;
+    }
+
+    footer {
+        background-color: #f8f9fa !important;
+        padding: 20px !important;
+        text-align: center;
+        width: 100% !important;
+        position: relative !important;
+        bottom: 0 !important;
     }
 
     #loading-animation {
