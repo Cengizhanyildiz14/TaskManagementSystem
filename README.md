@@ -38,7 +38,7 @@ Proje, **RESTful API** mimarisi kullanılarak geliştirilmiştir. **JWT (JSON We
 
 ## Gereksinimler
 
-- .NET 6.0
+- .NET 7.0
 - ASP.NET Core MVC
 - Entity Framework Core
 - SQL Server
