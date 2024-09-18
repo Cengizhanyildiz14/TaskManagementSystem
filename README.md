@@ -17,6 +17,7 @@ Proje, **RESTful API** mimarisi kullanılarak geliştirilmiştir. **JWT (JSON We
 - **Görev Yönetimi:** Kullanıcılar görev oluşturabilir, atayabilir ve yönetebilir.
 - **Filtreleme:** Kullanıcılar, görev listesi üzerinde çeşitli filtreler kullanarak belirli görevleri arayabilir.
 - **Görev Durumu:** Görevlerin durumu (Beklemede, Tamamlandı, Reddedildi,Süresi Doldu) takip edilebilir.
+- **Duyuru Yönetimi:** `İnsan Kaynakları Uzmanı` olan kullanıcı duyuru oluşturabilir, silebilir ve güncelleyebilir.
 - **Görev Onaylama/Reddetme:** Kullanıcılar kendilerine atanan görevleri onaylayabilir veya reddedebilir.
 - **Kullanıcı Profili:** Kullanıcılar profil bilgilerini görüntüleyebilir ve güncelleyebilir.
 - **Oturum Yönetimi:**
@@ -37,7 +38,7 @@ Proje, **RESTful API** mimarisi kullanılarak geliştirilmiştir. **JWT (JSON We
 
 ## Gereksinimler
 
-- .NET 6.0
+- .NET 7.0
 - ASP.NET Core MVC
 - Entity Framework Core
 - SQL Server
