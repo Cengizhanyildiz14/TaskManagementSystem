@@ -170,7 +170,7 @@
                 });
             });
 
-            var userId = parseInt('@userId');
+            var userId = '@userId';
             var url = '/UsersTaskJson/' + userId;
             $.get(url, function (tasks) {
                 var pendingTasks = tasks.filter(function (task) {

@@ -45,7 +45,7 @@ namespace TaskManager_API.Controllers
         }
 
         [HttpGet("GetAnnouncement/{id}")]
-        public ActionResult<APIResponse> GetAnnouncement(int id)
+        public ActionResult<APIResponse> GetAnnouncement(Guid id)
         {
             try
             {
@@ -74,7 +74,7 @@ namespace TaskManager_API.Controllers
         }
 
         [HttpDelete("DeleteAnnouncement/{id}")]
-        public ActionResult<APIResponse> DeleteAnnouncement(int id)
+        public ActionResult<APIResponse> DeleteAnnouncement(Guid id)
         {
             try
             {
@@ -134,7 +134,7 @@ namespace TaskManager_API.Controllers
 
 
         [HttpPut("PutAnnouncement/{id}")]
-        public ActionResult<APIResponse> PutDepartment([FromBody] AnnouncementUpdateDto announcementUpdateDto, int id)
+        public ActionResult<APIResponse> PutAnnouncement([FromBody] AnnouncementUpdateDto announcementUpdateDto, Guid id)
         {
             try
             {

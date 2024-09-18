@@ -39,7 +39,7 @@ namespace TaskManager_WEB.Controllers
 
         [HttpPost]
         [Authorize(Policy = ("IK"))]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(Guid id)
         {
             var response = await _announcementService.Delete<APIResponse>(id);
             if (response == null || !response.IsSuccess)
@@ -51,7 +51,7 @@ namespace TaskManager_WEB.Controllers
 
         [HttpGet]
         [Authorize(Policy = ("IK"))]
-        public async Task<IActionResult> Update(int id)
+        public async Task<IActionResult> Update(Guid id)
         {
             var response = await _announcementService.GetAnnouncementById<APIResponse>(id);
             if (response == null || !response.IsSuccess)
@@ -80,7 +80,7 @@ namespace TaskManager_WEB.Controllers
                 return Unauthorized("Kullanıcı bilgileri doğrulanamadı.");
             }
 
-            announcementUpdateDto.AuthorId = int.Parse(userId);
+            announcementUpdateDto.AuthorId = Guid.Parse(userId);
             announcementUpdateDto.AuthorName = userName;
             announcementUpdateDto.UpdatedDate = DateTime.Now;
 
@@ -115,7 +115,7 @@ namespace TaskManager_WEB.Controllers
             }
 
             announcementCreateDto.CreatedDate = DateTime.Now;
-            announcementCreateDto.AuthorId = int.Parse(userId);
+            announcementCreateDto.AuthorId = Guid.Parse(userId);
             announcementCreateDto.UpdatedDate = null;
             announcementCreateDto.AuthorName = userName;
             announcementCreateDto.IsActive = true;

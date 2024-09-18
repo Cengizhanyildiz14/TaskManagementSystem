@@ -25,7 +25,7 @@ namespace TaskManager_WEB.Services
             });
         }
 
-        public Task<T> DeleteTask<T>(int id)
+        public Task<T> DeleteTask<T>(Guid id)
         {
             return Send<T>(new APIRequest()
             {
@@ -34,7 +34,7 @@ namespace TaskManager_WEB.Services
             });
         }
 
-        public Task<T> GetTaskById<T>(int id)
+        public Task<T> GetTaskById<T>(Guid id)
         {
             return Send<T>(new APIRequest()
             {
@@ -43,7 +43,7 @@ namespace TaskManager_WEB.Services
             });
         }
 
-        public Task<T> UpdateTask<T>(int id, TaskUpdateDto task)
+        public Task<T> UpdateTask<T>(Guid id, TaskUpdateDto task)
         {
             return Send<T>(new APIRequest()
             {

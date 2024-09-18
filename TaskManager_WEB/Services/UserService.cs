@@ -15,7 +15,7 @@ namespace TaskManager_WEB.Services
             taskUrl = configuration.GetValue<string>("ServiceUrls:TaskManagementAPI");
         }
 
-        public Task<T> Delete<T>(int id)
+        public Task<T> Delete<T>(Guid id)
         {
             return Send<T>(new APIRequest()
             {
@@ -33,7 +33,7 @@ namespace TaskManager_WEB.Services
             });
         }
 
-        public Task<T> GetUserTasks<T>(int id)
+        public Task<T> GetUserTasks<T>(Guid id)
         {
             return Send<T>(new APIRequest()
             {
@@ -42,7 +42,7 @@ namespace TaskManager_WEB.Services
             });
         }
 
-        public Task<T> GetUserWithDetails<T>(int id)
+        public Task<T> GetUserWithDetails<T>(Guid id)
         {
             return Send<T>(new APIRequest()
             {
@@ -61,7 +61,7 @@ namespace TaskManager_WEB.Services
             });
         }
 
-        public Task<T> PutUser<T>(UserUpdateDto userUpdateDto, int id)
+        public Task<T> PutUser<T>(UserUpdateDto userUpdateDto, Guid id)
         {
             return Send<T>(new APIRequest()
             {

@@ -7,9 +7,9 @@ namespace Business.IServices
     public interface IUserRepository : IRepository<User>
     {
         User UpdateUser(User user);
-        User GetUserWithDetails(int id);
+        User GetUserWithDetails(Guid id);
         List<User> GetAllUserWithDetails();
         LoginResponseDto Login(LoginRequestDto loginRequestDto, bool rememberMe);
-        List<ToDoTask> GetUserTask(int userId);
+        List<ToDoTask> GetUserTask(Guid userId);
     }
 }

@@ -5,10 +5,10 @@ namespace TaskManager_WEB.Services.IServices
     public interface IUserService
     {
         Task<T> GetAll<T>();
-        Task<T> GetUserWithDetails<T>(int id);
-        Task<T> Delete<T>(int id);
+        Task<T> GetUserWithDetails<T>(Guid id);
+        Task<T> Delete<T>(Guid id);
         Task<T> PostUser<T>(UserCreateDto userCreateDto);
-        Task<T> PutUser<T>(UserUpdateDto userUpdateDto, int id);
-        Task<T> GetUserTasks<T>(int id);
+        Task<T> PutUser<T>(UserUpdateDto userUpdateDto, Guid id);
+        Task<T> GetUserTasks<T>(Guid id);
     }
 }

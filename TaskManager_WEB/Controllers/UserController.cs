@@ -32,7 +32,7 @@ namespace TaskManager_WEB.Controllers
             var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
 
-            if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out var userId))
+            if (string.IsNullOrEmpty(userIdClaim) || !Guid.TryParse(userIdClaim, out var userId))
             {
                 return BadRequest("Token'daki kullanıcı ID'si geçersiz");
             }
@@ -68,11 +68,11 @@ namespace TaskManager_WEB.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> Profile(int id)
+        public async Task<IActionResult> Profile(Guid id)
         {
             var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
-            if (id != int.Parse(userIdClaim))
+            if (id != Guid.Parse(userIdClaim))
             {
                 return RedirectToAction("NotFoundPage", "home");
             }
@@ -189,7 +189,7 @@ namespace TaskManager_WEB.Controllers
 
         [HttpPost]
         [Authorize(Policy = ("IK"))]
-        public async Task<IActionResult> UserDelete(int id)
+        public async Task<IActionResult> UserDelete(Guid id)
         {
             var response = await _userService.Delete<APIResponse>(id);
             if (response == null || !response.IsSuccess)
@@ -200,11 +200,11 @@ namespace TaskManager_WEB.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> UsersTask(int id)
+        public async Task<IActionResult> UsersTask(Guid id)
         {
             var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
-            if (id !=int.Parse(userIdClaim))
+            if (id != Guid.Parse(userIdClaim))
             {
                 return RedirectToAction("NotFoundPage", "home");
             }
@@ -220,11 +220,11 @@ namespace TaskManager_WEB.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> UsersTaskJson(int id)
+        public async Task<IActionResult> UsersTaskJson(Guid id)
         {
             var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
-            if (id != int.Parse(userIdClaim))
+            if (id != Guid.Parse(userIdClaim))
             {
                 return RedirectToAction("NotFoundPage", "home");
             }
@@ -242,11 +242,11 @@ namespace TaskManager_WEB.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> UpdateProfile(int id)
+        public async Task<IActionResult> UpdateProfile(Guid id)
         {
             var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
-            if (id != int.Parse(userIdClaim))
+            if (id != Guid.Parse(userIdClaim))
             {
                 return RedirectToAction("NotFoundPage", "home");
             }
@@ -288,11 +288,6 @@ namespace TaskManager_WEB.Controllers
                 PhoneNumber = profileUpdateVM.userUpdateDto.PhoneNumber,
                 Education = profileUpdateVM.userUpdateDto.Education,
                 Adress = profileUpdateVM.userUpdateDto.Adress,
-                Department = new DepartmentDto
-                {
-                    Id = profileUpdateVM.userUpdateDto.Department.Id,
-                    DepartmentName = profileUpdateVM.userUpdateDto.Department.DepartmentName
-                }
             };
 
             var response = await _userService.PutUser<APIResponse>(userUpdateDto, userUpdateDto.Id);

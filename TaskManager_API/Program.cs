@@ -13,6 +13,18 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins",
+        builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+});
+
+builder.Services.AddAuthorization(opt =>
+{
+    opt.AddPolicy("IK", policy =>
+    policy.RequireClaim("DepartmentName", "Ýnsan Kaynaklarý Uzmaný"));
+});
+
 builder.Services.AddDbContext<TaskManagerContext>(opt =>
 {
     opt.UseSqlServer(builder.Configuration.GetConnectionString("default"));

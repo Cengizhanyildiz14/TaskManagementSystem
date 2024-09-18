@@ -15,7 +15,7 @@ namespace Business.Services
             _taskManagerContext = taskManagerContext;
         }
 
-        public ToDoTask GetTaskById(int id)
+        public ToDoTask GetTaskById(Guid id)
         {
             return _taskManagerContext.Task
                 .Include(t => t.Department)

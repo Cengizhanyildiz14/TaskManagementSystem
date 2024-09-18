@@ -27,7 +27,7 @@ namespace TaskManager_WEB.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> TaskDetails(int id)
+        public async Task<IActionResult> TaskDetails(Guid id)
         {
             var response = await _taskService.GetTaskById<APIResponse>(id);
             if (response == null)
@@ -51,7 +51,7 @@ namespace TaskManager_WEB.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> DeleteTask(int id)
+        public async Task<IActionResult> DeleteTask(Guid id)
         {
             var response = await _taskService.DeleteTask<APIResponse>(id);
             if (response == null)
@@ -100,16 +100,16 @@ namespace TaskManager_WEB.Controllers
 
             var allUsers = userResults.Select(ur => ur.User).ToList();
 
-            var currentUserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var currentUserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
-            var defaultDepartmentId = (int)departments.FirstOrDefault()?.Id;
+            var defaultDepartmentId = (Guid)departments.FirstOrDefault()?.Id;
             var filteredUsers = allUsers.Where(u => u.DepartmentId == defaultDepartmentId && u.Id != currentUserId).ToList();
 
             var taskCreateVM = new TaskCreateVM
             {
                 TaskCreateDto = new TaskCreateDto
                 {
-                    CreaterUserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)),
+                    CreaterUserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)),
                     Status = TaskStatusEnum.Beklemede,
                     DepartmentId = defaultDepartmentId
                 },
@@ -141,7 +141,7 @@ namespace TaskManager_WEB.Controllers
             var allUsers = userResults.Select(ur => ur.User).ToList();
             taskCreateVM.AllUsers = allUsers;
 
-            if (taskCreateVM.TaskCreateDto.DepartmentId != 0)
+            if (taskCreateVM.TaskCreateDto.DepartmentId != null)
             {
                 var filteredUsers = allUsers.Where(u => u.DepartmentId == taskCreateVM.TaskCreateDto.DepartmentId).ToList();
                 taskCreateVM.UserList = new SelectList(filteredUsers, "Id", "Name");
@@ -155,7 +155,7 @@ namespace TaskManager_WEB.Controllers
             {
                 TaskName = taskCreateVM.TaskCreateDto.TaskName,
                 DepartmentId = taskCreateVM.TaskCreateDto.DepartmentId,
-                CreaterUserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)),
+                CreaterUserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)),
                 AsaignedUserId = taskCreateVM.TaskCreateDto.AsaignedUserId,
                 Status = taskCreateVM.TaskCreateDto.Status,
                 AssignmentDate = DateTime.Now,
@@ -173,7 +173,7 @@ namespace TaskManager_WEB.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> Update(int id)
+        public async Task<IActionResult> Update(Guid id)
         {
 
             var response = await _taskService.GetTaskById<APIResponse>(id);
@@ -199,7 +199,7 @@ namespace TaskManager_WEB.Controllers
                 ? JsonConvert.DeserializeObject<List<UserResult>>(Convert.ToString(usersResponse.result))
                 : new List<UserResult>();
 
-            var currentUserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var currentUserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
             var userList = userResults.Any()
                ? userResults.Select(ur => ur.User)
@@ -236,7 +236,7 @@ namespace TaskManager_WEB.Controllers
                 ? JsonConvert.DeserializeObject<List<UserResult>>(Convert.ToString(usersResponse.result))
                 : new List<UserResult>();
 
-            var currentUserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var currentUserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             var userList = userResults.Any()
                 ? userResults.Select(ur => ur.User).Where(u => u.Id != currentUserId).ToList()
                 : new List<UserDto>();
@@ -257,7 +257,7 @@ namespace TaskManager_WEB.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> TaskStatusUpdate(int TaskId, string Status)
+        public async Task<IActionResult> TaskStatusUpdate(Guid TaskId, string Status)
         {
             var taskResponse = await _taskService.GetTaskById<APIResponse>(TaskId);
             if (taskResponse == null)

@@ -13,7 +13,7 @@ namespace Dto.AnnouncementDtos
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public bool IsActive { get; set; }
-        public int AuthorId { get; set; }
+        public Guid AuthorId { get; set; }
         public string AuthorName { get; set; }
     }
 }

@@ -2,7 +2,9 @@
 using Business;
 using Business.IServices;
 using Data.Entities;
+using Dto.DepartmentDtos;
 using Dto.UserDtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -44,6 +46,7 @@ namespace TaskManager_API.Controllers
         }
 
         [HttpGet("GetAllUsers")]
+        //[Authorize]
         public ActionResult<APIResponse> GetAll()
         {
             try
@@ -58,8 +61,8 @@ namespace TaskManager_API.Controllers
                 var mappedUsers = users.Select(user => new
                 {
                     User = _mapper.Map<UserDto>(user),
-                    AssignedTasks = _mapper.Map<List<TaskDto>>(user.Tasks), // Atanan görevler
-                    CreatedTasks = _mapper.Map<List<TaskDto>>(user.CreatedTasks) // Oluşturulan görevler
+                    AssignedTasks = _mapper.Map<List<TaskDto>>(user.Tasks),
+                    CreatedTasks = _mapper.Map<List<TaskDto>>(user.CreatedTasks)
                 }).ToList();
 
                 _response.Result = mappedUsers;
@@ -75,9 +78,8 @@ namespace TaskManager_API.Controllers
             }
         }
 
-
-
         [HttpPost("PostUser")]
+        //[Authorize(Policy = ("IK"))]
         public ActionResult<APIResponse> PostUser([FromBody] UserCreateDto userCreateDto)
         {
             try
@@ -118,7 +120,8 @@ namespace TaskManager_API.Controllers
         }
 
         [HttpPut("PutUser/{id}")]
-        public ActionResult<APIResponse> PutUser([FromBody] UserUpdateDto userUpdateDto, int id)
+        //[Authorize]
+        public ActionResult<APIResponse> PutUser([FromBody] UserUpdateDto userUpdateDto, Guid id)
         {
             try
             {
@@ -135,16 +138,6 @@ namespace TaskManager_API.Controllers
                     return BadRequest(ModelState);
                 }
 
-                // Gelen DepartmentDto nesnesini kullanarak departmanı güncelle
-                var department = _departmentRepository.Get(d => d.Id == userUpdateDto.Department.Id);
-                if (department == null)
-                {
-                    ModelState.AddModelError("CustomErrorMessage", "Böyle Bir Departman Bulunamadı");
-                    return BadRequest(ModelState);
-                }
-
-                // User nesnesine haritalama işlemini yap
-                user.Department = department;
                 user.Email = userUpdateDto.Email;
                 user.PhoneNumber = userUpdateDto.PhoneNumber;
                 user.Education = userUpdateDto.Education;
@@ -168,7 +161,8 @@ namespace TaskManager_API.Controllers
 
 
         [HttpDelete("DeleteUser/{id}")]
-        public ActionResult<APIResponse> DeleteUser(int id)
+        //[Authorize]
+        public ActionResult<APIResponse> DeleteUser(Guid id)
         {
             try
             {
@@ -192,7 +186,8 @@ namespace TaskManager_API.Controllers
         }
 
         [HttpGet("GetUser/{id}")]
-        public ActionResult<APIResponse> GetUser(int id)
+        //[Authorize]
+        public ActionResult<APIResponse> GetUser(Guid id)
         {
             try
             {
@@ -220,7 +215,8 @@ namespace TaskManager_API.Controllers
         }
 
         [HttpGet("GetUsersTasks/{id}")]
-        public ActionResult<APIResponse> GetUsersTask(int id)
+        //[Authorize]
+        public ActionResult<APIResponse> GetUsersTask(Guid id)
         {
             try
             {

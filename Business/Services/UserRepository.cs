@@ -39,13 +39,16 @@ namespace Business.Services
             return users;
         }
 
-        public List<ToDoTask> GetUserTask(int userId)
+        public List<ToDoTask> GetUserTask(Guid userId)
         {
-            var tasks = _context.Task.Where(t => t.AsaignedUserId == userId).Include(t => t.Department).Include(t => t.CreaterUser).ToList();
+            var tasks = _context.Task.Where(t => t.AsaignedUserId == userId)
+                .Include(t => t.Department)
+                .Include(t => t.CreaterUser)
+                .Include(t => t.AsaignedUser).ToList();
             return tasks;
         }
 
-        public User GetUserWithDetails(int id)
+        public User GetUserWithDetails(Guid id)
         {
             var query = _context.Users
                        .Include(u => u.Department)

@@ -29,9 +29,9 @@
             <tbody>
                 @foreach (var user in Model)
                 {
-                    <tr class="@((user.CompletedTasksCount == maxCompletedTasks) ? "highlight-row" : "")">
+                    <tr class="@((user.CompletedTasksCount == maxCompletedTasks  && user.CompletedTasksCount > 0) ? "highlight-row" : "")">
                         <td class="text-center align-middle">
-                            @if (user.CompletedTasksCount == maxCompletedTasks)
+                            @if (user.CompletedTasksCount == maxCompletedTasks && user.CompletedTasksCount > 0)
                             {
                                 <strong>@user.User.Name</strong>
                                 <i class="fa-solid fa-crown ms-2" style="color: #d1a54e; font-size: 1.5rem;" data-bs-toggle="tooltip" title="@ShareLocalizer.Getkey("CrownIconTooltip")"></i>
@@ -42,7 +42,7 @@
                             }
                         </td>
                         <td class="text-center align-middle">
-                            @if (user.CompletedTasksCount == maxCompletedTasks)
+                            @if (user.CompletedTasksCount == maxCompletedTasks && user.CompletedTasksCount > 0)
                             {
                                 <strong>@user.User.LastName</strong>
                             }
@@ -52,7 +52,7 @@
                             }
                         </td>
                         <td class="text-center align-middle">
-                            @if (user.CompletedTasksCount == maxCompletedTasks)
+                            @if (user.CompletedTasksCount == maxCompletedTasks && user.CompletedTasksCount > 0)
                             {
                                 <strong>@user.User.Email</strong>
                             }
@@ -62,7 +62,7 @@
                             }
                         </td>
                         <td class="text-center align-middle">
-                            @if (user.CompletedTasksCount == maxCompletedTasks)
+                            @if (user.CompletedTasksCount == maxCompletedTasks && user.CompletedTasksCount > 0)
                             {
                                 <strong>@user.User.Department.DepartmentName</strong>
                             }

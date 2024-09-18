@@ -42,7 +42,7 @@ namespace TaskManager_API.Controllers
         }
 
         [HttpGet("GetDepartment/{id}")]
-        public ActionResult<APIResponse> GetDepartment(int id)
+        public ActionResult<APIResponse> GetDepartment(Guid id)
         {
             try
             {
@@ -71,7 +71,7 @@ namespace TaskManager_API.Controllers
         }
 
         [HttpDelete("DeleteDepartment/{id}")]
-        public ActionResult<APIResponse> DeleteDepartment(int id)
+        public ActionResult<APIResponse> DeleteDepartment(Guid id)
         {
             try
             {
@@ -131,7 +131,7 @@ namespace TaskManager_API.Controllers
 
 
         [HttpPut("PutDepartment/{id}")]
-        public ActionResult<APIResponse> PutDepartment([FromBody] DepartmentUpdateDto departmentUpdateDto, int id)
+        public ActionResult<APIResponse> PutDepartment([FromBody] DepartmentUpdateDto departmentUpdateDto, Guid id)
         {
             try
             {

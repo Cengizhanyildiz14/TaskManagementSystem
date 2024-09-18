@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
 using Business;
 using Business.IServices;
+using Business.Services;
 using Data.Entities;
+using Dto.DepartmentDtos;
 using Dto.TaskDtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Utility;
 
@@ -13,14 +16,18 @@ namespace TaskManager_API.Controllers
     public class TaskController : ControllerBase
     {
         private readonly IToDoTaskRepository _taskRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IDepartmentRepository _departmentRepository;
         private readonly IMapper _mapper;
         private readonly APIResponse _apiResponse;
 
-        public TaskController(IToDoTaskRepository taskRepository, IMapper mapper)
+        public TaskController(IToDoTaskRepository taskRepository, IMapper mapper, IUserRepository userRepository, IDepartmentRepository departmentRepository)
         {
             _taskRepository = taskRepository;
             _mapper = mapper;
             this._apiResponse = new APIResponse();
+            _userRepository = userRepository;
+            _departmentRepository = departmentRepository;
         }
 
         [HttpGet("GetAllTasks")]
@@ -48,7 +55,7 @@ namespace TaskManager_API.Controllers
         }
 
         [HttpGet("GetTaskById/{id}")]
-        public ActionResult<APIResponse> GetTaskById(int id)
+        public ActionResult<APIResponse> GetTaskById(Guid id)
         {
             try
             {
@@ -72,7 +79,7 @@ namespace TaskManager_API.Controllers
         }
 
         [HttpDelete("DeleteTask/{id}")]
-        public ActionResult<APIResponse> DeleteTask(int id)
+        public ActionResult<APIResponse> DeleteTask(Guid id)
         {
             try
             {
@@ -96,6 +103,7 @@ namespace TaskManager_API.Controllers
         }
 
         [HttpPost("CreateTask")]
+        //[Authorize]
         public ActionResult<APIResponse> CreateTask([FromBody] TaskCreateDto taskCreateDto)
         {
             try
@@ -103,24 +111,52 @@ namespace TaskManager_API.Controllers
                 if (taskCreateDto == null)
                 {
                     _apiResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
-                    _apiResponse.Errors = new List<string> { "Invalid task data." };
+                    _apiResponse.Errors = new List<string> { "Geçersiz görev verisi." };
                     return _apiResponse;
                 }
 
-                if (_taskRepository.Get(x => x.TaskName.ToLower() == taskCreateDto.TaskName.ToLower()) != null && _taskRepository.Get(x => x.DepartmentId == taskCreateDto.DepartmentId) != null)
+                if (_taskRepository.Get(x => x.TaskName.ToLower() == taskCreateDto.TaskName.ToLower() && x.DepartmentId == taskCreateDto.DepartmentId) != null)
                 {
                     _apiResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                    _apiResponse.Errors = new List<string> { "Aynı isimde bir görev zaten mevcut." };
                     return _apiResponse;
                 }
 
                 var task = _mapper.Map<ToDoTask>(taskCreateDto);
                 task.Status = (TaskStatusEnum)taskCreateDto.Status;
 
+                var assignedUser = _userRepository.Get(x => x.Id == taskCreateDto.AsaignedUserId);
+                var creatorUser = _userRepository.Get(x => x.Id == taskCreateDto.CreaterUserId);
+                var department = _departmentRepository.Get(x => x.Id == taskCreateDto.DepartmentId);
+
+                var departmentDto = new DepartmentDto
+                {
+                    Id = department.Id,
+                    DepartmentName = department.DepartmentName
+                };
+
+                var taskDto = new TaskDto
+                {
+                    Id = task.Id,
+                    TaskName = task.TaskName,
+                    DepartmentId = department.Id,
+                    Department = departmentDto,
+                    Status = (int)task.Status,
+                    AssignmentDate = task.AssignmentDate,
+                    AsaignedUserId = task.AsaignedUserId,
+                    AsaignedUserName = assignedUser?.Name, 
+                    AsaignedUserEmail=assignedUser.Email,
+                    AsaignedUserLastName = assignedUser?.LastName,
+                    CreaterUserId = task.CreaterUserId,
+                    CreaterUserName = creatorUser?.Name,
+                    CreaterUserEmail = creatorUser?.Email,
+                    CreaterUserLastName = creatorUser?.LastName 
+                };
                 _taskRepository.Create(task);
 
                 _apiResponse.IsSuccess = true;
                 _apiResponse.StatusCode = System.Net.HttpStatusCode.Created;
-                _apiResponse.Result = _mapper.Map<TaskDto>(task);
+                _apiResponse.Result = taskDto; 
                 return _apiResponse;
             }
             catch (Exception ex)
@@ -132,15 +168,18 @@ namespace TaskManager_API.Controllers
             return _apiResponse;
         }
 
+
+
         [HttpPut("PutTask/{id}")]
-        public ActionResult<APIResponse> PutTask(int id, [FromBody] TaskUpdateDto taskUpdateDto)
+        //[Authorize]
+        public ActionResult<APIResponse> PutTask(Guid id, [FromBody] TaskUpdateDto taskUpdateDto)
         {
             try
             {
                 if (taskUpdateDto == null || id != taskUpdateDto.Id)
                 {
                     _apiResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
-                    _apiResponse.Errors = new List<string> { "Invalid task data." };
+                    _apiResponse.Errors = new List<string> { "Geçersiz görev verisi." };
                     return _apiResponse;
                 }
 
@@ -148,11 +187,17 @@ namespace TaskManager_API.Controllers
                 if (existingTask == null)
                 {
                     _apiResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
-                    _apiResponse.Errors = new List<string> { "Task not found." };
+                    _apiResponse.Errors = new List<string> { "görev bulunamadı" };
                     return _apiResponse;
                 }
 
-                // Mevcut görevi güncellemek için DTO'dan gelen verileri mevcut görev üzerine uyguluyoruz
+                if (existingTask.CreaterUserId != taskUpdateDto.CreaterUserId)
+                {
+                    _apiResponse.StatusCode = System.Net.HttpStatusCode.Forbidden;
+                    _apiResponse.Errors = new List<string> {"Bu görevde değişiklik yapmaya yetkin yok"};
+                    return _apiResponse;
+                }
+
                 _mapper.Map(taskUpdateDto, existingTask);
 
                 _taskRepository.UpdateTask(existingTask);
@@ -170,7 +215,5 @@ namespace TaskManager_API.Controllers
             }
             return _apiResponse;
         }
-
-
     }
 }
