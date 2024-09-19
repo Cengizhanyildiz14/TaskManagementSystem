@@ -9,7 +9,7 @@ namespace TaskManager_WEB.Services
         private readonly IHttpClientFactory _httpClientFactory;
         private string taskUrl;
 
-        public AnnouncementService(IHttpClientFactory httpClientFactory, IConfiguration configuration) : base(httpClientFactory)
+        public AnnouncementService(IHttpClientFactory httpClientFactory, IConfiguration configuration, IHttpContextAccessor httpContextAccessor) : base(httpClientFactory, httpContextAccessor)
         {
             _httpClientFactory = httpClientFactory;
             taskUrl = configuration.GetValue<string>("ServiceUrls:TaskManagementAPI");

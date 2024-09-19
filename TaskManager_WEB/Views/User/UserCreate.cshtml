@@ -14,30 +14,25 @@
                     <h4 class="card-title mb-4">@ShareLocalizer.Getkey("CreateUser").Value</h4>
                     <form asp-action="UserCreate" method="post">
                         <div class="row">
-                            <!-- Left Column -->
                             <div class="col-md-6">
-                                <!-- First Name -->
                                 <div class="mb-3">
                                     <label asp-for="UserCreateDto.Name" class="form-label">@ShareLocalizer.Getkey("FirstName").Value</label>
                                     <input asp-for="UserCreateDto.Name" class="form-control" />
                                     <span asp-validation-for="UserCreateDto.Name" class="text-danger"></span>
                                 </div>
 
-                                <!-- Last Name -->
                                 <div class="mb-3">
                                     <label asp-for="UserCreateDto.LastName" class="form-label">@ShareLocalizer.Getkey("LastName").Value</label>
                                     <input asp-for="UserCreateDto.LastName" class="form-control" />
                                     <span asp-validation-for="UserCreateDto.LastName" class="text-danger"></span>
                                 </div>
 
-                                <!-- Email -->
                                 <div class="mb-3">
                                     <label asp-for="UserCreateDto.Email" class="form-label">@ShareLocalizer.Getkey("Email").Value</label>
                                     <input asp-for="UserCreateDto.Email" class="form-control" />
                                     <span asp-validation-for="UserCreateDto.Email" class="text-danger"></span>
                                 </div>
 
-                                <!-- Gender -->
                                 <div class="mb-3">
                                     <label asp-for="UserCreateDto.Gender" class="form-label">@ShareLocalizer.Getkey("Gender").Value</label>
                                     <div class="d-flex align-items-center" style="height: 38px;">
@@ -52,8 +47,7 @@
                                     </div>
                                     <span asp-validation-for="UserCreateDto.Gender" class="text-danger"></span>
                                 </div>
-
-                                <!-- Department Selection -->
+>
                                 <div class="mb-3">
                                     <label asp-for="UserCreateDto.DepartmentId" class="form-label">@ShareLocalizer.Getkey("Department").Value</label>
                                     <select asp-for="UserCreateDto.DepartmentId" class="form-select" asp-items="Model.DepartmentList">
@@ -63,37 +57,31 @@
                                 </div>
                             </div>
 
-                            <!-- Right Column -->
                             <div class="col-md-6">
-                                <!-- Address -->
                                 <div class="mb-3">
                                     <label asp-for="UserCreateDto.Adress" class="form-label">@ShareLocalizer.Getkey("Address").Value</label>
                                     <input asp-for="UserCreateDto.Adress" class="form-control" />
                                     <span asp-validation-for="UserCreateDto.Adress" class="text-danger"></span>
                                 </div>
 
-                                <!-- Country -->
                                 <div class="mb-3">
                                     <label asp-for="UserCreateDto.Country" class="form-label">@ShareLocalizer.Getkey("Country").Value</label>
                                     <input asp-for="UserCreateDto.Country" class="form-control" />
                                     <span asp-validation-for="UserCreateDto.Country" class="text-danger"></span>
                                 </div>
 
-                                <!-- State -->
                                 <div class="mb-3">
                                     <label asp-for="UserCreateDto.State" class="form-label">@ShareLocalizer.Getkey("State").Value</label>
                                     <input asp-for="UserCreateDto.State" class="form-control" />
                                     <span asp-validation-for="UserCreateDto.State" class="text-danger"></span>
                                 </div>
 
-                                <!-- Phone Number -->
                                 <div class="mb-3">
                                     <label asp-for="UserCreateDto.PhoneNumber" class="form-label">@ShareLocalizer.Getkey("PhoneNumber").Value</label>
                                     <input asp-for="UserCreateDto.PhoneNumber" class="form-control" />
                                     <span asp-validation-for="UserCreateDto.PhoneNumber" class="text-danger"></span>
                                 </div>
 
-                                <!-- Education -->
                                 <div class="mb-3">
                                     <label asp-for="UserCreateDto.Education" class="form-label">@ShareLocalizer.Getkey("Education").Value</label>
                                     <input asp-for="UserCreateDto.Education" class="form-control" />
@@ -102,7 +90,6 @@
                             </div>
                         </div>
 
-                        <!-- Buttons -->
                         <div class="d-flex justify-content-between mt-4">
                             <input type="submit" value="@ShareLocalizer.Getkey("Submit").Value" class="btn btn-primary" />
                             <a asp-action="home" asp-controller="home" class="btn btn-secondary">@ShareLocalizer.Getkey("Back").Value</a>

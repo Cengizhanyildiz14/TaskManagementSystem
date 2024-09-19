@@ -77,17 +77,16 @@ namespace TaskManager_WEB.Controllers
                 return RedirectToAction("NotFoundPage", "home");
             }
 
-            var response = await _userService.GetAll<APIResponse>();
-            var users = JsonConvert.DeserializeObject<List<UserResult>>(Convert.ToString(response.result));
+            var response = await _userService.GetUserWithDetails<APIResponse>(id);
+            var users= JsonConvert.DeserializeObject<UserResult>(Convert.ToString(response.result));
 
-            var user = users.FirstOrDefault(u => u.User.Id == id)?.User;
 
-            if (user == null)
+            if (users == null)
             {
                 return NotFound();
             }
 
-            var viewModel = _mapper.Map<ProfileVM>(user);
+            var viewModel = _mapper.Map<ProfileVM>(users.User);
 
             return View(viewModel);
         }
@@ -200,6 +199,7 @@ namespace TaskManager_WEB.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> UsersTask(Guid id)
         {
             var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
@@ -220,6 +220,7 @@ namespace TaskManager_WEB.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> UsersTaskJson(Guid id)
         {
             var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
@@ -242,6 +243,7 @@ namespace TaskManager_WEB.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> UpdateProfile(Guid id)
         {
             var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
@@ -272,8 +274,8 @@ namespace TaskManager_WEB.Controllers
             }
         }
 
-
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> UpdateProfile(ProfileUpdateVM profileUpdateVM)
         {
             if (!ModelState.IsValid)

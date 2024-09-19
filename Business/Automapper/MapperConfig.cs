@@ -23,11 +23,9 @@ namespace Business.Automapper
             CreateMap<Announcement, AnnouncementCreateDto>().ReverseMap();
             CreateMap<Announcement, AnnouncementUpdateDto>().ReverseMap();
 
-            CreateMap<ToDoTask, TaskDto>().ForMember(dest => dest.CreaterUserName, opt => opt.MapFrom(src => src.CreaterUser.Name)).
-                ForMember(dest => dest.CreaterUserLastName, opt => opt.MapFrom(src => src.CreaterUser.LastName)).ReverseMap();
-
-            CreateMap<TaskCreateDto, ToDoTask>().ReverseMap();
-            CreateMap<TaskUpdateDto, ToDoTask>().ReverseMap();
+            CreateMap<ToDoTask,TaskDto > ().ReverseMap();
+            CreateMap<ToDoTask, TaskCreateDto>().ReverseMap();
+            CreateMap<ToDoTask, TaskUpdateDto>().ReverseMap();
         }
     }
 }

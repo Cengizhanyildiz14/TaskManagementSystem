@@ -5,6 +5,7 @@ using Business.IServices;
 using Data.Entities;
 using Dto.AnnouncementDtos;
 using Dto.DepartmentDtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,6 +27,7 @@ namespace TaskManager_API.Controllers
         }
 
         [HttpGet("GetAllAnnouncements")]
+        [Authorize]
         public ActionResult<APIResponse> GetAllAnnouncements()
         {
             try
@@ -45,6 +47,7 @@ namespace TaskManager_API.Controllers
         }
 
         [HttpGet("GetAnnouncement/{id}")]
+        [Authorize(Policy = "IK")]
         public ActionResult<APIResponse> GetAnnouncement(Guid id)
         {
             try
@@ -74,6 +77,7 @@ namespace TaskManager_API.Controllers
         }
 
         [HttpDelete("DeleteAnnouncement/{id}")]
+        [Authorize(Policy = "IK")]
         public ActionResult<APIResponse> DeleteAnnouncement(Guid id)
         {
             try
@@ -103,6 +107,7 @@ namespace TaskManager_API.Controllers
         }
 
         [HttpPost("PostAnnouncement")]
+        [Authorize(Policy = "IK")]
         public ActionResult<APIResponse> PostAnnouncement([FromBody] AnnouncementCreateDto announcementCreateDto)
         {
             try
@@ -134,6 +139,7 @@ namespace TaskManager_API.Controllers
 
 
         [HttpPut("PutAnnouncement/{id}")]
+        [Authorize(Policy = "IK")]
         public ActionResult<APIResponse> PutAnnouncement([FromBody] AnnouncementUpdateDto announcementUpdateDto, Guid id)
         {
             try

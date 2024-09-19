@@ -79,6 +79,7 @@ namespace TaskManager_API.Controllers
         }
 
         [HttpDelete("DeleteTask/{id}")]
+        [Authorize]
         public ActionResult<APIResponse> DeleteTask(Guid id)
         {
             try
@@ -103,7 +104,7 @@ namespace TaskManager_API.Controllers
         }
 
         [HttpPost("CreateTask")]
-        //[Authorize]
+        [Authorize]
         public ActionResult<APIResponse> CreateTask([FromBody] TaskCreateDto taskCreateDto)
         {
             try
@@ -123,7 +124,6 @@ namespace TaskManager_API.Controllers
                 }
 
                 var task = _mapper.Map<ToDoTask>(taskCreateDto);
-                task.Status = (TaskStatusEnum)taskCreateDto.Status;
 
                 var assignedUser = _userRepository.Get(x => x.Id == taskCreateDto.AsaignedUserId);
                 var creatorUser = _userRepository.Get(x => x.Id == taskCreateDto.CreaterUserId);
@@ -144,13 +144,13 @@ namespace TaskManager_API.Controllers
                     Status = (int)task.Status,
                     AssignmentDate = task.AssignmentDate,
                     AsaignedUserId = task.AsaignedUserId,
-                    AsaignedUserName = assignedUser?.Name, 
-                    AsaignedUserEmail=assignedUser.Email,
+                    AsaignedUserName = assignedUser?.Name,
+                    AsaignedUserEmail = assignedUser.Email,
                     AsaignedUserLastName = assignedUser?.LastName,
                     CreaterUserId = task.CreaterUserId,
                     CreaterUserName = creatorUser?.Name,
                     CreaterUserEmail = creatorUser?.Email,
-                    CreaterUserLastName = creatorUser?.LastName 
+                    CreaterUserLastName = creatorUser?.LastName
                 };
                 _taskRepository.Create(task);
 
@@ -171,7 +171,7 @@ namespace TaskManager_API.Controllers
 
 
         [HttpPut("PutTask/{id}")]
-        //[Authorize]
+        [Authorize]
         public ActionResult<APIResponse> PutTask(Guid id, [FromBody] TaskUpdateDto taskUpdateDto)
         {
             try

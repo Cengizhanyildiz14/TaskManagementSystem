@@ -46,7 +46,7 @@ namespace TaskManager_API.Controllers
         }
 
         [HttpGet("GetAllUsers")]
-        //[Authorize]
+        [Authorize]
         public ActionResult<APIResponse> GetAll()
         {
             try
@@ -79,7 +79,7 @@ namespace TaskManager_API.Controllers
         }
 
         [HttpPost("PostUser")]
-        //[Authorize(Policy = ("IK"))]
+        [Authorize(Policy = ("IK"))]
         public ActionResult<APIResponse> PostUser([FromBody] UserCreateDto userCreateDto)
         {
             try
@@ -120,7 +120,7 @@ namespace TaskManager_API.Controllers
         }
 
         [HttpPut("PutUser/{id}")]
-        //[Authorize]
+        [Authorize]
         public ActionResult<APIResponse> PutUser([FromBody] UserUpdateDto userUpdateDto, Guid id)
         {
             try
@@ -161,7 +161,7 @@ namespace TaskManager_API.Controllers
 
 
         [HttpDelete("DeleteUser/{id}")]
-        //[Authorize]
+        [Authorize(Policy = ("IK"))]
         public ActionResult<APIResponse> DeleteUser(Guid id)
         {
             try
@@ -186,7 +186,7 @@ namespace TaskManager_API.Controllers
         }
 
         [HttpGet("GetUser/{id}")]
-        //[Authorize]
+        [Authorize]
         public ActionResult<APIResponse> GetUser(Guid id)
         {
             try
@@ -215,7 +215,7 @@ namespace TaskManager_API.Controllers
         }
 
         [HttpGet("GetUsersTasks/{id}")]
-        //[Authorize]
+        [Authorize]
         public ActionResult<APIResponse> GetUsersTask(Guid id)
         {
             try

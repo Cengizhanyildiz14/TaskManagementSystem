@@ -70,6 +70,13 @@ namespace TaskManager_WEB.Controllers
                     AllowRefresh = true,
                 };
 
+                HttpContext.Response.Cookies.Append("cengotoken", model.Token, new CookieOptions
+                {
+                    HttpOnly = true,
+                    Secure = true,
+                    Expires = rememberMe ? DateTime.UtcNow.AddDays(1) : DateTime.UtcNow.AddMinutes(15)
+                });
+
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity), authProperties);
 
                 return RedirectToAction("home", "home");
@@ -83,9 +90,12 @@ namespace TaskManager_WEB.Controllers
 
         public async Task<IActionResult> LogOut()
         {
+            HttpContext.Response.Cookies.Delete("cengotoken");
+
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
             return RedirectToAction("login", "auth");
         }
+
     }
 }

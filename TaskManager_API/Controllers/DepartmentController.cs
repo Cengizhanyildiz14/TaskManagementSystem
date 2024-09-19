@@ -3,6 +3,7 @@ using Business;
 using Business.IServices;
 using Data.Entities;
 using Dto.DepartmentDtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TaskManager_API.Controllers
@@ -71,6 +72,7 @@ namespace TaskManager_API.Controllers
         }
 
         [HttpDelete("DeleteDepartment/{id}")]
+        [Authorize(Policy = "IK")]
         public ActionResult<APIResponse> DeleteDepartment(Guid id)
         {
             try
@@ -100,6 +102,7 @@ namespace TaskManager_API.Controllers
         }
 
         [HttpPost("PostDepartment")]
+        [Authorize(Policy = "IK")]
         public ActionResult<APIResponse> PostDepartment([FromBody] DepartmentCreateDto departmentCreateDto)
         {
             try
@@ -131,6 +134,7 @@ namespace TaskManager_API.Controllers
 
 
         [HttpPut("PutDepartment/{id}")]
+        [Authorize(Policy = "IK")]
         public ActionResult<APIResponse> PutDepartment([FromBody] DepartmentUpdateDto departmentUpdateDto, Guid id)
         {
             try
