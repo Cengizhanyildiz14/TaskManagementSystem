@@ -58,21 +58,13 @@ namespace Business.Services
 
             if (user != null)
             {
-                _context.Entry(user)
-                        .Collection(u => u.Tasks)
-                        .Query()
-                        .Include(t => t.Department)
-                        .Include(t => t.AsaignedUser)
-                        .Include(t => t.CreaterUser)
-                        .Load();
-
-                _context.Entry(user)
-                        .Collection(u => u.CreatedTasks)
-                        .Query()
-                        .Include(t => t.Department)
-                        .Include(t => t.AsaignedUser)
-                        .Include(t => t.CreaterUser)
-                        .Load();
+                var users = _context.Users
+                    .Include(u => u.Department)
+                    .Include(u => u.Tasks)
+                    .ThenInclude(t => t.Department)
+                    .Include(u => u.CreatedTasks)
+                    .ThenInclude(t => t.Department)
+                    .ToList();
             }
 
             return user;
