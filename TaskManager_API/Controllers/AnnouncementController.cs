@@ -2,6 +2,7 @@
 using Azure;
 using Business;
 using Business.IServices;
+using Business.Services;
 using Data.Entities;
 using Dto.AnnouncementDtos;
 using Dto.DepartmentDtos;
@@ -16,14 +17,16 @@ namespace TaskManager_API.Controllers
     public class AnnouncementController : ControllerBase
     {
         private readonly IAnnouncementRepository _announcementRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
         private readonly APIResponse _response;
 
-        public AnnouncementController(IAnnouncementRepository announcementRepository, IMapper mapper)
+        public AnnouncementController(IAnnouncementRepository announcementRepository, IMapper mapper, IUserRepository userRepository)
         {
             _announcementRepository = announcementRepository;
             _mapper = mapper;
             this._response = new APIResponse();
+            _userRepository = userRepository;
         }
 
         [HttpGet("GetAllAnnouncements")]
@@ -122,6 +125,21 @@ namespace TaskManager_API.Controllers
                     _response.StatusCode = System.Net.HttpStatusCode.BadRequest;
                     return _response;
                 }
+
+                var user = _userRepository.Get(u => u.Id == announcementCreateDto.AuthorId);
+
+                if (user == null)
+                {
+                    ModelState.AddModelError("ErrorMessages", "Bu ID'ye sahip bir kullanıcı bulunamadı");
+                    return BadRequest(ModelState);
+                }
+
+                if ((user.Name + " " + user.LastName) != announcementCreateDto.AuthorName)
+                {
+                    ModelState.AddModelError("ErrorMessages", "Bu ID'ye sahip kullanıcının adı bu değil");
+                    return BadRequest(ModelState);
+                }
+
                 var announcement = _mapper.Map<Announcement>(announcementCreateDto);
                 _announcementRepository.Create(announcement);
 
@@ -154,6 +172,20 @@ namespace TaskManager_API.Controllers
                 {
                     _response.StatusCode = System.Net.HttpStatusCode.BadRequest;
                     return BadRequest(_response);
+                }
+
+                var user = _userRepository.Get(u => u.Id == announcementUpdateDto.AuthorId);
+
+                if (user == null)
+                {
+                    ModelState.AddModelError("ErrorMessages", "Bu ID'ye sahip bir kullanıcı bulunamadı");
+                    return BadRequest(ModelState);
+                }
+
+                if ((user.Name + " " + user.LastName) != announcementUpdateDto.AuthorName)
+                {
+                    ModelState.AddModelError("ErrorMessages", "Bu ID'ye sahip kullanıcının adı bu değil");
+                    return BadRequest(ModelState);
                 }
 
                 _mapper.Map(announcementUpdateDto, announcement);
